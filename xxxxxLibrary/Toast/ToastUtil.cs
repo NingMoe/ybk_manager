@@ -1,0 +1,73 @@
+﻿using System;
+using Android.Content;
+using Android.OS;
+
+namespace xxxxxLibrary.Toast
+{
+    public class ToastUtil
+    {
+    	private static MyToast mToast; // 自定义Toast
+
+		/// <summary>
+		/// Toast提示(成功提示)
+		/// </summary>
+		/// <param name="mContext">M context.</param>
+		/// <param name="words">Words.</param>
+		public static void showSuccessToast(Context mContext,String words)
+		{
+            showMyToast(mContext, Resource.Drawable.icn_toast_success, words);
+		}
+
+		/// <summary>
+		/// Toast提示(笑脸提示)
+		/// </summary>
+		/// <param name="mContext">M context.</param>
+		/// <param name="words">Words.</param>
+		public static void showSmileToast(Context mContext, String words)
+		{
+			showMyToast(mContext, Resource.Drawable.icn_toast_smile, words);
+		}
+
+		/// <summary>
+		/// Toast提示(警告提示)
+		/// </summary>
+		/// <param name="mContext">M context.</param>
+		/// <param name="words">Words.</param>
+		public static void showWarningToast(Context mContext, String words)
+		{
+			showMyToast(mContext, Resource.Drawable.icn_toast_warning, words);
+		}
+
+		/// <summary>
+		/// Toast提示(错误提示)
+		/// </summary>
+		/// <param name="mContext">M context.</param>
+		/// <param name="words">Words.</param>
+		public static void showErrorToast(Context mContext, String words)
+		{
+			showMyToast(mContext, Resource.Drawable.icn_toast_error, words);
+		}
+
+		/// <summary>
+		/// 显示自定义Toast提示
+		/// </summary>
+		/// <param name="mContext">M context.</param>
+		/// <param name="iconResId">Icon res identifier.</param>
+		/// <param name="words">Words.</param>
+		private static void showMyToast(Context mContext, int iconResId, String words)
+		{
+			if (mToast != null)
+			{
+                if (Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.IceCreamSandwich)
+				{
+					mToast.Cancel();
+				}
+			}
+			else
+			{
+                mToast = MyToast.Create(mContext,iconResId,words,Android.Widget.ToastLength.Long);
+			}
+			mToast.Show();
+		}
+    }
+}
