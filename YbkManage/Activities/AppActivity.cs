@@ -15,6 +15,8 @@ using xxxxxLibrary.Serializer;
 using xxxxxLibrary.Utils;
 using Android.Support.V4.Content;
 using System;
+using DataEntity;
+using DataService;
 
 namespace YbkManage.Activities
 {
@@ -31,7 +33,7 @@ namespace YbkManage.Activities
         /// <summary>
         /// 当前登录信息
         /// </summary>
-        protected UserInfoEntity CurrUserInfo;
+		protected LoginUserInfoEntity CurrUserInfo;
 
         /// <summary>
         /// 是否全屏
@@ -51,11 +53,12 @@ namespace YbkManage.Activities
                 initSystemBar(Resource.Color.actionbar_bg);
             }
 
-            string userinfoStr = (string)SharedPreferencesUtil.GetParam(CurrActivity, AppConfig.SP_USERINFO, "");
-            if (!string.IsNullOrEmpty(userinfoStr))
-            {
-                CurrUserInfo = JsonSerializer.ToObject<UserInfoEntity>(userinfoStr);
-            }
+			var loginUserJson = (string)SharedPreferencesUtil.GetParam(CurrActivity, AppConfig.SP_USERINFO, "");
+			if (!string.IsNullOrEmpty(loginUserJson))
+			{
+				CurrUserInfo =Helper.FromJsonTo<LoginUserInfoEntity>(loginUserJson);
+			}
+            
 
             if (CurrUserInfo == null)
             {

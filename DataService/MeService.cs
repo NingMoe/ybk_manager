@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DataEntity;
 using xxxxxLibrary.Network;
 
@@ -50,7 +51,7 @@ namespace DataService
 		/// <returns>The assistant leader list.</returns>
 		/// <param name="schoolId">学校Id</param>
 		/// <param name="districtCode">大区域编号</param>
-		public List<AstLeaderListModel> GetAssistantLeaderList(int schoolId, string districtCode)
+		public static List<AstLeaderListModel> GetAssistantLeaderList(int schoolId, string districtCode)
 		{
 			try
 			{
@@ -64,9 +65,9 @@ namespace DataService
 				dic.Add("districtCode", districtCode);
 				var sign = Helper.GetSign(dic);
 				dic.Add("sign", sign);
-				var resultStr = Helper.DoPost(apiUrl, dic); //提交post请求
+				var resultStr =Helper.DoPost(apiUrl, dic); //提交post请求
 				resultStr = resultStr.Replace("\r\n", "").Replace("\\", "");
-				var resultData = Helper.FromJsonTo<Result<List<AstLeaderListModel>>>(resultStr);
+				var resultData = Helper.FromJsonTo<Result<List<AstLeaderListModel>>>(resultStr.ToString());
 				if (resultData.State == 1 && resultData.Data != null)
 				{
 					return resultData.Data;

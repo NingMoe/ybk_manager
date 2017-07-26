@@ -1,22 +1,43 @@
-﻿<Properties StartupConfiguration="{30BF7E82-EF62-4187-AEE2-0D43951732D2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="YbkManage 状态">
+﻿<Properties StartupConfiguration="{CFE09C2B-680A-4CD5-80F8-6A0CA18A24D9}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="YbkManage/Activities/Login.cs">
     <Files>
-      <File FileName="YbkManage 状态" />
+      <File FileName="YbkManage/Activities/AssistantLeaderList.cs" Line="1" Column="1" />
+      <File FileName="YbkManage/Activities/TeacherManage.cs" Line="161" Column="85" />
+      <File FileName="YbkManage/Adapters/AssistantAdapter.cs" Line="1" Column="1" />
+      <File FileName="YbkManage/Adapters/TeacherScopeAdapter.cs" Line="39" Column="1" />
+      <File FileName="ybk_manager.git Status" />
+      <File FileName="YbkManage/Activities/Login.cs" Line="196" Column="6" />
+      <File FileName="YbkManage/App/AppConfig.cs" Line="28" Column="48" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="YbkManage" expanded="True">
+            <Node name="DataService" expanded="True" selected="True" />
+            <Node name="xxxxxLibrary" expanded="True" />
+            <Node name="YbkManage" expanded="True">
+              <Node name="References" expanded="True" />
+              <Node name="Activities" expanded="True" />
+              <Node name="App" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/dongxiangtao/Desktop/code/YbkManage/YbkManage/Activities/TeacherList.cs" relfile="YbkManage/Activities/TeacherList.cs" line="155" column="1" />
-      <Breakpoint file="/Users/dongxiangtao/Desktop/code/YbkManage/YbkManage/Activities/TeacherManage.cs" relfile="YbkManage/Activities/TeacherManage.cs" line="190" column="1" />
+      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Adapters/TeacherScopeAdapter.cs" relfile="YbkManage/Adapters/TeacherScopeAdapter.cs" line="16" column="1" />
+      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Adapters/TeacherScopeAdapter.cs" relfile="YbkManage/Adapters/TeacherScopeAdapter.cs" line="115" column="1" />
+      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Adapters/AssistantAdapter.cs" relfile="YbkManage/Adapters/AssistantAdapter.cs" line="38" column="1" />
+      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Adapters/AssistantAdapter.cs" relfile="YbkManage/Adapters/AssistantAdapter.cs" line="60" column="1" />
+      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Activities/AssistantLeaderList.cs" relfile="YbkManage/Activities/AssistantLeaderList.cs" line="132" column="1" />
+      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Activities/AssistantLeaderList.cs" relfile="YbkManage/Activities/AssistantLeaderList.cs" line="138" column="1" />
+      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Activities/AssistantLeaderList.cs" relfile="YbkManage/Activities/AssistantLeaderList.cs" line="74" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
-    <Watch file="YbkManage/Fragments/IndexFragment.cs" line="77" offsetX="964" offsetY="1140" expression="result" liveUpdate="False" />
-  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
-  <MonoDevelop.Ide.ItemProperties.YbkManage AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.6eb158db" AndroidDesignerPreferredTheme="appbasetheme" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.xxxxxLibrary PreferredExecutionTarget="Android.192.168.56.101:5555" />
   <MultiItemStartupConfigurations />
-  <DisabledProjects>
-    <String>../../../Downloads/upoc.ios/DataService/DataService.csproj</String>
-  </DisabledProjects>
 </Properties>

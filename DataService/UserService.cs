@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using DataEntity;
+using xxxxxLibrary.Network;
 
 namespace DataService
 {
@@ -11,7 +13,7 @@ namespace DataService
 	public class UserService
 	{
 		#region 校验登录
-		public static Result<LoginUserInfoEntity> GetUser(string account, string pwd)
+		public static  Result<LoginUserInfoEntity> GetUser(string account, string pwd)
 		{
 			var encodeUser = Helper.Encode(account, Config.EncodeKey);
 			var encodePwd = Helper.Encode(pwd, Config.EncodeKey);
@@ -29,7 +31,7 @@ namespace DataService
 				dict.Add("sign", sign);
 				var resultStr = Helper.DoPost(apiUrl, dict); //提交post请求
 				resultStr = resultStr.Replace("\r\n", "").Replace("\\", "");
-				result = Helper.FromJsonTo<Result<LoginUserInfoEntity>>(resultStr);
+				result = Helper.FromJsonTo<Result<LoginUserInfoEntity>>(resultStr.ToString());
 				//查询头像
 				if (result.State == 1 && result.Data != null)
 				{

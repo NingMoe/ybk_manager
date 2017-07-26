@@ -15,7 +15,7 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -123,6 +123,8 @@
     <Compile Include="Adapters\DistrictSelectAdapter.cs" />
     <Compile Include="Activities\TeacherListActivity.cs" />
     <Compile Include="Adapters\TeacherListAdapter.cs" />
+    <Compile Include="Adapters\AssistantAdapter.cs" />
+    <Compile Include="Activities\AssistantLeaderList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -210,6 +212,8 @@
     <AndroidResource Include="Resources\drawable\textview_bg_on.axml" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\avatar.png" />
     <AndroidResource Include="Resources\layout\item_index_renewrate.axml" />
+    <AndroidResource Include="Resources\layout\item_assistant.axml" />
+    <AndroidResource Include="Resources\layout\activity_assistant_list.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -230,6 +234,14 @@
     <ProjectReference Include="..\xxxxxLibrary\xxxxxLibrary.csproj">
       <Project>{CFE09C2B-680A-4CD5-80F8-6A0CA18A24D9}</Project>
       <Name>xxxxxLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEntity\DataEntity.csproj">
+      <Project>{8D7D1E85-EA6A-4CC0-96A9-931B43E1DEF5}</Project>
+      <Name>DataEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataService\DataService.csproj">
+      <Project>{A99EF0BF-3737-442F-BEBA-DC54A34B0C87}</Project>
+      <Name>DataService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

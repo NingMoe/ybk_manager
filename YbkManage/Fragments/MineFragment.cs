@@ -22,7 +22,7 @@ namespace YbkManage.Fragments
         private TextView tvName, tvSchool;
 
         // 教师管理、退出
-        private RelativeLayout rlTeacherManage, rlLogout;
+        private RelativeLayout rlTeacherManage, rlLogout,rlAssistantLeader;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -49,6 +49,7 @@ namespace YbkManage.Fragments
             tvSchool = (TextView)view.FindViewById(Resource.Id.tv_school);
 
             rlTeacherManage = (RelativeLayout)view.FindViewById(Resource.Id.rl_teacher);
+			rlAssistantLeader = (RelativeLayout)view.FindViewById(Resource.Id.rl_assistantleader);
             rlLogout = (RelativeLayout)view.FindViewById(Resource.Id.rl_logout);
 
 			// 头像
@@ -73,7 +74,13 @@ namespace YbkManage.Fragments
                  StartActivity(intent);
 				 CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
 			 };
-
+			//助教组长管理
+			rlAssistantLeader.Click += (sender, e) =>
+			  {
+				Intent intent = new Intent(CurrActivity, typeof(AssistantLeaderList));
+				  StartActivity(intent);
+				  CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+			  };
             // 退出操作
             rlLogout.Click += (sender, e) =>
             {
