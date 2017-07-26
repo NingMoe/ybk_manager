@@ -13,9 +13,8 @@ namespace xxxxxLibrary.LoadingDialog
             if (mLoadingDialog == null)
             {
                 mLoadingDialog = new MyLoadingDialog(content, Resource.Style.myDialog, message);
-                mLoadingDialog.Show();
             }
-
+            mLoadingDialog.Show();
         }
 
         /// <summary>
@@ -24,9 +23,13 @@ namespace xxxxxLibrary.LoadingDialog
         /// <param name="message">Message.</param>
         public static void UpdateLoadingDialogText(String message)
         {
-            if (mLoadingDialog != null && mLoadingDialog.IsShowing)
+            if (mLoadingDialog != null)
             {
                 mLoadingDialog.SetMsg(message);
+            }
+            if(!mLoadingDialog.IsShowing)
+            {
+                mLoadingDialog.Show();
             }
         }
 
@@ -38,6 +41,7 @@ namespace xxxxxLibrary.LoadingDialog
             if (mLoadingDialog != null && mLoadingDialog.IsShowing)
             {
                 mLoadingDialog.Dismiss();
+                mLoadingDialog = null;
             }
         }
 

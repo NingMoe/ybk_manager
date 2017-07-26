@@ -94,7 +94,6 @@
     <Compile Include="App\CircleImageTransformation.cs" />
     <Compile Include="Activities\TeacherManage.cs" />
     <Compile Include="Activities\TeacherAddActivity.cs" />
-    <Compile Include="Activities\TeacherList.cs" />
     <Compile Include="Activities\TeacherRoleList.cs" />
     <Compile Include="Activities\TeacherGroupList.cs" />
     <Compile Include="Adapters\PopupSelectAdapter.cs" />
@@ -107,7 +106,6 @@
     <Compile Include="Adapters\RecyclerViewItemOnItemTouchListener.cs" />
     <Compile Include="Adapters\RecyclerViewItemOnGestureListener..cs" />
     <Compile Include="Models\TeacherInfoEntity.cs" />
-    <Compile Include="Adapters\TeacherAdapter.cs" />
     <Compile Include="Adapters\ReportAdapter.cs" />
     <Compile Include="Activities\ReportListByGroup.cs" />
     <Compile Include="Activities\ReportListByTeacher.cs" />
@@ -123,6 +121,8 @@
     <Compile Include="Models\QuarterEntity.cs" />
     <Compile Include="Adapters\QuarterSelectAdapter.cs" />
     <Compile Include="Adapters\DistrictSelectAdapter.cs" />
+    <Compile Include="Activities\TeacherListActivity.cs" />
+    <Compile Include="Adapters\TeacherListAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -182,7 +182,6 @@
     <AndroidResource Include="Resources\drawable\dialog_bg.axml" />
     <AndroidResource Include="Resources\drawable\button_globaldialog.axml" />
     <AndroidResource Include="Resources\drawable\button_globaldialog_status.axml" />
-    <AndroidResource Include="Resources\layout\list_renew_rate.axml" />
     <AndroidResource Include="Resources\anim\right_in.xml" />
     <AndroidResource Include="Resources\anim\left_out.xml" />
     <AndroidResource Include="Resources\anim\left_in.xml" />
@@ -209,7 +208,8 @@
     <AndroidResource Include="Resources\layout\popup_grade.axml" />
     <AndroidResource Include="Resources\drawable\textview_bg.axml" />
     <AndroidResource Include="Resources\drawable\textview_bg_on.axml" />
-    <AndroidResource Include="Resources\drawable-hdpi\avatar.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\avatar.png" />
+    <AndroidResource Include="Resources\layout\item_index_renewrate.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

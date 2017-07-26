@@ -54,9 +54,9 @@ namespace YbkManage.Activities
             ivPasswordClear = (ImageView)FindViewById(Resource.Id.iv_password_clear);
 
             btnLogin = (Button)FindViewById(Resource.Id.btn_login);
-			tvProblem = (TextView)FindViewById(Resource.Id.tv_problem);
+            tvProblem = (TextView)FindViewById(Resource.Id.tv_problem);
 
-			AppUtils.HideKeyboard(this);
+            AppUtils.HideKeyboard(this);
         }
 
         /// <summary>
@@ -142,89 +142,96 @@ namespace YbkManage.Activities
             var account = etAccount.Text.Trim();
             if (string.IsNullOrEmpty(account))
             {
-                ToastUtil.showWarningToast(this, "请输入您的手机号码或者邮箱");
+                ToastUtil.ShowWarningToast(this, "请输入您的手机号码或者邮箱");
                 etAccount.RequestFocus();
                 return;
             }
-            if(!CheckUtil.IsValidEmail(account) && !CheckUtil.IsValidPhone(account))
+            if (!CheckUtil.IsValidEmail(account) && !CheckUtil.IsValidPhone(account))
             {
-				ToastUtil.showWarningToast(this, "登录账号错误");
-				etAccount.RequestFocus();
-				return;
+                ToastUtil.ShowWarningToast(this, "登录账号错误");
+                etAccount.RequestFocus();
+                return;
             }
 
             var passwrod = etPassword.Text.Trim();
             if (string.IsNullOrEmpty(passwrod))
             {
-                ToastUtil.showWarningToast(this, "请输入您的登录密码");
+                ToastUtil.ShowWarningToast(this, "请输入您的登录密码");
                 etPassword.RequestFocus();
                 return;
             }
 
+            if (!NetUtil.CheckNetWork(this))
+			{
+                ToastUtil.ShowWarningToast(this, "网络未连接！");
+				return;
+			}
 
             LoadingDialogUtil.ShowLoadingDialog(this, "信息验证中...");
-			try
-			{
-				Dictionary<string, string> requstParams = new Dictionary<string, string>();
-				requstParams.Add("appId", AppConfig.APP_ID);
-				requstParams.Add("method", "GetManagementLoginUser");
-				requstParams.Add("encodeUser", "wb5dHl6OxCEjjJRhtXUsn1%2FkRAJb2rmALjX9fa%2F%2BEcU%3D");
-				requstParams.Add("encodePwd", "XCmS4wVZwUlCjfFdruS0Sg%3D%3D");
+            try
+            {
+                Dictionary<string, string> requstParams = new Dictionary<string, string>();
+                requstParams.Add("appId", AppConfig.APP_ID);
+                requstParams.Add("method", "GetManagementLoginUser");
+                requstParams.Add("encodeUser", EncryptUtil.Encode(account, AppConfig.EncodeKey));
+                requstParams.Add("encodePwd", EncryptUtil.Encode(passwrod, AppConfig.EncodeKey));
+                //requstParams.Add("encodeUser", "wb5dHl6OxCEjjJRhtXUsn1%2FkRAJb2rmALjX9fa%2F%2BEcU%3D");
+                //requstParams.Add("encodePwd", "XCmS4wVZwUlCjfFdruS0Sg%3D%3D");
                 requstParams.Add("sign", AppUtils.GetSign(requstParams));
-				var result = await HttpRequestUtil.SendPostRequestBasedOnHttpClient(AppConfig.API_USER_INDEX, requstParams);
+                var result = await HttpRequestUtil.SendPostRequestBasedOnHttpClient(AppConfig.API_USER_INDEX, requstParams);
 
-				//            var data = (JsonObject)result;
-				//var state = int.Parse(data["State"].ToString());
-				//if (state == 1)
-				//{
-				//	LoadingDialogUtil.UpdateLoadingDialogText("登录成功");
+                //            var data = (JsonObject)result;
+                //var state = int.Parse(data["State"].ToString());
+                //if (state == 1)
+                //{
+                //	LoadingDialogUtil.UpdateLoadingDialogText("登录成功");
 
-				//	UserInfoEntity CurrUserInfo = new UserInfoEntity();
-				//	CurrUserInfo.LoginAccount = account;
-				//	CurrUserInfo.LoginPassword = passwrod;
-				//	CurrUserInfo.UserId = data["Data"]["UserId"].ToString().Replace("\"", "");
-				//	CurrUserInfo.Name = data["Data"]["Name"].ToString().Replace("\"", "");
-				//                CurrUserInfo.SchoolId = int.Parse(data["Data"]["SchoolId"].ToString().Replace("\"", ""));
-				//	CurrUserInfo.SchoolName = data["Data"]["SchoolName"].ToString().Replace("\"", "");
-				//	CurrUserInfo.Grade = int.Parse(data["Data"]["Grade"].ToString().Replace("\"", ""));
+                //	UserInfoEntity CurrUserInfo = new UserInfoEntity();
+                //	CurrUserInfo.LoginAccount = account;
+                //	CurrUserInfo.LoginPassword = passwrod;
+                //	CurrUserInfo.UserId = data["Data"]["UserId"].ToString().Replace("\"", "");
+                //	CurrUserInfo.Name = data["Data"]["Name"].ToString().Replace("\"", "");
+                //                CurrUserInfo.SchoolId = int.Parse(data["Data"]["SchoolId"].ToString().Replace("\"", ""));
+                //	CurrUserInfo.SchoolName = data["Data"]["SchoolName"].ToString().Replace("\"", "");
+                //	CurrUserInfo.Grade = int.Parse(data["Data"]["Grade"].ToString().Replace("\"", ""));
 
-				//	string userinfoStr = JsonSerializer.ToJsonString<UserInfoEntity>(CurrUserInfo);
-				//	SharedPreferencesUtil.SetParam(this, AppConfig.SP_USERINFO, JsonSerializer.ToJsonString<UserInfoEntity>(CurrUserInfo));
+                //	string userinfoStr = JsonSerializer.ToJsonString<UserInfoEntity>(CurrUserInfo);
+                //	SharedPreferencesUtil.SetParam(this, AppConfig.SP_USERINFO, JsonSerializer.ToJsonString<UserInfoEntity>(CurrUserInfo));
 
-				//	Intent intent = new Intent(this, typeof(Main));
-				//	StartActivity(intent);
-				//	this.Finish();
-				//	OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);
-				//}
-				//else{
-				//    LoadingDialogUtil.DismissLoadingDialog();
-				//    ToastUtil.showErrorToast(this,"账号或密码错误");
-				//}
+                //	Intent intent = new Intent(this, typeof(Main));
+                //	StartActivity(intent);
+                //	this.Finish();
+                //	OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);
+                //}
+                //else{
+                //    LoadingDialogUtil.DismissLoadingDialog();
+                //    ToastUtil.showErrorToast(this,"账号或密码错误");
+                //}
 
 
-				UserInfoEntity CurrUserInfo = new UserInfoEntity();
-				CurrUserInfo.LoginAccount = account;
-				CurrUserInfo.LoginPassword = passwrod;
-				CurrUserInfo.UserId = "xdf003579687";
-				CurrUserInfo.Name = "教学经理高中";
-				CurrUserInfo.SchoolId = 1;
-				CurrUserInfo.SchoolName =  "北京新东方";
-				CurrUserInfo.Grade = 2;
+                UserInfoEntity CurrUserInfo = new UserInfoEntity();
+                CurrUserInfo.LoginAccount = account;
+                CurrUserInfo.LoginPassword = passwrod;
+                CurrUserInfo.UserId = "xdf003579687";
+                CurrUserInfo.Name = "教学经理高中";
+                CurrUserInfo.SchoolId = 1;
+                CurrUserInfo.SchoolName = "北京新东方";
+                CurrUserInfo.Grade = 2;
 
-				string userinfoStr = JsonSerializer.ToJsonString<UserInfoEntity>(CurrUserInfo);
-				SharedPreferencesUtil.SetParam(this, AppConfig.SP_USERINFO, JsonSerializer.ToJsonString<UserInfoEntity>(CurrUserInfo));
+                string userinfoStr = JsonSerializer.ToJsonString<UserInfoEntity>(CurrUserInfo);
+                SharedPreferencesUtil.SetParam(this, AppConfig.SP_USERINFO, JsonSerializer.ToJsonString<UserInfoEntity>(CurrUserInfo));
 
-				Intent intent = new Intent(this, typeof(Main));
-				StartActivity(intent);
-				this.Finish();
-				OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);
-			}
-			catch (Exception ex)
-			{
-				var msg = ex.Message.ToString();
-				LoadingDialogUtil.DismissLoadingDialog();
-				ToastUtil.showErrorToast(this, msg);
-			}
+                Intent intent = new Intent(this, typeof(Main));
+                StartActivity(intent);
+                this.Finish();
+                OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message.ToString();
+                LoadingDialogUtil.DismissLoadingDialog();
+                ToastUtil.ShowErrorToast(this, msg);
+            }
         }
 
     }

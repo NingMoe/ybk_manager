@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -6,11 +7,11 @@ namespace xxxxxLibrary.Utils
 {
     public class EncryptUtil
     {
-		// <summary>
+		/// <summary>
 		/// MD5加密函数
 		/// </summary>
-		/// <param name="str">原始字符串</param>
-		/// <returns>MD5结果</returns>
+		/// <returns>MD5结果.</returns>
+		/// <param name="str">原始字符串.</param>
 		public static string MD5(string str)
 		{
 			byte[] b = Encoding.UTF8.GetBytes(str);
@@ -35,95 +36,75 @@ namespace xxxxxLibrary.Utils
 			return Convert.ToBase64String(Result);  //返回长度为44字节的字符串
 		}
 
-		static AES Aes = new AES();
+		#region AES 加密解密
 		/// <summary>
-		/// 加密
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		public static string Encrypt(string input)
+		/// AES 加密 C#与PHP兼容
+		/// xqy 20150908
+		/// </summary>        
+		public static string Encode(string message, string encryptKey)
 		{
-			return Aes.Encrypt(input);
+			MemoryStream mStream = new MemoryStream();
+			RijndaelManaged aes = new RijndaelManaged();
+
+			byte[] plainBytes = Encoding.UTF8.GetBytes(message);
+			Byte[] bKey = new Byte[32];
+			Array.Copy(Encoding.UTF8.GetBytes(encryptKey.PadRight(bKey.Length)), bKey, bKey.Length);
+			aes.Mode = CipherMode.ECB;
+			aes.Padding = PaddingMode.Zeros;
+			aes.KeySize = 128;
+			aes.Key = bKey;
+			CryptoStream cryptoStream = new CryptoStream(mStream, aes.CreateEncryptor(), CryptoStreamMode.Write);
+			try
+			{
+				cryptoStream.Write(plainBytes, 0, plainBytes.Length);
+				cryptoStream.FlushFinalBlock();
+				return Convert.ToBase64String(mStream.ToArray());
+			}
+			finally
+			{
+				cryptoStream.Close();
+				mStream.Close();
+				aes.Clear();
+			}
+
 		}
-
-		/// <summary>
-		/// 解密
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		public static string Decrypt(string input)
+		/// <summary>  
+		/// AES解密
+		/// xqy 20150908
+		/// </summary>  
+		/// <param name="encryptedBytes">被加密的明文</param>  
+		/// <param name="key">密钥</param>  
+		/// <returns>明文</returns>  
+		public static string Decode(string Data, string Key)
 		{
-			return Aes.Decrypt(input);
-		}
+			Byte[] encryptedBytes = Convert.FromBase64String(Data);
+			Byte[] bKey = new Byte[32];
+			Array.Copy(Encoding.UTF8.GetBytes(Key.PadRight(bKey.Length)), bKey, bKey.Length);
 
-
-		#region AES
-		/// <summary> 
-		/// 加密
-		/// </summary> 
-		public class AES
-		{
-			RijndaelManaged rijndaelProvider;
-			ICryptoTransform rijndaelEncrypt;
-			ICryptoTransform rijndaelDecrypt;
-			/// <summary>
-			/// 默认构造函数
-			/// </summary>
-			public AES()
-				: this("DEFAULT CRYPTKEY")
+			MemoryStream mStream = new MemoryStream(encryptedBytes);
+			//mStream.Write( encryptedBytes, 0, encryptedBytes.Length );  
+			//mStream.Seek( 0, SeekOrigin.Begin );  
+			RijndaelManaged aes = new RijndaelManaged();
+			aes.Mode = CipherMode.ECB;
+			aes.Padding = PaddingMode.Zeros;
+			aes.KeySize = 128;
+			aes.Key = bKey;
+			//aes.IV = _iV;  
+			CryptoStream cryptoStream = new CryptoStream(mStream, aes.CreateDecryptor(), CryptoStreamMode.Read);
+			try
 			{
-
+				byte[] tmp = new byte[encryptedBytes.Length + 32];
+				int len = cryptoStream.Read(tmp, 0, encryptedBytes.Length + 32);
+				byte[] ret = new byte[len];
+				Array.Copy(tmp, 0, ret, 0, len);
+				return Encoding.UTF8.GetString(ret).Trim('\0');
 			}
-			/// <summary>
-			/// 
-			/// </summary>
-			/// <param name="_encryptKey"></param>
-			public AES(string _encryptKey)
+			finally
 			{
-				_encryptKey = _encryptKey.CutString(32);
-				_encryptKey = _encryptKey.PadRight(32, ' ');
-				rijndaelProvider = new RijndaelManaged();
-				rijndaelProvider.Key = Encoding.UTF8.GetBytes(_encryptKey);
-				rijndaelProvider.IV = Keys;
-				rijndaelEncrypt = rijndaelProvider.CreateEncryptor();
-				rijndaelDecrypt = rijndaelProvider.CreateDecryptor();
+				cryptoStream.Close();
+				mStream.Close();
+				aes.Clear();
 			}
-
-			//默认密钥向量
-			private static byte[] Keys = { 0x41, 0x72, 0x65, 0x79, 0x6F, 0x75, 0x6D, 0x79, 0x53, 0x6E, 0x6F, 0x77, 0x6D, 0x61, 0x6E, 0x3F };
-			/// <summary>
-			/// 加密
-			/// </summary>
-			/// <param name="encryptString"></param>
-			/// <returns></returns>
-			public string Encrypt(string encryptString)
-			{
-				byte[] inputData = Encoding.UTF8.GetBytes(encryptString);
-				byte[] encryptedData = rijndaelEncrypt.TransformFinalBlock(inputData, 0, inputData.Length);
-				return Convert.ToBase64String(encryptedData);
-			}
-
-			/// <summary>
-			/// 解密
-			/// </summary>
-			/// <param name="decryptString"></param>
-			/// <returns></returns>
-			public string Decrypt(string decryptString)
-			{
-				try
-				{
-					byte[] inputData = Convert.FromBase64String(decryptString);
-					byte[] decryptedData = rijndaelDecrypt.TransformFinalBlock(inputData, 0, inputData.Length);
-					return Encoding.UTF8.GetString(decryptedData);
-				}
-				catch (Exception ex)
-				{
-                    var msg = ex.Message.ToString();
-					//LogHelper.Fatal("解密错误", ex);
-					return string.Empty;
-				}
-			}
-
 		}
 		#endregion
 	}

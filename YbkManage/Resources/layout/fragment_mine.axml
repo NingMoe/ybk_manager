@@ -30,7 +30,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
+        android:paddingBottom="15dp"
         android:orientation="vertical"
         android:gravity="center"
         android:background="@color/actionbar_bg">
@@ -38,14 +38,17 @@
             android:id="@+id/iv_avatar"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/avatar"
+            android:background="@null"
+            android:elevation="5dp" />
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center_vertical"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="3dp"
             android:text="孟雨薇"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
@@ -119,7 +122,8 @@
         android:background="@android:color/white">
         <TextView
             style="@style/mine_textview"
-            android:text="意见反馈" />
+            android:text="意见反馈"
+            android:textColor="#cccccc" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -141,7 +145,7 @@
         android:background="@android:color/white">
         <TextView
             style="@style/mine_textview"
-            android:text="关于优播客" />
+            android:text="关于优播课" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

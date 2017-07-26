@@ -14,7 +14,7 @@ namespace YbkManage.Adapters
     /// <summary>
     /// 教研列表的适配器
     /// </summary>
-	public class TeacherAdapter : RecyclerView.Adapter, IOnClickListener, IOnLongClickListener
+	public class TeacherListAdapter : RecyclerView.Adapter, IOnClickListener, IOnLongClickListener
     {
         private static int TYPE_ITEM_ITEM = 1;
         private static int TYPE_ITEM_FOOTER = 2;
@@ -24,7 +24,7 @@ namespace YbkManage.Adapters
 
         private List<TeacherInfoEntity> teachReportList;
 
-        public TeacherAdapter(Context context, List<TeacherInfoEntity> data)
+        public TeacherListAdapter(Context context, List<TeacherInfoEntity> data)
         {
             this.mContext = context;
             teachReportList = data;

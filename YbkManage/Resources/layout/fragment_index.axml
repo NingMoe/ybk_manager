@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center_vertical"
-            android:text="优播客管理报表"
+            android:text="优播课管理报表"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
     </RelativeLayout>
@@ -36,13 +36,14 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:elevation="1dp">
             <TextView
                 android:id="@+id/tv_title_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="2017财年Q4续班率"
+                android:text="续班率"
                 android:textSize="18sp"
                 android:textColor="@color/textColorPrimary"
                 android:layout_marginTop="10dp"
@@ -69,8 +70,8 @@
                         android:layout_marginBottom="8dp"
                         android:gravity="center"
                         android:text="初中续班率"
-                        android:textColor="@color/textColorPrimary"
-                        android:textSize="15sp" />
+                        android:textColor="@color/textColorSecond"
+                        android:textSize="14sp" />
                     <TextView
                         android:id="@+id/tv_rate_1"
                         android:layout_width="match_parent"
@@ -78,10 +79,10 @@
                         android:gravity="center"
                         android:text="0.0%"
                         android:textColor="@color/textColorHigh"
-                        android:textSize="22sp" />
+                        android:textSize="28sp" />
                 </LinearLayout>
                 <View
-                    android:layout_width="1.5dp"
+                    android:layout_width="1.2dp"
                     android:layout_height="match_parent"
                     android:background="@color/line_split" />
                 <LinearLayout
@@ -96,8 +97,8 @@
                         android:layout_marginBottom="8dp"
                         android:gravity="center"
                         android:text="高中续班率"
-                        android:textColor="@color/textColorPrimary"
-                        android:textSize="15sp" />
+                        android:textColor="@color/textColorSecond"
+                        android:textSize="14sp" />
                     <TextView
                         android:id="@+id/tv_rate_2"
                         android:layout_width="match_parent"
@@ -105,7 +106,7 @@
                         android:gravity="center"
                         android:text="0.0%"
                         android:textColor="@color/textColorHigh"
-                        android:textSize="22sp" />
+                        android:textSize="28sp" />
                 </LinearLayout>
             </LinearLayout>
             <TextView
@@ -113,13 +114,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="2017财年Q4续班排名"
+                android:text="续班排名"
                 android:textSize="18sp"
                 android:textColor="@color/textColorPrimary"
                 android:layout_marginBottom="10dp" />
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1.5dp"
+                android:layout_height="1.2dp"
                 android:background="@color/line_split" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -139,7 +140,7 @@
                         android:gravity="center"
                         android:text="续班率前三名"
                         android:textColor="@color/textColorPrimary"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
                     <LinearLayout
                         android:id="@+id/ll_asc_wrap"
                         android:layout_width="match_parent"
@@ -214,7 +215,7 @@
                     </LinearLayout>
                 </LinearLayout>
                 <View
-                    android:layout_width="1.5dp"
+                    android:layout_width="1.2dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"

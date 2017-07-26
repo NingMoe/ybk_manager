@@ -50,6 +50,15 @@ namespace YbkManage.Fragments
 
             rlTeacherManage = (RelativeLayout)view.FindViewById(Resource.Id.rl_teacher);
             rlLogout = (RelativeLayout)view.FindViewById(Resource.Id.rl_logout);
+
+			// 头像
+			Picasso picasso = Picasso.With(CurrActivity);
+			picasso.Load(CurrUserInfo.Avatar).Placeholder(Resource.Drawable.avatar).Error(Resource.Drawable.avatar)
+					.Transform(new CircleImageTransformation(picasso))
+					   .Into(ivAvatar);
+
+			tvName.Text = CurrUserInfo.Name;
+			tvSchool.Text = CurrUserInfo.SchoolName;
         }
 
         /// <summary>
@@ -79,14 +88,7 @@ namespace YbkManage.Fragments
         /// </summary>
 		protected void LoadData()
         {
-            // 头像
-            Picasso picasso = Picasso.With(CurrActivity);
-            picasso.Load(CurrUserInfo.Avatar).Placeholder(Resource.Drawable.avatar).Error(Resource.Drawable.avatar)
-					.Transform(new CircleImageTransformation(picasso))
-					   .Into(ivAvatar);
-
-            tvName.Text = CurrUserInfo.Name;
-            tvSchool.Text = CurrUserInfo.SchoolName;
+           
         }
 
         /// <summary>

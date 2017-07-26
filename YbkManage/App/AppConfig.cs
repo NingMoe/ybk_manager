@@ -10,6 +10,8 @@ namespace YbkManage.App
         public static string APP_ID = "1004";
         public static string APP_KEY = "v5appkey_xf_865fn$xa";
 
+		public static string EncodeKey = "en32xamarindses81be0dc39232-mtfs";
+
 		/// <summary>
 		/// 用户资料
 		/// </summary>
@@ -33,7 +35,7 @@ namespace YbkManage.App
         /// <summary>
         /// 正式环境平台接口host
         /// </summary>
-        public static string API_PRODUCTION_HOST = "http://www.youtiaokele.com/";
+        public static string API_PRODUCTION_HOST = "http://test.class.i.xdf.cn/";
 
 		/// <summary>
 		/// 接口的hostURL

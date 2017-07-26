@@ -10,7 +10,8 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        android:background="#fdfdfe">
+        android:background="#fdfdfe"
+        android:elevation="10dp">
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

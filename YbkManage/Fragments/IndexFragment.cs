@@ -9,6 +9,8 @@ using YbkManage.App;
 using xxxxxLibrary.LoadingDialog;
 using xxxxxLibrary.Network;
 using xxxxxLibrary.Utils;
+using xxxxxLibrary.Toast;
+using Android.Graphics;
 
 namespace YbkManage.Fragments
 {
@@ -67,7 +69,6 @@ namespace YbkManage.Fragments
         }
 
 
-
         private bool LoadedQuarter = false, LoadedRenewInfoByDepartment = false, LoadedRenewInfoInGroup5 = false, LoadedRenewInfoInGroup6 = false;
 
         /// <summary>
@@ -75,11 +76,20 @@ namespace YbkManage.Fragments
         /// </summary>
         protected void LoadData()
         {
-            LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
-            GetQuarter();
-            GetRenewInfoByDepartment();
-            GetRenewInfoInGroup("6");
-            GetRenewInfoInGroup("5");
+
+            if (!NetUtil.CheckNetWork(CurrActivity))
+            {
+                ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
+                return;
+            }
+            else
+            {
+                LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
+                GetQuarter();
+                GetRenewInfoByDepartment();
+                GetRenewInfoInGroup("6");
+                GetRenewInfoInGroup("5");
+            }
         }
 
         /// <summary>
@@ -147,12 +157,12 @@ namespace YbkManage.Fragments
                     {
                         if (jsonArr[i]["Type"].ToString() == "1")
                         {
-                            tvRate1.Text = Math.Round(double.Parse(jsonArr[i]["RenewRate"].ToString()) * 100, 2).ToString() + "%";
+                            tvRate1.Text = Math.Round(double.Parse(jsonArr[i]["RenewRate"].ToString()) * 100, 1).ToString("f1") + "%";
                             continue;
                         }
                         if (jsonArr[i]["Type"].ToString() == "2")
                         {
-                            tvRate2.Text = Math.Round(double.Parse(jsonArr[i]["RenewRate"].ToString()) * 100, 2).ToString() + "%";
+                            tvRate2.Text = Math.Round(double.Parse(jsonArr[i]["RenewRate"].ToString()) * 100, 1).ToString("f1") + "%";
                             continue;
                         }
                     }
@@ -206,10 +216,15 @@ namespace YbkManage.Fragments
                     for (int i = 0; i < jsonArr.Count; i++)
                     {
                         var name = jsonArr[i]["Item3"].ToString().Replace("\"", "");
-                        var rate = Math.Round(double.Parse(jsonArr[i]["Item6"].ToString()) * 100, 2).ToString() + "%";
-                        var itemView = LayoutInflater.From(CurrActivity).Inflate(Resource.Layout.list_renew_rate, null);
+                        var rate = Math.Round(double.Parse(jsonArr[i]["Item6"].ToString()) * 100, 1).ToString("#0.0") + "%";
+                        var itemView = LayoutInflater.From(CurrActivity).Inflate(Resource.Layout.item_index_renewrate, null);
                         itemView.FindViewById<TextView>(Resource.Id.tv_label_l_1).Text = name;
                         itemView.FindViewById<TextView>(Resource.Id.tv_value_l_1).Text = rate;
+
+                        if (sortType == "5")
+                        {
+                            itemView.FindViewById<TextView>(Resource.Id.tv_value_l_1).SetTextColor(Color.ParseColor("#f46d5f"));
+                        }
                         itemWrap.AddView(itemView);
                     }
                 }

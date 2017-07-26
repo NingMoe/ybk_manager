@@ -2462,28 +2462,28 @@ namespace YbkManage
 			public const int index_report_item = 2130968618;
 			
 			// aapt resource value: 0x7f04002b
-			public const int item_popupselect1 = 2130968619;
+			public const int item_index_renewrate = 2130968619;
 			
 			// aapt resource value: 0x7f04002c
-			public const int item_renew_avatar = 2130968620;
+			public const int item_popupselect1 = 2130968620;
 			
 			// aapt resource value: 0x7f04002d
-			public const int item_report = 2130968621;
+			public const int item_renew_avatar = 2130968621;
 			
 			// aapt resource value: 0x7f04002e
-			public const int item_report_byteacher = 2130968622;
+			public const int item_report = 2130968622;
 			
 			// aapt resource value: 0x7f04002f
-			public const int item_student_class = 2130968623;
+			public const int item_report_byteacher = 2130968623;
 			
 			// aapt resource value: 0x7f040030
-			public const int item_teacher = 2130968624;
+			public const int item_student_class = 2130968624;
 			
 			// aapt resource value: 0x7f040031
-			public const int item_teacher_scope = 2130968625;
+			public const int item_teacher = 2130968625;
 			
 			// aapt resource value: 0x7f040032
-			public const int list_renew_rate = 2130968626;
+			public const int item_teacher_scope = 2130968626;
 			
 			// aapt resource value: 0x7f040033
 			public const int listview_footer = 2130968627;

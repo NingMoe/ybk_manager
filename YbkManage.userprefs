@@ -1,34 +1,22 @@
 ﻿<Properties StartupConfiguration="{30BF7E82-EF62-4187-AEE2-0D43951732D2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ybk_manager.git Status">
+  <MonoDevelop.Ide.Workbench ActiveDocument="YbkManage 状态">
     <Files>
-      <File FileName="Log" />
-      <File FileName="DataService/Config.cs" Line="1" Column="1" />
-      <File FileName="DataService Status" />
-      <File FileName="ybk_manager.git Status" />
-      <File FileName="../../../../Library/Frameworks/Xamarin.Android.framework/Versions/7.3.1-2/lib/xbuild/Xamarin/Android/Xamarin.Android.Common.targets" Line="1" Column="1" />
+      <File FileName="YbkManage 状态" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="YbkManage" expanded="True">
-            <Node name="DataEntity" expanded="True" />
-            <Node name="DataService" expanded="True" />
-            <Node name="xxxxxLibrary" expanded="True" />
-            <Node name="YbkManage" expanded="True">
-              <Node name="Assets" expanded="True">
-                <Node name="AboutAssets.txt" selected="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/dongxiangtao/Desktop/code/YbkManage/YbkManage/Activities/TeacherList.cs" relfile="YbkManage/Activities/TeacherList.cs" line="155" column="1" />
+      <Breakpoint file="/Users/dongxiangtao/Desktop/code/YbkManage/YbkManage/Activities/TeacherManage.cs" relfile="YbkManage/Activities/TeacherManage.cs" line="190" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.YbkManage AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.192.168.56.101:5555" AndroidDesignerPreferredTheme="appbasetheme" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="YbkManage/Fragments/IndexFragment.cs" line="77" offsetX="964" offsetY="1140" expression="result" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+  <MonoDevelop.Ide.ItemProperties.YbkManage AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.6eb158db" AndroidDesignerPreferredTheme="appbasetheme" />
   <MultiItemStartupConfigurations />
+  <DisabledProjects>
+    <String>../../../Downloads/upoc.ios/DataService/DataService.csproj</String>
+  </DisabledProjects>
 </Properties>

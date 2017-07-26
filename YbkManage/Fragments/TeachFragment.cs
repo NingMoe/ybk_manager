@@ -126,16 +126,6 @@ namespace YbkManage.Fragments
             GetRenewInfoInGroup();
         }
 
-        public void OnScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
-        {
-            int lastvisibleItemPosition = linearLayoutManager.FindLastVisibleItemPosition();
-            if (lastvisibleItemPosition + 1 == mAdapter.ItemCount)
-            {
-                //getData2();
-            }
-
-        }
-
         /// <summary>
         /// 获取区域数据
         /// </summary>
