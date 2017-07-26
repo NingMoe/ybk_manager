@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{30BF7E82-EF62-4187-AEE2-0D43951732D2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../Library/Frameworks/Xamarin.Android.framework/Versions/7.3.1-2/lib/xbuild/Xamarin/Android/Xamarin.Android.Common.targets">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ybk_manager.git Status">
     <Files>
       <File FileName="Log" />
       <File FileName="DataService/Config.cs" Line="1" Column="1" />
@@ -10,11 +10,15 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="YbkManage" expanded="True" selected="True">
+          <Node name="YbkManage" expanded="True">
             <Node name="DataEntity" expanded="True" />
             <Node name="DataService" expanded="True" />
             <Node name="xxxxxLibrary" expanded="True" />
-            <Node name="YbkManage" expanded="True" />
+            <Node name="YbkManage" expanded="True">
+              <Node name="Assets" expanded="True">
+                <Node name="AboutAssets.txt" selected="True" />
+              </Node>
+            </Node>
           </Node>
         </State>
       </Pad>
