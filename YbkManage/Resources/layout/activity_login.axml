@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/login_logo"
+            android:layout_marginBottom="40dp"
+            android:transitionName="logo" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_bg"
+            android:gravity="center_vertical">
+            <ImageView
+                android:id="@+id/iv_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/edittext_account" />
+            <ImageView
+                android:id="@+id/iv_account_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/edittext_clear"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:visibility="gone" />
+            <EditText
+                android:id="@+id/et_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/iv_account_clear"
+                android:layout_toRightOf="@id/iv_account"
+                android:background="@null"
+                android:hint="输入手机号码/邮箱"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:maxLength="50"
+                android:textColor="#00ba97"
+                android:textColorHint="#bce0d7"
+                android:textSize="15sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:padding="12dp"
+            android:background="@drawable/edittext_bg"
+            android:gravity="center_vertical">
+            <ImageView
+                android:id="@+id/iv_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/edittext_password" />
+            <ImageView
+                android:id="@+id/iv_password_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/edittext_clear"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:visibility="gone" />
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/iv_password_clear"
+                android:layout_toRightOf="@id/iv_password"
+                android:background="@null"
+                android:hint="输入密码"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"
+                android:maxLength="50"
+                android:singleLine="true"
+                android:textColor="#00ba97"
+                android:textColorHint="#bce0d7"
+                android:textSize="15sp" />
+        </RelativeLayout>
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_input_wrap"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:background="@drawable/button_bg_disabled"
+            android:text="登 录"
+            android:textColor="#fefefe"
+            android:textSize="18sp"
+            android:enabled="false" />
+        <TextView
+            android:id="@+id/tv_problem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="遇到问题？"
+            android:textColor="#a2d6ca"
+            android:textSize="14sp" />
+    </LinearLayout>
+</RelativeLayout>

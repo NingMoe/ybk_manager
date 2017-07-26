@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Paths>
+  <Jars></Jars>
+  <ResolvedResourceDirectories>
+    <ResolvedResourceDirectory>/Volumes/Project/UPOC/ybk_manager.git/DataService/obj/Debug/__library_projects__/DataEntity/library_project_imports/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Volumes/Project/UPOC/ybk_manager.git/DataService/obj/Debug/__library_projects__/xxxxxLibrary/library_project_imports/res</ResolvedResourceDirectory>
+  </ResolvedResourceDirectories>
+  <ResolvedAssetDirectories>
+    <ResolvedAssetDirectory>obj/Debug/__library_projects__/xxxxxLibrary/library_project_imports/assets</ResolvedAssetDirectory>
+  </ResolvedAssetDirectories>
+  <ResolvedEnvironmentFiles />
+  <ResolvedResourceDirectoryStamps>
+    <ResolvedResourceDirectoryStamp>/Volumes/Project/UPOC/ybk_manager.git/DataService/obj/Debug/__library_projects__/DataEntity.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Volumes/Project/UPOC/ybk_manager.git/DataService/obj/Debug/__library_projects__/xxxxxLibrary.stamp</ResolvedResourceDirectoryStamp>
+  </ResolvedResourceDirectoryStamps>
+</Paths>

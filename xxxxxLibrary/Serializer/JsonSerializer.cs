@@ -1,0 +1,298 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Runtime.Serialization.Json;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace xxxxxLibrary.Serializer
+{
+    /// <summary>
+    /// 序列化的帮助类
+    /// </summary>
+    public class JsonSerializer
+    {
+        /// <summary> 
+        /// 对象转换为Json字符串 
+        /// </summary> 
+        /// <param name="jsonObject">对象</param> 
+        /// <returns>Json字符串</returns> 
+        public static string ToJsonString(object jsonObject)
+        {
+            try
+            {
+                StringBuilder jsonString = new StringBuilder();
+                jsonString.Append("{");
+                PropertyInfo[] propertyInfo = jsonObject.GetType().GetProperties();
+                for (int i = 0; i < propertyInfo.Length; i++)
+                {
+                    object objectValue = propertyInfo[i].GetGetMethod().Invoke(jsonObject, null);
+                    if (objectValue == null)
+                    {
+                        continue;
+                    }
+                    StringBuilder value = new StringBuilder();
+                    if (objectValue is DateTime || objectValue is Guid || objectValue is TimeSpan)
+                    {
+                        value.Append("\"" + objectValue.ToString() + "\"");
+                    }
+                    else if (objectValue is string)
+                    {
+                        value.Append("\"" + objectValue.ToString() + "\"");
+                    }
+                    else if (objectValue is IEnumerable)
+                    {
+                        value.Append(ToJsonString((IEnumerable)objectValue));
+                    }
+                    else
+                    {
+                        value.Append("\"" + objectValue.ToString() + "\"");
+                    }
+                    jsonString.Append("\"" + propertyInfo[i].Name + "\":" + value + ","); ;
+                }
+                return jsonString.ToString().TrimEnd(',') + "}";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+		/// <summary>
+		/// 序列化单个对象
+		/// </summary>
+		public static string ToJsonString<T>(T t)
+		{
+			DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
+			MemoryStream ms = new MemoryStream();
+			ser.WriteObject(ms, t);
+			string jsonString = Encoding.UTF8.GetString(ms.ToArray());
+			ms.Close();
+			string p = @"\\/Date\((\d+)\+\d+\)\\/";
+			MatchEvaluator matchEvaluator = new MatchEvaluator(ConvertJsonDateToDateString);
+			Regex reg = new Regex(p);
+			jsonString = reg.Replace(jsonString, matchEvaluator);
+			return jsonString;
+		}
+
+        /// <summary>
+        /// List转成json 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static string ListToJsonString<T>(IList<T> list)
+        {
+            StringBuilder Json = new StringBuilder();
+            Json.Append("[");
+            if (list.Count > 0)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    T obj = Activator.CreateInstance<T>();
+                    PropertyInfo[] pi = obj.GetType().GetProperties();
+                    Json.Append("{");
+                    for (int j = 0; j < pi.Length; j++)
+                    {
+                        Type type;
+                        object o = pi[j].GetValue(list[i], null);
+                        string v = string.Empty;
+                        if (o != null)
+                        {
+                            type = o.GetType();
+                            v = o.ToString();
+                        }
+                        else
+                        {
+                            type = typeof(string);
+                        }
+
+                        Json.Append("\"" + pi[j].Name.ToString() + "\":" + StringFormat(v, type));
+
+                        if (j < pi.Length - 1)
+                        {
+                            Json.Append(",");
+                        }
+                    }
+                    Json.Append("}");
+                    if (i < list.Count - 1)
+                    {
+                        Json.Append(",");
+                    }
+                }
+            }
+            Json.Append("]");
+            return Json.ToString();
+        }
+
+        /// <summary>
+        /// 序列化集合对象
+        /// </summary>
+        public static string ArrayToJsonString<T>(T[] tArray)
+        {
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T[]));
+            MemoryStream ms = new MemoryStream();
+            ser.WriteObject(ms, tArray);
+            string jsonString = Encoding.UTF8.GetString(ms.ToArray());
+            ms.Close();
+            string p = @"\\/Date\((\d+)\+\d+\)\\/";
+            MatchEvaluator matchEvaluator = new MatchEvaluator(ConvertJsonDateToDateString);
+            Regex reg = new Regex(p);
+            jsonString = reg.Replace(jsonString, matchEvaluator);
+            return jsonString;
+        }
+
+        /// <summary> 
+        /// 反序列化单个对象
+        /// </summary> 
+        public static T ToObject<T>(string jsonString)
+        {
+            //将"yyyy-MM-dd HH:mm:ss"格式的字符串转为"\/Date(1294499956278+0800)\/"格式  
+            string p = @"\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}";
+            MatchEvaluator matchEvaluator = new MatchEvaluator(ConvertDateStringToJsonDate);
+            Regex reg = new Regex(p);
+            jsonString = reg.Replace(jsonString, matchEvaluator);
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
+            T obj = (T)ser.ReadObject(ms);
+            return obj;
+        }
+
+        /// <summary> 
+        /// 反序列化集合对象
+        /// </summary> 
+        public static T[] ToObjectArray<T>(string jsonString)
+        {
+            //将"yyyy-MM-dd HH:mm:ss"格式的字符串转为"\/Date(1294499956278+0800)\/"格式  
+            string p = @"\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}";
+            MatchEvaluator matchEvaluator = new MatchEvaluator(ConvertDateStringToJsonDate);
+            Regex reg = new Regex(p);
+            jsonString = reg.Replace(jsonString, matchEvaluator);
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T[]));
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
+            T[] arrayObj = (T[])ser.ReadObject(ms);
+            return arrayObj;
+		}
+
+		/// <summary> 
+		/// 反序列化集合对象
+		/// </summary> 
+		public static List<T> ToObjectList<T>(string jsonString)
+		{
+			//将"yyyy-MM-dd HH:mm:ss"格式的字符串转为"\/Date(1294499956278+0800)\/"格式  
+			string p = @"\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}";
+			MatchEvaluator matchEvaluator = new MatchEvaluator(ConvertDateStringToJsonDate);
+			Regex reg = new Regex(p);
+			jsonString = reg.Replace(jsonString, matchEvaluator);
+			DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T[]));
+			MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
+			T[] arrayObj = (T[])ser.ReadObject(ms);
+            return new List<T>(arrayObj);
+		}
+
+        /// <summary> 
+        /// 将Json序列化的时间由/Date(1294499956278+0800)转为字符串 
+        /// </summary> 
+        private static string ConvertJsonDateToDateString(Match m)
+        {
+            string result = string.Empty;
+            DateTime dt = new DateTime(1970, 1, 1);
+            dt = dt.AddMilliseconds(long.Parse(m.Groups[1].Value));
+            dt = dt.ToLocalTime();
+            result = dt.ToString("yyyy-MM-dd HH:mm:ss");
+            return result;
+        }
+
+        /// <summary>  
+        /// 将时间字符串转为Json时间 
+        /// </summary> 
+        private static string ConvertDateStringToJsonDate(Match m)
+        {
+            string result = string.Empty;
+            DateTime dt = DateTime.Parse(m.Groups[0].Value);
+            dt = dt.ToUniversalTime();
+            TimeSpan ts = dt - DateTime.Parse("1970-01-01");
+            result = string.Format("\\/Date({0}+0800)\\/", ts.TotalMilliseconds);
+            return result;
+        }
+
+		/// <summary>
+		/// 过滤特殊字符
+		/// </summary>
+		/// <param name="s"></param>
+		/// <returns></returns>
+		public static string StringToJson(String s)
+		{
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < s.Length; i++)
+			{
+				char c = s.ToCharArray()[i];
+				switch (c)
+				{
+					case '\"':
+						sb.Append("\\\""); break;
+					case '\\':
+						sb.Append("\\\\"); break;
+					case '/':
+						sb.Append("\\/"); break;
+					case '\b':
+						sb.Append("\\b"); break;
+					case '\f':
+						sb.Append("\\f"); break;
+					case '\n':
+						sb.Append("\\n"); break;
+					case '\r':
+						sb.Append("\\r"); break;
+					case '\t':
+						sb.Append("\\t"); break;
+					case '\v':
+						sb.Append("\\v"); break;
+					case '\0':
+						sb.Append("\\0"); break;
+					default:
+						sb.Append(c); break;
+				}
+			}
+			return sb.ToString();
+		}
+
+        /// <summary>
+        /// 格式化字符型、日期型、布尔型
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private static string StringFormat(string str, Type type)
+        {
+            if (type != typeof(string) && string.IsNullOrEmpty(str))
+            {
+                str = "\"" + str + "\"";
+            }
+            else if (type == typeof(string))
+            {
+                str = StringToJson(str);
+                str = "\"" + str + "\"";
+            }
+            else if (type == typeof(DateTime))
+            {
+                str = "\"" + str + "\"";
+            }
+            else if (type == typeof(bool))
+            {
+                str = str.ToLower();
+            }
+            else if (type == typeof(byte[]))
+            {
+                str = "\"" + str + "\"";
+            }
+            else if (type == typeof(Guid))
+            {
+                str = "\"" + str + "\"";
+            }
+            return str;
+        }
+    }
+}
