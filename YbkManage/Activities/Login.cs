@@ -138,14 +138,9 @@ namespace YbkManage.Activities
         /// <summary>
         /// 登录操作
         /// </summary>
-		public async void DoLogin()
+		public void DoLogin()
         {
             var account = etAccount.Text.Trim();
-			if (!Helper.CheckNetWork(this))
-			{
-				 ToastUtil.ShowWarningToast(this, "网络未连接");
-                return;
-			}
             if (string.IsNullOrEmpty(account))
             {
                 ToastUtil.ShowWarningToast(this, "请输入您的手机号码或者邮箱");
