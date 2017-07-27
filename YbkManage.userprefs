@@ -1,11 +1,13 @@
-﻿<Properties StartupConfiguration="{CFE09C2B-680A-4CD5-80F8-6A0CA18A24D9}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../Library/Frameworks/Xamarin.Android.framework/Versions/7.3.1-2/lib/xbuild/Xamarin/Android/Xamarin.Android.Common.targets">
+﻿<Properties StartupConfiguration="{30BF7E82-EF62-4187-AEE2-0D43951732D2}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="YbkManage/Activities/Splash.cs">
     <Files>
       <File FileName="YbkManage/Activities/TeacherManage.cs" Line="1" Column="1" />
       <File FileName="YbkManage/Adapters/TeacherListAdapter.cs" Line="1" Column="1" />
       <File FileName="YbkManage/Activities/Main.cs" Line="18" Column="29" />
-      <File FileName="YbkManage/Activities/Login.cs" Line="1" Column="1" />
-      <File FileName="../../../../../Library/Frameworks/Xamarin.Android.framework/Versions/7.3.1-2/lib/xbuild/Xamarin/Android/Xamarin.Android.Common.targets" Line="1040" Column="2" />
+      <File FileName="YbkManage/Fragments/BaseFragment.cs" Line="1" Column="1" />
+      <File FileName="YbkManage/Activities/AppActivity.cs" Line="1" Column="1" />
+      <File FileName="YbkManage/Activities/AssistantLeaderList.cs" Line="49" Column="61" />
+      <File FileName="YbkManage/Activities/Splash.cs" Line="40" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
@@ -15,6 +17,7 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="YbkManage/Fragments/IndexFragment.cs" line="77" offsetX="964" offsetY="1140" expression="result" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
-  <MonoDevelop.Ide.ItemProperties.xxxxxLibrary PreferredExecutionTarget="Android.Android_Accelerated_x86" />
+  <MonoDevelop.Ide.ItemProperties.YbkManage AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.192.168.56.101:5555" AndroidDesignerPreferredTheme="appbasetheme" />
+  <MonoDevelop.Ide.ItemProperties.xxxxxLibrary PreferredExecutionTarget="Android.192.168.56.101:5555" />
   <MultiItemStartupConfigurations />
 </Properties>
