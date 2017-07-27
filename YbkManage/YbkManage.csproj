@@ -213,11 +213,11 @@
     <AndroidResource Include="Resources\drawable\textview_bg_on.axml" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\avatar.png" />
     <AndroidResource Include="Resources\layout\item_index_renewrate.axml" />
-    <AndroidResource Include="Resources\layout\item_assistant.axml" />
-    <AndroidResource Include="Resources\layout\activity_assistant_list.axml" />
     <AndroidResource Include="Resources\drawable\button_bg_red.axml" />
     <AndroidResource Include="Resources\layout\item_role_select.axml" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icn_selected.png" />
+    <AndroidResource Include="Resources\layout\activity_assistant_list.axml" />
+    <AndroidResource Include="Resources\layout\item_assistant.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

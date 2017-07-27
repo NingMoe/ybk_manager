@@ -26,19 +26,6 @@ namespace YbkManage
 		
 		public static void UpdateIdValues()
 		{
-			global::xxxxxLibrary.Resource.Drawable.icn_toast_error = global::YbkManage.Resource.Drawable.icn_toast_error;
-			global::xxxxxLibrary.Resource.Drawable.icn_toast_smile = global::YbkManage.Resource.Drawable.icn_toast_smile;
-			global::xxxxxLibrary.Resource.Drawable.icn_toast_success = global::YbkManage.Resource.Drawable.icn_toast_success;
-			global::xxxxxLibrary.Resource.Drawable.icn_toast_warning = global::YbkManage.Resource.Drawable.icn_toast_warning;
-			global::xxxxxLibrary.Resource.Drawable.toast_bg = global::YbkManage.Resource.Drawable.toast_bg;
-			global::xxxxxLibrary.Resource.Id.iv_icon = global::YbkManage.Resource.Id.iv_icon;
-			global::xxxxxLibrary.Resource.Id.pb_loadinig = global::YbkManage.Resource.Id.pb_loadinig;
-			global::xxxxxLibrary.Resource.Id.tv_loading_msg = global::YbkManage.Resource.Id.tv_loading_msg;
-			global::xxxxxLibrary.Resource.Id.tv_msg = global::YbkManage.Resource.Id.tv_msg;
-			global::xxxxxLibrary.Resource.Layout.loadingdialog_bg = global::YbkManage.Resource.Layout.loadingdialog_bg;
-			global::xxxxxLibrary.Resource.Layout.toast_bg = global::YbkManage.Resource.Layout.toast_bg;
-			global::xxxxxLibrary.Resource.String.library_name = global::YbkManage.Resource.String.library_name;
-			global::xxxxxLibrary.Resource.Style.myDialog = global::YbkManage.Resource.Style.myDialog;
 			global::DataEntity.Resource.String.library_name = global::YbkManage.Resource.String.library_name;
 			global::DataService.Resource.Drawable.icn_toast_error = global::YbkManage.Resource.Drawable.icn_toast_error;
 			global::DataService.Resource.Drawable.icn_toast_smile = global::YbkManage.Resource.Drawable.icn_toast_smile;
@@ -53,6 +40,19 @@ namespace YbkManage
 			global::DataService.Resource.Layout.toast_bg = global::YbkManage.Resource.Layout.toast_bg;
 			global::DataService.Resource.String.library_name = global::YbkManage.Resource.String.library_name;
 			global::DataService.Resource.Style.myDialog = global::YbkManage.Resource.Style.myDialog;
+			global::xxxxxLibrary.Resource.Drawable.icn_toast_error = global::YbkManage.Resource.Drawable.icn_toast_error;
+			global::xxxxxLibrary.Resource.Drawable.icn_toast_smile = global::YbkManage.Resource.Drawable.icn_toast_smile;
+			global::xxxxxLibrary.Resource.Drawable.icn_toast_success = global::YbkManage.Resource.Drawable.icn_toast_success;
+			global::xxxxxLibrary.Resource.Drawable.icn_toast_warning = global::YbkManage.Resource.Drawable.icn_toast_warning;
+			global::xxxxxLibrary.Resource.Drawable.toast_bg = global::YbkManage.Resource.Drawable.toast_bg;
+			global::xxxxxLibrary.Resource.Id.iv_icon = global::YbkManage.Resource.Id.iv_icon;
+			global::xxxxxLibrary.Resource.Id.pb_loadinig = global::YbkManage.Resource.Id.pb_loadinig;
+			global::xxxxxLibrary.Resource.Id.tv_loading_msg = global::YbkManage.Resource.Id.tv_loading_msg;
+			global::xxxxxLibrary.Resource.Id.tv_msg = global::YbkManage.Resource.Id.tv_msg;
+			global::xxxxxLibrary.Resource.Layout.loadingdialog_bg = global::YbkManage.Resource.Layout.loadingdialog_bg;
+			global::xxxxxLibrary.Resource.Layout.toast_bg = global::YbkManage.Resource.Layout.toast_bg;
+			global::xxxxxLibrary.Resource.String.library_name = global::YbkManage.Resource.String.library_name;
+			global::xxxxxLibrary.Resource.Style.myDialog = global::YbkManage.Resource.Style.myDialog;
 		}
 		
 		public partial class Animation

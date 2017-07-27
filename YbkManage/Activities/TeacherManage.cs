@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 using System;
 using System.Collections.Generic;
 using System.Json;
@@ -57,8 +57,6 @@ namespace YbkManage.Activities
             LayoutReourceId = Resource.Layout.activity_teacher_manage;
 
             base.OnCreate(savedInstanceState);
-
-            // Create your application here
         }
 
         protected override void InitViews()
