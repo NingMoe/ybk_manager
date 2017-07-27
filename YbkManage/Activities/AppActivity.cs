@@ -15,8 +15,6 @@ using xxxxxLibrary.Serializer;
 using xxxxxLibrary.Utils;
 using Android.Support.V4.Content;
 using System;
-using DataEntity;
-using DataService;
 
 namespace YbkManage.Activities
 {
@@ -33,7 +31,7 @@ namespace YbkManage.Activities
         /// <summary>
         /// 当前登录信息
         /// </summary>
-		protected LoginUserInfoEntity CurrUserInfo;
+        protected UserInfoEntity CurrUserInfo;
 
         /// <summary>
         /// 是否全屏
@@ -53,12 +51,11 @@ namespace YbkManage.Activities
                 initSystemBar(Resource.Color.actionbar_bg);
             }
 
-			var loginUserJson = (string)SharedPreferencesUtil.GetParam(CurrActivity, AppConfig.SP_USERINFO, "");
-			if (!string.IsNullOrEmpty(loginUserJson))
-			{
-				CurrUserInfo =Helper.FromJsonTo<LoginUserInfoEntity>(loginUserJson);
-			}
-            
+            string userinfoStr = (string)SharedPreferencesUtil.GetParam(CurrActivity, AppConfig.SP_USERINFO, "");
+            if (!string.IsNullOrEmpty(userinfoStr))
+            {
+                CurrUserInfo = JsonSerializer.ToObject<UserInfoEntity>(userinfoStr);
+            }
 
             if (CurrUserInfo == null)
             {
@@ -111,7 +108,7 @@ namespace YbkManage.Activities
                 //清除透明状态栏,使内容不再覆盖状态栏  
                 Window.ClearFlags(WindowManagerFlags.TranslucentStatus);
                 Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
-                var Color = new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.actionbar_bg));
+                var Color = new Color(ContextCompat.GetColor(this, Resource.Color.actionbar_bg));
                 Window.SetStatusBarColor(Color);
                 //透明导航栏 部分手机导航栏不是虚拟的,比如小米的  
                 Window.AddFlags(WindowManagerFlags.TranslucentNavigation);

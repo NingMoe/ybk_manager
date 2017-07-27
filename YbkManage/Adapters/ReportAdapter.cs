@@ -14,7 +14,7 @@ namespace YbkManage.Adapters
     public class ReportAdapter : RecyclerView.Adapter, IOnClickListener, IOnLongClickListener
     {
         private static int TYPE_ITEM_ITEM = 1;
-        private static int TYPE_ITEM_FOOTER = 2;
+        //private static int TYPE_ITEM_FOOTER = 2;
         private RecyclerView m_RecyclerView;
 
         private Context mContext;

@@ -7,6 +7,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.V4.Widget;
@@ -25,7 +26,7 @@ namespace YbkManage.Activities
     /// <summary>
     /// 教师管理页
     /// </summary>
-    [Activity(Label = "TeacherManage")]
+    [Activity(Label = "TeacherManage", ScreenOrientation = ScreenOrientation.Portrait)]
     public class TeacherManage : AppActivity, SwipeRefreshLayout.IOnRefreshListener, IRecyclerViewItemClickListener
     {
         // 返回按钮
@@ -99,8 +100,8 @@ namespace YbkManage.Activities
             llAdd.Click += (sender, e) =>
             {
                 Intent intent = new Intent(CurrActivity, typeof(TeacherAddActivity));
-                StartActivity(intent);
-                CurrActivity.OverridePendingTransition(Android.Resource.Animation.SlideOutRight, Android.Resource.Animation.SlideInLeft);
+				StartActivity(intent);
+				CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
             };
         }
 

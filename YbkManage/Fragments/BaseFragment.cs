@@ -1,12 +1,11 @@
 ﻿using Android.OS;
 using Android.Support.V4.App;
-using DataEntity;
 using xxxxxLibrary.Serializer;
 using xxxxxLibrary.Utils;
 using YbkManage.Activities;
 using YbkManage.App;
 using YbkManage.Models;
-using DataService;
+
 namespace YbkManage.Fragments
 {
 	/// <summary>
@@ -22,7 +21,7 @@ namespace YbkManage.Fragments
         /// <summary>
         /// 当前登录信息
         /// </summary>
-        protected LoginUserInfoEntity CurrUserInfo;
+        protected UserInfoEntity CurrUserInfo;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -32,7 +31,7 @@ namespace YbkManage.Fragments
 			string userinfoStr = (string)SharedPreferencesUtil.GetParam(CurrActivity, AppConfig.SP_USERINFO, "");
 			if (!string.IsNullOrEmpty(userinfoStr))
 			{
-				CurrUserInfo = Helper.FromJsonTo<LoginUserInfoEntity>(userinfoStr);
+				CurrUserInfo = JsonSerializer.ToObject<UserInfoEntity>(userinfoStr);
 			}
         }
 

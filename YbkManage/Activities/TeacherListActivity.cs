@@ -7,6 +7,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.V4.Widget;
@@ -15,6 +16,7 @@ using Android.Views;
 using Android.Widget;
 using xxxxxLibrary.LoadingDialog;
 using xxxxxLibrary.Network;
+using xxxxxLibrary.Serializer;
 using xxxxxLibrary.Toast;
 using YbkManage.Adapters;
 using YbkManage.App;
@@ -25,7 +27,7 @@ namespace YbkManage.Activities
     /// <summary>
     /// 教师管理列表页
     /// </summary>
-    [Activity(Label = "TeacherListActivity")]
+    [Activity(Label = "TeacherListActivity", ScreenOrientation = ScreenOrientation.Portrait)]
     public class TeacherListActivity : AppActivity, SwipeRefreshLayout.IOnRefreshListener, IRecyclerViewItemClickListener
     {
         // 返回按钮
@@ -65,9 +67,13 @@ namespace YbkManage.Activities
 
         protected override void InitVariables()
         {
-            scopeId = Intent.Extras.GetInt("scopeId");
-            scopeName = Intent.Extras.GetString("scopeName");
-            teacherCount = Intent.Extras.GetInt("teacherCount");
+			Bundle bundle = Intent.Extras;
+            if (bundle != null)
+            {
+                scopeId = Intent.Extras.GetInt("scopeId");
+                scopeName = Intent.Extras.GetString("scopeName");
+                teacherCount = Intent.Extras.GetInt("teacherCount");
+            }
         }
 
         protected override void InitViews()
@@ -75,6 +81,7 @@ namespace YbkManage.Activities
             imgbtnBack = FindViewById<ImageButton>(Resource.Id.imgBtn_back);
             llAdd = FindViewById<LinearLayout>(Resource.Id.ll_add);
             tvTeacherCount = FindViewById<TextView>(Resource.Id.tv_teachercount);
+            FindViewById<TextView>(Resource.Id.tv_title).Text = scopeName;
             tvTeacherCount.Text = string.Format("所有教师（{0}人）", teacherCount);
 
             mSwipeRefreshLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.refresher);
@@ -87,14 +94,6 @@ namespace YbkManage.Activities
             mRecyclerView.SetLayoutManager(linearLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
             mAdapter.NotifyDataSetChanged();
-
-            mSwipeRefreshLayout.SetOnRefreshListener(this);
-            //mSwipeRefreshLayout.SetOnScrollChangeListener(this);
-
-            //mAdapter.SetOnItemClickListener(this);
-
-            RecyclerViewItemOnGestureListener viewOnGestureListener = new RecyclerViewItemOnGestureListener(mRecyclerView, this);
-            mRecyclerView.AddOnItemTouchListener(new RecyclerViewItemOnItemTouchListener(mRecyclerView, viewOnGestureListener));
         }
 
         protected override void InitEvents()
@@ -109,9 +108,26 @@ namespace YbkManage.Activities
             llAdd.Click += (sender, e) =>
             {
                 Intent intent = new Intent(CurrActivity, typeof(TeacherAddActivity));
-                StartActivity(intent);
-                CurrActivity.OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
-            };
+				intent.PutExtra("scopeName", scopeName);
+				StartActivity(intent);
+				CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+			};
+
+			mSwipeRefreshLayout.SetOnRefreshListener(this);
+
+			RecyclerViewItemOnGestureListener viewOnGestureListener = new RecyclerViewItemOnGestureListener(mRecyclerView, this);
+			mRecyclerView.AddOnItemTouchListener(new RecyclerViewItemOnItemTouchListener(mRecyclerView, viewOnGestureListener));
+
+            // 加载更多
+			var onScrollListener = new XamarinRecyclerViewOnScrollListener(linearLayoutManager);
+			onScrollListener.LoadMoreEvent += (object sender, EventArgs e) =>
+			{
+                if(teacherCount>teacherList.Count)
+				{
+					GetTeacherListByScope();
+                }
+			};
+			mRecyclerView.AddOnScrollListener(onScrollListener);
         }
 
         /// <summary>
@@ -143,24 +159,6 @@ namespace YbkManage.Activities
         }
 
         /// <summary>
-        /// 滑动到底部加载更多
-        /// </summary>
-        /// <param name="v">V.</param>
-        /// <param name="scrollX">Scroll x.</param>
-        /// <param name="scrollY">Scroll y.</param>
-        /// <param name="oldScrollX">Old scroll x.</param>
-        /// <param name="oldScrollY">Old scroll y.</param>
-        public void OnScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
-        {
-            int lastvisibleItemPosition = linearLayoutManager.FindLastVisibleItemPosition();
-            if (lastvisibleItemPosition + 1 == mAdapter.ItemCount)
-            {
-                GetTeacherListByScope();
-            }
-
-        }
-
-        /// <summary>
         /// 获取教师列表
         /// </summary>
         private async void GetTeacherListByScope()
@@ -186,7 +184,6 @@ namespace YbkManage.Activities
                     var jsonArr = JsonValue.Parse(data["Data"].ToString());
 
                     List<TeacherInfoEntity> pagerList = new List<TeacherInfoEntity>();
-                    teacherList.Clear();
                     for (int i = 0; i < jsonArr.Count; i++)
                     {
                         TeacherInfoEntity teacherScope = new TeacherInfoEntity();
@@ -205,6 +202,9 @@ namespace YbkManage.Activities
 
                     teacherList.AddRange(pagerList);
                     pageIndex++;
+                    mAdapter.HideFootere(teacherList.Count >= teacherCount);
+    
+
                     mAdapter.NotifyDataSetChanged();
 
                     GetTeacherListAvatar();
@@ -270,15 +270,47 @@ namespace YbkManage.Activities
 
         public void OnItemClick(View itemView, int position)
         {
-            //var scopeItem = teachScopeList[position];
-            //Intent intent = new Intent(CurrActivity, typeof(TeacherList));
-            //StartActivity(intent);
-            //CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+            var teacherItem = teacherList[position];
+            Intent intent = new Intent(CurrActivity, typeof(TeacherAddActivity));
+            intent.PutExtra("scopeName",teacherItem.ScopeName);
+            intent.PutExtra("teacherJsonStr", JsonSerializer.ToJsonString(teacherItem));
+            StartActivity(intent);
+            CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
         }
 
         public void OnItemLongClick(View itemView, int position)
         {
             //throw new NotImplementedException();
         }
+
+		public class XamarinRecyclerViewOnScrollListener : RecyclerView.OnScrollListener
+		{
+			public delegate void LoadMoreEventHandler(object sender, EventArgs e);
+			public event LoadMoreEventHandler LoadMoreEvent;
+
+			private LinearLayoutManager LayoutManager;
+
+			public XamarinRecyclerViewOnScrollListener(LinearLayoutManager layoutManager)
+			{
+				LayoutManager = layoutManager;
+			}
+
+			public override void OnScrolled(RecyclerView recyclerView, int dx, int dy)
+			{
+				base.OnScrolled(recyclerView, dx, dy);
+
+				var visibleItemCount = recyclerView.ChildCount;
+				var totalItemCount = recyclerView.GetAdapter().ItemCount;
+				var pastVisiblesItems = LayoutManager.FindFirstVisibleItemPosition();
+				//if ((visibleItemCount + pastVisiblesItems) >= totalItemCount)
+				//{
+
+                int lastvisibleItemPosition = LayoutManager.FindLastVisibleItemPosition();
+                if (lastvisibleItemPosition + 1 == totalItemCount)
+				{
+					LoadMoreEvent(this, null);
+				}
+			}
+		}
     }
 }

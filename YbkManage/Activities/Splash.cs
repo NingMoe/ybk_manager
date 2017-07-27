@@ -9,8 +9,7 @@ using YbkManage.App;
 using YbkManage.Models;
 using xxxxxLibrary.Serializer;
 using xxxxxLibrary.Utils;
-using DataEntity;
-using DataService;
+
 namespace YbkManage.Activities
 {
     /// <summary>
@@ -38,7 +37,7 @@ namespace YbkManage.Activities
                  string userinfoStr = (string)SharedPreferencesUtil.GetParam(this, AppConfig.SP_USERINFO, "");
                  if (!string.IsNullOrEmpty(userinfoStr))
                  {
-					LoginUserInfoEntity currUserInfo = Helper.FromJsonTo<LoginUserInfoEntity>(userinfoStr);
+                     UserInfoEntity currUserInfo = JsonSerializer.ToObject<UserInfoEntity>(userinfoStr);
                      intent.SetClass(this, typeof(Main));
                  }
                  ActivityCompat.StartActivity(this, intent, optionsCompat.ToBundle());

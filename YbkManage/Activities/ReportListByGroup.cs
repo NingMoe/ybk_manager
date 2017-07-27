@@ -67,7 +67,6 @@ namespace YbkManage.Activities
 		{
 			var reportJsonStr = Intent.Extras.GetString("reportJsonStr");
             currReportInfo = JsonSerializer.ToObject<TeachReportEntity>(reportJsonStr);
-
 		}
 
 		protected override void InitViews()

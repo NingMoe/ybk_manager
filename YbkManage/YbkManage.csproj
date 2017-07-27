@@ -94,7 +94,7 @@
     <Compile Include="App\CircleImageTransformation.cs" />
     <Compile Include="Activities\TeacherManage.cs" />
     <Compile Include="Activities\TeacherAddActivity.cs" />
-    <Compile Include="Activities\TeacherRoleList.cs" />
+    <Compile Include="Activities\TeacherRoleSelectActivity.cs" />
     <Compile Include="Activities\TeacherGroupList.cs" />
     <Compile Include="Adapters\PopupSelectAdapter.cs" />
     <Compile Include="Models\TeachReportEntity.cs" />
@@ -125,6 +125,7 @@
     <Compile Include="Adapters\TeacherListAdapter.cs" />
     <Compile Include="Adapters\AssistantAdapter.cs" />
     <Compile Include="Activities\AssistantLeaderList.cs" />
+    <Compile Include="Models\TeacherRoleEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -214,6 +215,9 @@
     <AndroidResource Include="Resources\layout\item_index_renewrate.axml" />
     <AndroidResource Include="Resources\layout\item_assistant.axml" />
     <AndroidResource Include="Resources\layout\activity_assistant_list.axml" />
+    <AndroidResource Include="Resources\drawable\button_bg_red.axml" />
+    <AndroidResource Include="Resources\layout\item_role_select.axml" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\icn_selected.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

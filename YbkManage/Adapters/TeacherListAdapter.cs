@@ -24,6 +24,8 @@ namespace YbkManage.Adapters
 
         private List<TeacherInfoEntity> teachReportList;
 
+        private bool hideFooter = false;
+
         public TeacherListAdapter(Context context, List<TeacherInfoEntity> data)
         {
             this.mContext = context;
@@ -75,7 +77,7 @@ namespace YbkManage.Adapters
 
         public override int GetItemViewType(int position)
         {
-            if (teachReportList != null && ItemCount == (position + 1))
+            if (teachReportList != null && ItemCount == (position + 1) && !this.hideFooter)
             {
             	return TYPE_ITEM_FOOTER;
             }
@@ -112,6 +114,10 @@ namespace YbkManage.Adapters
 			return true;
 		}
 
+        public void HideFootere(bool isHide)
+        {
+            this.hideFooter = isHide;
+        }
 
 
         public class ItemViewHolder : RecyclerView.ViewHolder
