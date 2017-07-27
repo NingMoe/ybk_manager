@@ -55,7 +55,7 @@ namespace YbkManage.Activities
             string userinfoStr = (string)SharedPreferencesUtil.GetParam(CurrActivity, AppConfig.SP_USERINFO, "");
             if (!string.IsNullOrEmpty(userinfoStr))
             {
-                CurrUserInfo = JsonSerializer.ToObject<LoginUserInfoEntity>(userinfoStr);
+                CurrUserInfo = DataService.Helper.FromJsonTo<LoginUserInfoEntity>(userinfoStr);
             }
 
             if (CurrUserInfo == null)

@@ -21,11 +21,16 @@ namespace YbkManage.Adapters
 
 		private List<AstLeaderListModel> List;
 
-		public AssistantAdapter(Context context, List<AstLeaderListModel> data)
+		public AssistantAdapter(Context context)
 		{
 			this.mContext = context;
-			List = data;
 		}
+
+		public void SetData(List<AstLeaderListModel> list)
+		{
+			this.List = list;
+		}
+
 
 		/// <summary>
 		/// Ons the create view holder.
@@ -84,7 +89,7 @@ namespace YbkManage.Adapters
 		{
 			get
 			{
-				return List.Count;
+				return List==null?0:List.Count;
 			}
 		}
 

@@ -38,7 +38,7 @@ namespace YbkManage.Activities
                  string userinfoStr = (string)SharedPreferencesUtil.GetParam(this, AppConfig.SP_USERINFO, "");
                  if (!string.IsNullOrEmpty(userinfoStr))
                  {
-                     LoginUserInfoEntity currUserInfo = JsonSerializer.ToObject<LoginUserInfoEntity>(userinfoStr);
+                     LoginUserInfoEntity currUserInfo = DataService.Helper.FromJsonTo<LoginUserInfoEntity>(userinfoStr);
                      intent.SetClass(this, typeof(Main));
                  }
                  ActivityCompat.StartActivity(this, intent, optionsCompat.ToBundle());

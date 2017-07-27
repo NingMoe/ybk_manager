@@ -40,7 +40,7 @@ namespace YbkManage
 		// 列表适配器
 		private AssistantAdapter mAdapter;
 		// 数据
-		private List<AstLeaderListModel> list = new List<AstLeaderListModel>();
+		private List<AstLeaderListModel> list;
 
 
 		protected override void OnCreate(Bundle savedInstanceState)
@@ -64,15 +64,13 @@ namespace YbkManage
 			imgbtnBack = FindViewById<ImageButton>(Resource.Id.ast_imgBtn_back);
 			llAdd = FindViewById<LinearLayout>(Resource.Id.ast_ll_add);
 			tvTeacherCount = FindViewById<TextView>(Resource.Id.ast_tv_count);
-			tvTeacherCount.Text = string.Format("助教组长（{0}人）", list.Count);
 
 			mSwipeRefreshLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.ast_refresher);
 			mRecyclerView = FindViewById<RecyclerView>(Resource.Id.ast_recycler_view);
-
 			mSwipeRefreshLayout.SetColorSchemeColors(Color.ParseColor("#db0000"));
 
 			linearLayoutManager = new LinearLayoutManager(CurrActivity);
-			mAdapter = new AssistantAdapter(CurrContext, list);
+			mAdapter = new AssistantAdapter(CurrContext);
 			mRecyclerView.SetLayoutManager(linearLayoutManager);
 			mRecyclerView.SetAdapter(mAdapter);
 			mAdapter.NotifyDataSetChanged();
@@ -130,6 +128,7 @@ namespace YbkManage
 				var districtCode = CurrUserInfo.DistrictCode;
 				list =MeService.GetAssistantLeaderList(schoolId, districtCode??"");
 				mAdapter.NotifyDataSetChanged();
+				mAdapter.SetData(list);
 				tvTeacherCount.Text = string.Format("助教组长（{0}人）", list.Count);
 
 			}

@@ -1,13 +1,16 @@
 ﻿<Properties StartupConfiguration="{30BF7E82-EF62-4187-AEE2-0D43951732D2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="YbkManage/Activities/Splash.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ybk_manager.git Status">
     <Files>
-      <File FileName="YbkManage/Activities/TeacherManage.cs" Line="1" Column="1" />
-      <File FileName="YbkManage/Adapters/TeacherListAdapter.cs" Line="1" Column="1" />
-      <File FileName="YbkManage/Activities/Main.cs" Line="18" Column="29" />
-      <File FileName="YbkManage/Fragments/BaseFragment.cs" Line="1" Column="1" />
-      <File FileName="YbkManage/Activities/AppActivity.cs" Line="1" Column="1" />
-      <File FileName="YbkManage/Activities/AssistantLeaderList.cs" Line="49" Column="61" />
-      <File FileName="YbkManage/Activities/Splash.cs" Line="40" Column="22" />
+      <File FileName="YbkManage/Activities/AssistantLeaderList.cs" Line="73" Column="47" />
+      <File FileName="YbkManage/Adapters/AssistantAdapter.cs" Line="33" Column="3" />
+      <File FileName="xxxxxLibrary/Serializer/JsonSerializer.cs" Line="151" Column="55" />
+      <File FileName="YbkManage/Fragments/BaseFragment.cs" Line="35" Column="60" />
+      <File FileName="YbkManage/Fragments/IndexFragment.cs" Line="1" Column="1" />
+      <File FileName="YbkManage/Fragments/MineFragment.cs" Line="62" Column="10" />
+      <File FileName="YbkManage/Activities/Login.cs" Line="135" Column="14" />
+      <File FileName="YbkManage/Activities/Splash.cs" Line="34" Column="44" />
+      <File FileName="YbkManage/Activities/AppActivity.cs" Line="59" Column="14" />
+      <File FileName="ybk_manager.git Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
