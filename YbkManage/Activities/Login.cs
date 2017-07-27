@@ -17,6 +17,7 @@ using Android.Content.PM;
 using System.Collections.Generic;
 using xxxxxLibrary.Network;
 using System.Json;
+using DataService;
 
 namespace YbkManage.Activities
 {
@@ -140,6 +141,11 @@ namespace YbkManage.Activities
 		public async void DoLogin()
         {
             var account = etAccount.Text.Trim();
+			if (!Helper.CheckNetWork(this))
+			{
+				 ToastUtil.ShowWarningToast(this, "网络未连接");
+                return;
+			}
             if (string.IsNullOrEmpty(account))
             {
                 ToastUtil.ShowWarningToast(this, "请输入您的手机号码或者邮箱");
@@ -167,71 +173,38 @@ namespace YbkManage.Activities
 				return;
 			}
 
-            LoadingDialogUtil.ShowLoadingDialog(this, "信息验证中...");
-            try
-            {
-                Dictionary<string, string> requstParams = new Dictionary<string, string>();
-                requstParams.Add("appId", AppConfig.APP_ID);
-                requstParams.Add("method", "GetManagementLoginUser");
-                requstParams.Add("encodeUser", EncryptUtil.Encode(account, AppConfig.EncodeKey));
-                requstParams.Add("encodePwd", EncryptUtil.Encode(passwrod, AppConfig.EncodeKey));
-                //requstParams.Add("encodeUser", "wb5dHl6OxCEjjJRhtXUsn1%2FkRAJb2rmALjX9fa%2F%2BEcU%3D");
-                //requstParams.Add("encodePwd", "XCmS4wVZwUlCjfFdruS0Sg%3D%3D");
-                requstParams.Add("sign", AppUtils.GetSign(requstParams));
-                var result = await HttpRequestUtil.SendPostRequestBasedOnHttpClient(AppConfig.API_USER_INDEX, requstParams);
 
-                //            var data = (JsonObject)result;
-                //var state = int.Parse(data["State"].ToString());
-                //if (state == 1)
-                //{
-                //	LoadingDialogUtil.UpdateLoadingDialogText("登录成功");
+            LoadingDialogUtil.ShowLoadingDialog(this, "登录中...");
 
-                //	UserInfoEntity CurrUserInfo = new UserInfoEntity();
-                //	CurrUserInfo.LoginAccount = account;
-                //	CurrUserInfo.LoginPassword = passwrod;
-                //	CurrUserInfo.UserId = data["Data"]["UserId"].ToString().Replace("\"", "");
-                //	CurrUserInfo.Name = data["Data"]["Name"].ToString().Replace("\"", "");
-                //                CurrUserInfo.SchoolId = int.Parse(data["Data"]["SchoolId"].ToString().Replace("\"", ""));
-                //	CurrUserInfo.SchoolName = data["Data"]["SchoolName"].ToString().Replace("\"", "");
-                //	CurrUserInfo.Grade = int.Parse(data["Data"]["Grade"].ToString().Replace("\"", ""));
+			try
+			{
+				var result = DataService.UserService.GetUser(account,passwrod);
+				if (result.State == 1 && result.Data != null)
+				{
+					var loginUserJson =Helper.ToJsonItem(result.Data);
+					SharedPreferencesUtil.SetParam(this, AppConfig.SP_USERINFO, loginUserJson);
 
-                //	string userinfoStr = JsonSerializer.ToJsonString<UserInfoEntity>(CurrUserInfo);
-                //	SharedPreferencesUtil.SetParam(this, AppConfig.SP_USERINFO, JsonSerializer.ToJsonString<UserInfoEntity>(CurrUserInfo));
+					Intent intent = new Intent(this, typeof(Main));
+					StartActivity(intent);
+                    OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);
+					this.Finish();
 
-                //	Intent intent = new Intent(this, typeof(Main));
-                //	StartActivity(intent);
-                //	this.Finish();
-                //	OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);
-                //}
-                //else{
-                    LoadingDialogUtil.DismissLoadingDialog();
-                //    ToastUtil.showErrorToast(this,"账号或密码错误");
-                //}
+				}
+				else
+				{
+					LoadingDialogUtil.DismissLoadingDialog();
+					ToastUtil.ShowWarningToast(this, result.Error??"登录失败");
+				}
+
+			}
+			catch (Exception ex)
+			{
+				var msg = ex.Message.ToString();
+				LoadingDialogUtil.DismissLoadingDialog();
+				ToastUtil.ShowWarningToast(this, msg);
+			}
 
 
-                UserInfoEntity CurrUserInfo = new UserInfoEntity();
-                CurrUserInfo.LoginAccount = account;
-                CurrUserInfo.LoginPassword = passwrod;
-                CurrUserInfo.UserId = "xdf003579687";
-                CurrUserInfo.Name = "教学经理高中";
-                CurrUserInfo.SchoolId = 1;
-                CurrUserInfo.SchoolName = "北京新东方";
-                CurrUserInfo.Grade = 2;
-
-                string userinfoStr = JsonSerializer.ToJsonString<UserInfoEntity>(CurrUserInfo);
-                SharedPreferencesUtil.SetParam(this, AppConfig.SP_USERINFO, JsonSerializer.ToJsonString<UserInfoEntity>(CurrUserInfo));
-
-                Intent intent = new Intent(this, typeof(Main));
-                StartActivity(intent);
-                this.Finish();
-                OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);
-            }
-            catch (Exception ex)
-            {
-                var msg = ex.Message.ToString();
-                LoadingDialogUtil.DismissLoadingDialog();
-                ToastUtil.ShowErrorToast(this, msg);
-            }
         }
 
     }
