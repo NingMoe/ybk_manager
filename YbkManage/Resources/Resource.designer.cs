@@ -1561,103 +1561,106 @@ namespace YbkManage
 			public const int avatar = 2130837583;
 			
 			// aapt resource value: 0x7f020050
-			public const int button_bg = 2130837584;
+			public const int avatar_student = 2130837584;
 			
 			// aapt resource value: 0x7f020051
-			public const int button_bg_disabled = 2130837585;
+			public const int button_bg = 2130837585;
 			
 			// aapt resource value: 0x7f020052
-			public const int button_bg_red = 2130837586;
+			public const int button_bg_disabled = 2130837586;
 			
 			// aapt resource value: 0x7f020053
-			public const int button_globaldialog = 2130837587;
+			public const int button_bg_red = 2130837587;
 			
 			// aapt resource value: 0x7f020054
-			public const int button_globaldialog_status = 2130837588;
+			public const int button_globaldialog = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int class_1 = 2130837589;
+			public const int button_globaldialog_status = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int class_2 = 2130837590;
+			public const int class_1 = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int class_3 = 2130837591;
+			public const int class_2 = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int dialog_bg = 2130837592;
+			public const int class_3 = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int edittext_account = 2130837593;
+			public const int dialog_bg = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int edittext_bg = 2130837594;
+			public const int edittext_account = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int edittext_clear = 2130837595;
+			public const int edittext_bg = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int edittext_password = 2130837596;
+			public const int edittext_clear = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int icn_selected = 2130837597;
+			public const int edittext_password = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int icn_toast_error = 2130837598;
+			public const int icn_selected = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int icn_toast_smile = 2130837599;
+			public const int icn_toast_error = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int icn_toast_success = 2130837600;
+			public const int icn_toast_smile = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int icn_toast_warning = 2130837601;
+			public const int icn_toast_success = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int icon_eidt = 2130837602;
+			public const int icn_toast_warning = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int login_logo = 2130837603;
+			public const int icon_eidt = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int menu_index = 2130837604;
+			public const int login_logo = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int menu_index_on = 2130837605;
+			public const int menu_index = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int menu_mine = 2130837606;
+			public const int menu_index_on = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int menu_mine_on = 2130837607;
+			public const int menu_mine = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int menu_teach = 2130837608;
+			public const int menu_mine_on = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int menu_teach_on = 2130837609;
-			
-			// aapt resource value: 0x7f020070
-			public const int notification_template_icon_bg = 2130837616;
+			public const int menu_teach = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int ripple_bg = 2130837610;
+			public const int menu_teach_on = 2130837610;
+			
+			// aapt resource value: 0x7f020071
+			public const int notification_template_icon_bg = 2130837617;
 			
 			// aapt resource value: 0x7f02006b
-			public const int splash_logo = 2130837611;
+			public const int ripple_bg = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int textview_bg = 2130837612;
+			public const int splash_logo = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int textview_bg_on = 2130837613;
+			public const int textview_bg = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int textview_circle_bg = 2130837614;
+			public const int textview_bg_on = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int toast_bg = 2130837615;
+			public const int textview_circle_bg = 2130837615;
+			
+			// aapt resource value: 0x7f020070
+			public const int toast_bg = 2130837616;
 			
 			static Drawable()
 			{

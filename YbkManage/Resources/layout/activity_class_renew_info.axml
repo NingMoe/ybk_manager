@@ -7,8 +7,7 @@
     android:fitsSystemWindows="true">
     <RelativeLayout
         android:id="@+id/rl_actionbar"
-        style="@style/actionbarStyle"
-        android:elevation="0dp">
+        style="@style/actionbarStyle">
         <ImageButton
             android:id="@+id/imgBtn_back"
             android:layout_width="wrap_content"
@@ -97,7 +96,7 @@
         android:paddingTop="8dp"
         android:paddingRight="12dp"
         android:paddingBottom="8dp"
-        android:text="已续班（2人）"
+        android:text="已续班（0人）"
         android:textColor="@color/textColorSecond"
         android:textSize="15sp" />
     <LinearLayout

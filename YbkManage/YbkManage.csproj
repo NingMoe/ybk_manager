@@ -96,23 +96,18 @@
     <Compile Include="Activities\TeacherAddActivity.cs" />
     <Compile Include="Activities\TeacherRoleSelectActivity.cs" />
     <Compile Include="Adapters\PopupSelectAdapter.cs" />
-    <Compile Include="Models\TeachReportEntity.cs" />
     <Compile Include="App\BaseApplication.cs" />
     <Compile Include="Models\TeacherScopeEntity.cs" />
     <Compile Include="Adapters\TeacherScopeAdapter.cs" />
     <Compile Include="Adapters\IRecyclerViewItemClickListener.cs" />
     <Compile Include="Adapters\RecyclerViewItemOnItemTouchListener.cs" />
     <Compile Include="Adapters\RecyclerViewItemOnGestureListener..cs" />
-    <Compile Include="Adapters\ReportAdapter.cs" />
     <Compile Include="Activities\ReportListByGroup.cs" />
     <Compile Include="Activities\ReportListByTeacher.cs" />
-    <Compile Include="Models\RenewInfoEntity.cs" />
     <Compile Include="Adapters\ReportByTeacherAdapter.cs" />
     <Compile Include="Activities\ClassRenewInfo.cs" />
-    <Compile Include="Models\StudentEntity.cs" />
     <Compile Include="Activities\StuentClassActivity.cs" />
     <Compile Include="Fragments\StudentClassListFragment.cs" />
-    <Compile Include="Models\ClassEntity.cs" />
     <Compile Include="Adapters\StudentClassAdapter.cs" />
     <Compile Include="Adapters\SimpleFragmentAdapter.cs" />
     <Compile Include="Adapters\QuarterSelectAdapter.cs" />
@@ -226,6 +221,7 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\splash_logo.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\splash_logo.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\splash_logo.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\avatar_student.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

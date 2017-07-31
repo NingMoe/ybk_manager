@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.V4.App;
@@ -9,22 +10,22 @@ using Android.Support.V4.Content;
 using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
+using DataEntity;
 using xxxxxLibrary.Serializer;
 using YbkManage.Adapters;
 using YbkManage.Fragments;
-using YbkManage.Models;
 
 namespace YbkManage.Activities
 {
     /// <summary>
     /// 学生详情页
     /// </summary>
-    [Activity(Label = "StuentClassActivity")]
+    [Activity(Label = "StuentClassActivity", ScreenOrientation = ScreenOrientation.Portrait)]
     public class StuentClassActivity : AppActivity,ViewPager.IOnPageChangeListener
     {
         private ViewPager mViewPager;
 
-		private StudentEntity currStudent;
+		private StudentRenewModel currStudent;
 
 		// 当前被选中的fragment与栏目对应的数字
 		private int currentIndex;
@@ -50,8 +51,12 @@ namespace YbkManage.Activities
 		/// </summary>
 		protected override void InitVariables()
 		{
-			var studentJsonStr = Intent.Extras.GetString("studentJsonStr");
-			currStudent = JsonSerializer.ToObject<StudentEntity>(studentJsonStr);
+			Bundle bundle = Intent.Extras;
+			if (bundle != null)
+			{
+				var studentJsonStr = Intent.Extras.GetString("studentJsonStr");
+				currStudent = JsonSerializer.ToObject<StudentRenewModel>(studentJsonStr);
+			}
 		}
 
         /// <summary>
@@ -59,7 +64,7 @@ namespace YbkManage.Activities
         /// </summary>
         protected override void InitViews()
         {
-            FindViewById<TextView>(Resource.Id.tv_title).Text = currStudent.Name;
+            FindViewById<TextView>(Resource.Id.tv_title).Text = currStudent.name;
 
             mViewPager = FindViewById<ViewPager>(Resource.Id.vp_list);
 
@@ -71,9 +76,9 @@ namespace YbkManage.Activities
 			viewList.Add(FindViewById<View>(Resource.Id.view_will));
             viewList.Add(FindViewById<View>(Resource.Id.view_end));
 
-            fragmentList.Add(new StudentClassListFragment(currStudent.Code,0));
-            fragmentList.Add(new StudentClassListFragment(currStudent.Code, 2));
-			fragmentList.Add(new StudentClassListFragment(currStudent.Code, 1));
+            fragmentList.Add(new StudentClassListFragment(currStudent.code,0));
+            fragmentList.Add(new StudentClassListFragment(currStudent.code, 2));
+			fragmentList.Add(new StudentClassListFragment(currStudent.code, 1));
 
             SimpleFragmentAdapter adapater = new SimpleFragmentAdapter(CurrActivity, this.SupportFragmentManager, fragmentList);
             mViewPager.Adapter = adapater;

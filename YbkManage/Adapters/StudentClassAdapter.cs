@@ -4,27 +4,28 @@ using Android.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Square.Picasso;
-using YbkManage.App;
-using YbkManage.Models;
+using DataEntity;
 using static Android.Views.View;
 
 namespace YbkManage.Adapters
 {
     public class StudentClassAdapter : RecyclerView.Adapter, IOnClickListener, IOnLongClickListener
     {
-        private static int TYPE_ITEM_ITEM = 1;
-        //private static int TYPE_ITEM_FOOTER = 2;
         private RecyclerView m_RecyclerView;
 
         private Context mContext;
 
-        private List<ClassEntity> teachReportList;
+        private List<PureClassEntity> teachReportList;
 
-        public StudentClassAdapter(Context context, List<ClassEntity> data)
+        public StudentClassAdapter(Context context, List<PureClassEntity> data)
         {
             this.mContext = context;
             teachReportList = data;
+        }
+
+        public void SetData(List<PureClassEntity> data)
+        {
+			teachReportList = data;
         }
 
         /// <summary>
@@ -36,35 +37,29 @@ namespace YbkManage.Adapters
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             m_RecyclerView = parent as RecyclerView;
-            var vi = LayoutInflater.From(parent.Context);
-            var itemView = vi.Inflate(Resource.Layout.item_student_class, parent, false);
+            var itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.item_student_class, parent, false);
             return new ItemViewHolder(itemView);
         }
 
         /// <summary>
         /// Ons the bind view holder.
         /// </summary>
-        /// <param name="viewHolder">View holder.</param>
+        /// <param name="holder">View holder.</param>
         /// <param name="position">Position.</param>
-        public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            if (viewHolder is ItemViewHolder)
+            if (holder is ItemViewHolder)
             {
                 var itemInfo = teachReportList[position];
 
-                ((ItemViewHolder)viewHolder).Tv_Name.Text = itemInfo.ClassName;
-				((ItemViewHolder)viewHolder).Tv_ClassCode.Text = itemInfo.ClassCode;
-				((ItemViewHolder)viewHolder).Tv_Teachers.Text = itemInfo.TeacherNames;
-				((ItemViewHolder)viewHolder).Tv_Address.Text = itemInfo.PrintAddress;
-                ((ItemViewHolder)viewHolder).Tv_Date.Text = itemInfo.BeginDate+"--"+itemInfo.EndDate;
-                ((ItemViewHolder)viewHolder).Tv_Time.Text = itemInfo.PrintTime;
+                ((ItemViewHolder)holder).Tv_Name.Text = itemInfo.ClassName;
+				((ItemViewHolder)holder).Tv_ClassCode.Text = itemInfo.ClassCode;
+				((ItemViewHolder)holder).Tv_Teachers.Text = itemInfo.TeacherNames;
+				((ItemViewHolder)holder).Tv_Address.Text = itemInfo.PrintAddress;
+                ((ItemViewHolder)holder).Tv_Date.Text = itemInfo.BeginDate+"--"+itemInfo.EndDate;
+                ((ItemViewHolder)holder).Tv_Time.Text = itemInfo.PrintTime;
 
             }
-        }
-
-        public override int GetItemViewType(int position)
-        {
-            return TYPE_ITEM_ITEM;
         }
 
         public override int ItemCount
@@ -112,14 +107,6 @@ namespace YbkManage.Adapters
 				Tv_Address= (TextView)itemView.FindViewById(Resource.Id.tv_address);
 				Tv_Date = (TextView)itemView.FindViewById(Resource.Id.tv_date);
                 Tv_Time = (TextView)itemView.FindViewById(Resource.Id.tv_time);
-            }
-        }
-
-        class FootViewHolder : RecyclerView.ViewHolder
-        {
-            public FootViewHolder(View itemView) : base(itemView)
-            {
-
             }
         }
 

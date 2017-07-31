@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.OS;
@@ -24,7 +25,7 @@ using YbkManage.App;
 
 namespace YbkManage.Activities
 {
-    [Activity(Label = "ReportListByTeacher")]
+    [Activity(Label = "ReportListByTeacher", ScreenOrientation = ScreenOrientation.Portrait)]
     public class ReportListByTeacher : AppActivity, SwipeRefreshLayout.IOnRefreshListener, IRecyclerViewItemClickListener, View.IOnClickListener
     {
         // 季度、年级、区域 筛选按钮
@@ -237,7 +238,7 @@ namespace YbkManage.Activities
                     }
 
                     var result = RenewService.GetRenewInfoInClassByTeacher(CurrUserInfo.SchoolId, searchQuarter.Year, searchQuarter.Quarter, gradeStr, districtStr, currReportInfo.Item2, 1, 0);
-                    CurrActivity.RunOnUiThread(() =>
+                    RunOnUiThread(() =>
                     {
 
                         LoadingDialogUtil.DismissLoadingDialog();
@@ -263,9 +264,9 @@ namespace YbkManage.Activities
         public void OnItemClick(View itemView, int position)
         {
             var renewItem = renewInfoList[position];
-            //if (renewItem.Id > 0)
+            if (renewItem.ID>0)
             {
-                Intent intent = new Intent(CurrActivity, typeof(renewInfoList));
+                Intent intent = new Intent(CurrActivity, typeof(ClassRenewInfo));
                 intent.PutExtra("renewJsonStr", JsonSerializer.ToJsonString(renewItem));
                 StartActivity(intent);
                 CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);

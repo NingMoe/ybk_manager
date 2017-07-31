@@ -1,39 +1,40 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Json;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using xxxxxLibrary.Network;
 using xxxxxLibrary.Serializer;
 using YbkManage.App;
-using YbkManage.Models;
 using Square.Picasso;
+using DataEntity;
+using xxxxxLibrary.Toast;
+using xxxxxLibrary.LoadingDialog;
+using System.Threading;
+using DataService;
+using Android.Content.PM;
 
 namespace YbkManage.Activities
 {
     /// <summary>
     /// 班级续班详情
     /// </summary>
-    [Activity(Label = "ClassRenewInfo")]
-    public class renewInfoList : AppActivity
+    [Activity(Label = "ClassRenewInfo", ScreenOrientation = ScreenOrientation.Portrait)]
+    public class ClassRenewInfo : AppActivity
     {
-        // 返回按钮
-        private ImageButton imgbtnBack;
-
         private TextView tv_title, tv_rate, tv_className, tv_area, tv_classCode, tv_teacher, tv_renewNum, tv_noRenewNum;
         private ScrollView scrolllview_1, scrolllview_2;
         private GridLayout gridlayout_1, gridlayout_2;
 
-        private RenewInfoEntity currRenewInfo;
+        private Statistics_ClassRenewSummary currRenewInfo;
 
-        private List<StudentEntity> studentList = new List<StudentEntity>();
+		// 已续班学生集合
+		private List<StudentRenewModel> renewStudentList = new List<StudentRenewModel>();
+		// 未续班学生集合
+		private List<StudentRenewModel> notRenewStudentList = new List<StudentRenewModel>();
 
         private Picasso picasso;
 
@@ -52,8 +53,12 @@ namespace YbkManage.Activities
         /// </summary>
 		protected override void InitVariables()
         {
-            var renewJsonStr = Intent.Extras.GetString("renewJsonStr");
-            currRenewInfo = JsonSerializer.ToObject<RenewInfoEntity>(renewJsonStr);
+			Bundle bundle = Intent.Extras;
+            if (bundle != null)
+            {
+                var renewJsonStr = bundle.GetString("renewJsonStr");
+                currRenewInfo = JsonSerializer.ToObject<Statistics_ClassRenewSummary>(renewJsonStr);
+            }
 
             picasso  = Picasso.With(CurrContext);
         }
@@ -63,8 +68,6 @@ namespace YbkManage.Activities
         /// </summary>
         protected override void InitViews()
         {
-            imgbtnBack = FindViewById<ImageButton>(Resource.Id.imgBtn_back);
-
             tv_title = FindViewById<TextView>(Resource.Id.tv_title);
             tv_rate = FindViewById<TextView>(Resource.Id.tv_rate);
             tv_className = FindViewById<TextView>(Resource.Id.tv_className);
@@ -87,8 +90,6 @@ namespace YbkManage.Activities
             tv_className.Text = currRenewInfo.ClassName;
             tv_area.Text = currRenewInfo.AreaName;
             tv_teacher.Text = currRenewInfo.TeacherName;
-            tv_renewNum.Text = string.Format("已续班（{0}人）", currRenewInfo.RenewStudentNum);
-            tv_noRenewNum.Text = string.Format("未续班（{0}人）", currRenewInfo.TotalStudentNum - currRenewInfo.RenewStudentNum);
         }
 
         /// <summary>
@@ -97,7 +98,7 @@ namespace YbkManage.Activities
 		protected override void InitEvents()
         {
             // 返回
-            imgbtnBack.Click += (sender, e) =>
+            FindViewById<ImageButton>(Resource.Id.imgBtn_back).Click += (sender, e) =>
             {
                 CurrActivity.Finish();
                 OverridePendingTransition(Resource.Animation.left_in, Resource.Animation.right_out);
@@ -109,6 +110,12 @@ namespace YbkManage.Activities
         /// </summary>
         protected override void LoadData()
         {
+			if (!NetUtil.CheckNetWork(CurrActivity))
+			{
+				ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
+				return;
+			}
+			LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
             GetStudentRenewInfoListByClassCode();
         }
 
@@ -116,97 +123,33 @@ namespace YbkManage.Activities
         /// <summary>
         /// 获取报表数据
         /// </summary>
-        private async void GetStudentRenewInfoListByClassCode()
+        private void GetStudentRenewInfoListByClassCode()
         {
-            try
-            {
-                //LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
-                Dictionary<string, string> requstParams = new Dictionary<string, string>();
-                requstParams.Add("appId", AppConfig.APP_ID);
-                requstParams.Add("method", "GetStudentRenewInfoListByClassCode");
-                requstParams.Add("schoolId", CurrUserInfo.SchoolId.ToString());
-                requstParams.Add("classCode", currRenewInfo.ClassCode);
-                var sign = AppUtils.GetSign(requstParams);
-                requstParams.Add("sign", AppUtils.GetSign(requstParams));
-                var result = await HttpRequestUtil.SendPostRequestBasedOnHttpClient(AppConfig.API_INDEX_REPORT2, requstParams);
-
-
-                var data = (JsonObject)result;
-                var state = int.Parse(data["State"].ToString());
-                if (state == 1)
-                {
-                    studentList.Clear();
-                    var jsonArr = JsonValue.Parse(data["Data"].ToString());
-
-                    for (int i = 0; i < jsonArr.Count; i++)
-                    {
-						StudentEntity item = new StudentEntity();
-						item.IsRenew = int.Parse(jsonArr[i]["isRenew"].ToString().Replace("\"", ""));
-                        item.IsValid = int.Parse(jsonArr[i]["isValid"].ToString().Replace("\"", ""));
-						item.IsBind = int.Parse(jsonArr[i]["isBind"].ToString().Replace("\"", ""));
-						item.Name = jsonArr[i]["name"].ToString().Replace("\"", "");
-						item.Code = jsonArr[i]["code"].ToString().Replace("\"", "");
-						item.SchoolId = jsonArr[i]["schoolId"].ToString().Replace("\"", "");
-                        item.UserId = jsonArr[i]["userId"].ToString().Replace("\"", "");
-                        studentList.Add(item);
-                    }
-                    GetStudentListAvatar();
-                }
-            }
-            catch (Exception ex)
-            {
-                var msg = ex.Message.ToString();
-            }
-            finally
-            {
-                //LoadingDialogUtil.DismissLoadingDialog();
-            }
-        }
-
-		/// <summary>
-		/// 获取教师头像
-		/// </summary>
-		private async void GetStudentListAvatar()
-		{
 			try
 			{
-				var codes = string.Empty;
-				foreach (var student in studentList)
+				new Thread(new ThreadStart(() =>
 				{
-					if (string.IsNullOrEmpty(student.Avatar))
+                    var result = RenewService.GetStudentRenewInfoListByClassCode(CurrUserInfo.SchoolId,currRenewInfo.ClassCode );
+					RunOnUiThread(() =>
 					{
-                        codes += student.UserId + ",";
-					}
-				}
-				Dictionary<string, string> requstParams = new Dictionary<string, string>();
-				requstParams.Add("appId", AppConfig.APP_ID);
-				requstParams.Add("userType", "1");
-				requstParams.Add("rongyunIds", codes);
-				var result = await HttpRequestUtil.SendPostRequestBasedOnHttpClient(AppConfig.API_TEACHER_INFO, requstParams);
+						LoadingDialogUtil.DismissLoadingDialog();
 
-				var data = (JsonObject)result;
-				var state = int.Parse(data["status"].ToString().Replace("\"", ""));
-				if (state == 1)
-				{
-					var jsonArr = JsonValue.Parse(data["data"].ToString());
+                        if (result != null)
+                        {
+                            renewStudentList = result.RenewStudents;
+                            notRenewStudentList = result.NotRenewStudents;
 
-					for (int i = 0; i < jsonArr.Count; i++)
-					{
-						var studentUserId = jsonArr[i]["rongyunId"].ToString().Replace("\"", "").Split('_')[0];
-                        var student = studentList.Where(t => t.UserId == studentUserId).FirstOrDefault();
-						if (student != null)
-						{
-							student.Avatar = jsonArr[i]["portrait"].ToString().Replace("\"", "");
-						}
-					}
-                    LoadStudents();
-				}
+                            LoadStudents();
+                        }
+					});
+				})).Start();
 			}
 			catch (Exception ex)
 			{
 				var msg = ex.Message.ToString();
+				LoadingDialogUtil.DismissLoadingDialog();
 			}
-		}
+        }
 
         private void LoadStudents()
         {
@@ -221,11 +164,10 @@ namespace YbkManage.Activities
 			scrolllview_1.LayoutParameters = scrollParas;
 			scrolllview_2.LayoutParameters = scrollParas;
 
-			var yetList = studentList.Where(i => i.IsRenew == 1).ToList();
-            tv_renewNum.Text = string.Format("已续班（{0}人）", yetList.Count);
-            for (var i = 0; i < yetList.Count ;i++)
+            tv_renewNum.Text = string.Format("已续班（{0}人）", renewStudentList.Count);
+            for (var i = 0; i < renewStudentList.Count ;i++)
             {
-                var student = yetList[i];
+                var student = renewStudentList[i];
 
                 var itemBox = LayoutInflater.From(CurrContext).Inflate(Resource.Layout.item_renew_avatar, gridlayout_1, false);
 
@@ -236,12 +178,15 @@ namespace YbkManage.Activities
                 LinearLayout.LayoutParams parasAvatar = new LinearLayout.LayoutParams(avatarWidth, avatarHeight);
                 parasAvatar.Gravity = GravityFlags.Center;
                 ivAvatar.LayoutParameters = parasAvatar;
-				picasso.Load(student.Avatar).Placeholder(Resource.Drawable.avatar).Error(Resource.Drawable.avatar)
-					.Transform(new CircleImageTransformation(picasso))
-					   .Into(ivAvatar);
+                if(!string.IsNullOrEmpty(student.avatar))
+				{
+                    picasso.Load(student.avatar).Placeholder(Resource.Drawable.avatar_student).Error(Resource.Drawable.avatar_student)
+						.Transform(new CircleImageTransformation(picasso))
+						   .Into(ivAvatar);     
+                }
                 
                 TextView tvName = itemBox.FindViewById<TextView>(Resource.Id.tv_name);
-                tvName.Text = student.Name;
+                tvName.Text = student.name;
 
                 GridLayout.LayoutParams parasBox = new GridLayout.LayoutParams();
 				parasBox.Width = itemWidth;
@@ -262,11 +207,10 @@ namespace YbkManage.Activities
                 };
             }
 
-            var noList = studentList.Where(i => i.IsRenew == 0).ToList();
-            tv_noRenewNum.Text = string.Format("未续班（{0}人）", noList.Count);
-            for (var i = 0; i < noList.Count; i++)
+            tv_noRenewNum.Text = string.Format("未续班（{0}人）", notRenewStudentList.Count);
+            for (var i = 0; i < notRenewStudentList.Count; i++)
 			{
-                var student = studentList[i];
+                var student = notRenewStudentList[i];
 
 				var itemBox = LayoutInflater.From(CurrContext).Inflate(Resource.Layout.item_renew_avatar, gridlayout_2, false);
 
@@ -277,12 +221,15 @@ namespace YbkManage.Activities
 				LinearLayout.LayoutParams parasAvatar = new LinearLayout.LayoutParams(avatarWidth, avatarHeight);
 				parasAvatar.Gravity = GravityFlags.Center;
 				ivAvatar.LayoutParameters = parasAvatar;
-				picasso.Load(student.Avatar).Placeholder(Resource.Drawable.avatar).Error(Resource.Drawable.avatar)
-					.Transform(new CircleImageTransformation(picasso))
-					   .Into(ivAvatar);
+				if (!string.IsNullOrEmpty(student.avatar))
+				{
+					picasso.Load(student.avatar).Placeholder(Resource.Drawable.avatar_student).Error(Resource.Drawable.avatar_student)
+						.Transform(new CircleImageTransformation(picasso))
+						   .Into(ivAvatar);
+				}
 
 				TextView tvName = itemBox.FindViewById<TextView>(Resource.Id.tv_name);
-				tvName.Text = student.Name;
+				tvName.Text = student.name;
 
 				GridLayout.LayoutParams parasBox = new GridLayout.LayoutParams();
 				parasBox.Width = itemWidth;

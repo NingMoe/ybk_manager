@@ -2,15 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Json;
+using System.Threading;
 using Android.Graphics;
 using Android.OS;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
+using DataEntity;
+using DataService;
+using xxxxxLibrary.LoadingDialog;
 using xxxxxLibrary.Network;
+using xxxxxLibrary.Toast;
 using YbkManage.Adapters;
-using YbkManage.App;
-using YbkManage.Models;
 
 namespace YbkManage.Fragments
 {
@@ -24,7 +27,7 @@ namespace YbkManage.Fragments
 
         private string studentCode;
 
-        private List<ClassEntity> classList = new List<ClassEntity>();
+        private List<PureClassEntity> classList = new List<PureClassEntity>();
 
         // 列表页用控件
         private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -55,6 +58,7 @@ namespace YbkManage.Fragments
             LoadData();
             return view;
         }
+
         /// <summary>
         /// 页面控件
         /// </summary>
@@ -86,70 +90,55 @@ namespace YbkManage.Fragments
         /// </summary>
         protected void LoadData()
         {
+			if (!NetUtil.CheckNetWork(CurrActivity))
+			{
+				ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
+				return;
+			}
+			//LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
             GetClassListOfStudentFromDataMart();
         }
 
         public void OnRefresh()
         {
-            mSwipeRefreshLayout.Refreshing = true;
-            GetClassListOfStudentFromDataMart();
+			if (!NetUtil.CheckNetWork(CurrActivity))
+			{
+				ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
+			}
+			else
+			{
+				GetClassListOfStudentFromDataMart();
+			}
         }
 
         /// <summary>
         /// 获取报表数据
         /// </summary>
-        private async void GetClassListOfStudentFromDataMart()
+        private void GetClassListOfStudentFromDataMart()
         {
-            try
-            {
-                Dictionary<string, string> requstParams = new Dictionary<string, string>();
-                requstParams.Add("appId", AppConfig.APP_ID);
-                requstParams.Add("classStatus", classStatus + "");
-                requstParams.Add("direc", "asc");
-                requstParams.Add("method", "GetClassListOfStudentFromDataMart");
-                requstParams.Add("orderBy", "BeginDate");
-                requstParams.Add("pageIndex", "1");
-                requstParams.Add("pageSize", "200");
-                requstParams.Add("schoolId", CurrUserInfo.SchoolId+"");
-                requstParams.Add("studentCode", studentCode);
-                requstParams.Add("sign", AppUtils.GetSign(requstParams));
-                var result = await HttpRequestUtil.SendPostRequestBasedOnHttpClient(AppConfig.API_CLASS_INFO, requstParams);
+			try
+			{
+				new Thread(new ThreadStart(() =>
+				{
+                    classList = RenewService.GetClassListOfStudent(CurrUserInfo.SchoolId, studentCode,classStatus);
+					CurrActivity.RunOnUiThread(() =>
+					{
+						LoadingDialogUtil.DismissLoadingDialog();
+                        mSwipeRefreshLayout.Refreshing = false;
 
-
-                var data = (JsonObject)result;
-                var state = int.Parse(data["State"].ToString());
-                if (state == 1)
-                {
-                    classList.Clear();
-
-                    var jsonArr = JsonValue.Parse(data["Data"].ToString());
-                    for (int i = 0; i < jsonArr.Count; i++)
-                    {
-                        ClassEntity item = new ClassEntity();
-                        item.Id = int.Parse(jsonArr[i]["Id"].ToString());
-                        item.SchoolId = int.Parse(jsonArr[i]["SchoolId"].ToString());
-                        item.ClassCode = jsonArr[i]["ClassCode"].ToString().Replace("\"", "");
-                        item.ClassName = jsonArr[i]["ClassName"].ToString().Replace("\"", "");
-                        item.BeginDate = jsonArr[i]["BeginDate"].ToString().Replace("\"", "");
-                        item.EndDate = jsonArr[i]["EndDate"].ToString().Replace("\"", "");
-                        item.PrintAddress = jsonArr[i]["PrintAddress"].ToString().Replace("\"", "");
-                        item.PrintTime = jsonArr[i]["PrintTime"].ToString().Replace("\"", "");
-                        item.TeacherNames = jsonArr[i]["TeacherNames"].ToString().Replace("\"", "");
-
-                        classList.Add(item);
-                    }
-                    mAdapter.NotifyDataSetChanged();
-                }
-            }
-            catch (Exception ex)
-            {
-                var msg = ex.Message.ToString();
-            }
-            finally
-            {
-                //LoadingDialogUtil.DismissLoadingDialog();
-                mSwipeRefreshLayout.Refreshing = false;
-            }
+						if (classList != null)
+						{
+                            mAdapter.SetData(classList);
+							mAdapter.NotifyDataSetChanged();
+						}
+					});
+				})).Start();
+			}
+			catch (Exception ex)
+			{
+				var msg = ex.Message.ToString();
+				LoadingDialogUtil.DismissLoadingDialog();
+			}
         }
     }
 }
