@@ -1,9 +1,10 @@
 ﻿<Properties StartupConfiguration="{30BF7E82-EF62-4187-AEE2-0D43951732D2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="YbkManage/Activities/AppActivity.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="YbkManage 状态">
     <Files>
       <File FileName="YbkManage/Fragments/IndexFragment.cs" Line="182" Column="14" />
       <File FileName="DataEntity/RenewEntities.cs" Line="55" Column="15" />
-      <File FileName="YbkManage/Activities/AppActivity.cs" Line="112" Column="1" />
+      <File FileName="YbkManage/Activities/AppActivity.cs" Line="121" Column="25" />
+      <File FileName="YbkManage 状态" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
