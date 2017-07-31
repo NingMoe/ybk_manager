@@ -24,7 +24,6 @@
 /Users/dongxiangtao/Desktop/code/YbkManage/xxxxxLibrary/bin/Debug/xxxxxLibrary.xxxxxLibrary.apk
 /Users/dongxiangtao/Desktop/code/YbkManage/xxxxxLibrary/bin/Debug/xxxxxLibrary.xxxxxLibrary-Signed.apk
 /Users/dongxiangtao/Desktop/code/YbkManage/xxxxxLibrary/bin/Debug/Xamarin.Android.Support.v4.dll
-/Users/dongxiangtao/Desktop/code/YbkManage/xxxxxLibrary/obj/Debug/xxxxxLibrary.csprojResolveAssemblyReference.cache
 /Users/dongxiangtao/Desktop/code/YbkManage/xxxxxLibrary/obj/Debug/xxxxxLibrary.csproj.CoreCompileInputs.cache
 /Users/dongxiangtao/Desktop/code/YbkManage/xxxxxLibrary/obj/Debug/xxxxxLibrary.dll
 /Users/dongxiangtao/Desktop/code/YbkManage/xxxxxLibrary/obj/Debug/xxxxxLibrary.pdb
@@ -40,3 +39,4 @@
 /Users/dongxiangtao/Desktop/code/YbkManage/xxxxxLibrary/obj/Debug/res/values/styles.xml
 /Users/dongxiangtao/Desktop/code/YbkManage/xxxxxLibrary/obj/Debug/R.cs.flag
 /Users/dongxiangtao/Desktop/code/YbkManage/xxxxxLibrary/obj/Debug/uploadflags.txt
+/Users/dongxiangtao/Desktop/code/YbkManage/xxxxxLibrary/obj/Debug/xxxxxLibrary.csprojResolveAssemblyReference.cache

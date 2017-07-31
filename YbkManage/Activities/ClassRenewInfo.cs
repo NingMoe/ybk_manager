@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 
 using Android.App;
@@ -8,7 +8,6 @@ using Android.Views;
 using Android.Widget;
 using xxxxxLibrary.Network;
 using xxxxxLibrary.Serializer;
-using YbkManage.App;
 using Square.Picasso;
 using DataEntity;
 using xxxxxLibrary.Toast;
@@ -16,6 +15,7 @@ using xxxxxLibrary.LoadingDialog;
 using System.Threading;
 using DataService;
 using Android.Content.PM;
+using YbkManage.App;
 
 namespace YbkManage.Activities
 {
