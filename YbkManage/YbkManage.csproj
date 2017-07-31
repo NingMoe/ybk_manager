@@ -115,7 +115,6 @@
     <Compile Include="Models\ClassEntity.cs" />
     <Compile Include="Adapters\StudentClassAdapter.cs" />
     <Compile Include="Adapters\SimpleFragmentAdapter.cs" />
-    <Compile Include="Models\QuarterEntity.cs" />
     <Compile Include="Adapters\QuarterSelectAdapter.cs" />
     <Compile Include="Adapters\DistrictSelectAdapter.cs" />
     <Compile Include="Activities\TeacherListActivity.cs" />
@@ -127,6 +126,7 @@
     <Compile Include="Activities\AssistantAddActivity.cs" />
     <Compile Include="Activities\AreaSelectActivity.cs" />
     <Compile Include="Activities\TeacherScopeSelectActivity.cs" />
+    <Compile Include="Adapters\RenewReportAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Android.Content;
 using Android.Graphics;
 using Android.Support.V4.Content;
@@ -10,21 +11,21 @@ using static Android.Views.View;
 
 namespace YbkManage.Adapters
 {
-    public class ReportByTeacherAdapter : RecyclerView.Adapter, IOnClickListener, IOnLongClickListener
+    public class RenewReportAdapter : RecyclerView.Adapter, IOnClickListener, IOnLongClickListener
     {
         private RecyclerView m_RecyclerView;
 
         private Context mContext;
 
-        private List<Statistics_ClassRenewSummary> teachReportList;
+        private List<RenewInfo> teachReportList;
 
-        public ReportByTeacherAdapter(Context context, List<Statistics_ClassRenewSummary> data)
+        public RenewReportAdapter(Context context, List<RenewInfo> data)
         {
             this.mContext = context;
             teachReportList = data;
         }
 
-        public void SetData(List<Statistics_ClassRenewSummary> data)
+        public void SetData(List<RenewInfo> data)
         {
             this.teachReportList = data;
         }
@@ -38,7 +39,8 @@ namespace YbkManage.Adapters
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             m_RecyclerView = parent as RecyclerView;
-            var itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.item_report_byteacher, parent, false);
+            var vi = LayoutInflater.From(parent.Context);
+            var itemView = vi.Inflate(Resource.Layout.item_report, parent, false);
             return new ItemViewHolder(itemView);
         }
 
@@ -53,30 +55,26 @@ namespace YbkManage.Adapters
             {
                 var itemInfo = teachReportList[position];
 
-                ((ItemViewHolder)holder).Tv_Name.Text = itemInfo.ClassName;
-                ((ItemViewHolder)holder).Tv_ClassCode.Text = itemInfo.ClassCode;
-                ((ItemViewHolder)holder).Tv_Area.Text = itemInfo.AreaName;
-                ((ItemViewHolder)holder).Tv_Num1.Text = itemInfo.TotalStudentNum.ToString("f1") + "/" + itemInfo.RenewStudentNum.ToString("f1");
-                ((ItemViewHolder)holder).Tv_Num2.Text = (itemInfo.RenewRate * 100).ToString("f1") + "%";
-                ((ItemViewHolder)holder).Tv_Rate.Text = (itemInfo.RenewRate * 100).ToString("f1") + "%";
+                ((ItemViewHolder)holder).Tv_Name.Text = itemInfo.Item3;
+                ((ItemViewHolder)holder).Tv_Num1.Text = itemInfo.Item4.ToString("f1");
+                ((ItemViewHolder)holder).Tv_Num2.Text = itemInfo.Item5.ToString("f1");
 
-                var rate = itemInfo.RenewRate;
-                var avgRate = this.teachReportList[this.teachReportList.Count - 1].RenewRate;
+                var rate = itemInfo.Item6;
+                var avgRate = this.teachReportList[this.teachReportList.Count - 1].Item6;
+                ((ItemViewHolder)holder).Tv_Rate.Text = (itemInfo.Item6 * 100).ToString("f1") + "%";
                 if (rate > avgRate)
                 {
-                    ((ItemViewHolder)holder).Tv_Num2.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorHigh)));
                     ((ItemViewHolder)holder).Tv_Rate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorHigh)));
                 }
                 else if (rate < avgRate)
                 {
-                    ((ItemViewHolder)holder).Tv_Num2.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorRed)));
                     ((ItemViewHolder)holder).Tv_Rate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorRed)));
                 }
 
-                if (itemInfo == teachReportList[this.teachReportList.Count - 1])
+                if(itemInfo == teachReportList[this.teachReportList.Count - 1])
                 {
-                    ((ItemViewHolder)holder).Tv_Num1.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
-                    ((ItemViewHolder)holder).Tv_Num2.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
+					((ItemViewHolder)holder).Tv_Num1.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
+					((ItemViewHolder)holder).Tv_Num2.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
                     ((ItemViewHolder)holder).Tv_Rate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
                 }
             }
@@ -113,7 +111,8 @@ namespace YbkManage.Adapters
 
         public class ItemViewHolder : RecyclerView.ViewHolder
         {
-            public TextView Tv_Name, Tv_Num1, Tv_Num2, Tv_Rate, Tv_ClassCode, Tv_Area;
+            public TextView Tv_Name, Tv_Num1, Tv_Num2, Tv_Rate;
+
 
             public ItemViewHolder(View itemView) : base(itemView)
             {
@@ -121,8 +120,6 @@ namespace YbkManage.Adapters
                 Tv_Num1 = (TextView)itemView.FindViewById(Resource.Id.tv_num1);
                 Tv_Num2 = (TextView)itemView.FindViewById(Resource.Id.tv_num2);
                 Tv_Rate = (TextView)itemView.FindViewById(Resource.Id.tv_rate);
-                Tv_ClassCode = (TextView)itemView.FindViewById(Resource.Id.tv_classCode);
-                Tv_Area = (TextView)itemView.FindViewById(Resource.Id.tv_area);
             }
         }
 

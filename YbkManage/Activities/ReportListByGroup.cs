@@ -1,10 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Json;
 using System.Linq;
-using System.Text;
-
+using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -15,13 +12,14 @@ using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using DataEntity;
+using DataService;
 using xxxxxLibrary.LoadingDialog;
 using xxxxxLibrary.Network;
 using xxxxxLibrary.Serializer;
-using xxxxxLibrary.Utils;
+using xxxxxLibrary.Toast;
 using YbkManage.Adapters;
 using YbkManage.App;
-using YbkManage.Models;
 
 namespace YbkManage.Activities
 {
@@ -31,276 +29,263 @@ namespace YbkManage.Activities
     [Activity(Label = "ReportListByGroup")]
     public class ReportListByGroup : AppActivity, SwipeRefreshLayout.IOnRefreshListener, IRecyclerViewItemClickListener, View.IOnClickListener
     {
-		// 季度、年级、区域 筛选按钮
-		private TextView tv_btn1, tv_btn2, tv_btn3;
-		private List<QuarterEntity> quarterList = new List<QuarterEntity>();
-		private List<string> districtList = new List<string>(), gradeList = new List<string>();
-		private PopupWindow popWin1, popWin2, popWin3;
+        // 季度、年级、区域 筛选按钮
+        private TextView tv_btn1, tv_btn2, tv_btn3;
+        private PopupWindow popWin1, popWin2, popWin3;
 
-		// 报表的筛选条件
-		private QuarterEntity searchQuarter = new QuarterEntity { Year = 2018, Quarter = 2 };
-		private List<string> searchGradeList = new List<string>();
-		private string searchDistrict = "";
+        // 报表的筛选条件
+        private List<QuarterEntity> quarterList = new List<QuarterEntity>();
+        private List<string> districtList = new List<string>(), gradeList = new List<string>();
 
-		// 列表页用控件
-		private SwipeRefreshLayout mSwipeRefreshLayout;
-		private RecyclerView mRecyclerView;
+        private QuarterEntity searchQuarter = new QuarterEntity { QuarterName = "2018财年Q1", Year = 2018, Quarter = 2 };
+        private List<string> searchGradeList = new List<string>();
+        private string searchDistrict = "";
 
-		// 列表显示方式
-		private LinearLayoutManager linearLayoutManager;
-		// 列表适配器
-		private ReportAdapter mAdapter;
+        // 列表页用控件
+        private SwipeRefreshLayout mSwipeRefreshLayout;
+        private RecyclerView mRecyclerView;
 
-		// 教师数据
-		private List<TeachReportEntity> teachReportList = new List<TeachReportEntity>();
+        // 列表显示方式
+        private LinearLayoutManager linearLayoutManager;
+        // 列表适配器
+        private RenewReportAdapter mAdapter;
 
-        private TeachReportEntity currReportInfo=new TeachReportEntity();
+        // 教师数据
+        private List<RenewInfo> teachReportList = new List<RenewInfo>();
 
-		protected override void OnCreate(Bundle savedInstanceState)
-		{
+        private RenewInfo currReportInfo = new RenewInfo();
+
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
             LayoutReourceId = Resource.Layout.activity_report_list_bygroup;
 
-			base.OnCreate(savedInstanceState);
-		}
+            base.OnCreate(savedInstanceState);
+        }
 
-		protected override void InitVariables()
-		{
-			var reportJsonStr = Intent.Extras.GetString("reportJsonStr");
-            currReportInfo = JsonSerializer.ToObject<TeachReportEntity>(reportJsonStr);
-		}
+        protected override void InitVariables()
+        {
+            Bundle bundle = Intent.Extras;
+            if (bundle != null)
+            {
+                var reportJsonStr = bundle.GetString("reportJsonStr");
+                currReportInfo = JsonSerializer.ToObject<RenewInfo>(reportJsonStr);
 
-		protected override void InitViews()
-		{
-            FindViewById<TextView>(Resource.Id.tv_title).Text = string.Format("{0}教学报表",currReportInfo.Name);
+                var searchQuarterJsonStr = bundle.GetString("searchQuarter");
+                searchQuarter = JsonSerializer.ToObject<QuarterEntity>(searchQuarterJsonStr);
+                var searchGradeListStr = bundle.GetString("searchGradeList");
+                if(!string.IsNullOrEmpty(searchGradeListStr))
+                {
+                    searchGradeList = searchGradeListStr.Split(',').ToList();
+                }
+                searchDistrict = bundle.GetString("searchDistrict");
+            }
+        }
 
-			tv_btn1 = FindViewById<TextView>(Resource.Id.tv_btn1);
-			tv_btn2 = FindViewById<TextView>(Resource.Id.tv_btn2);
-			tv_btn3 = FindViewById<TextView>(Resource.Id.tv_btn3);
+        protected override void InitViews()
+        {
+            FindViewById<TextView>(Resource.Id.tv_title).Text = string.Format("{0}教学报表", currReportInfo.Item3);
 
-			mSwipeRefreshLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.refresher);
-			mRecyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
-			mSwipeRefreshLayout.SetColorSchemeColors(Color.ParseColor("#db0000"));
+            tv_btn1 = FindViewById<TextView>(Resource.Id.tv_btn1);
+            tv_btn2 = FindViewById<TextView>(Resource.Id.tv_btn2);
+            tv_btn3 = FindViewById<TextView>(Resource.Id.tv_btn3);
 
-			linearLayoutManager = new LinearLayoutManager(CurrActivity);
-			mAdapter = new ReportAdapter(CurrContext, teachReportList);
-			mRecyclerView.SetLayoutManager(linearLayoutManager);
-			mRecyclerView.SetAdapter(mAdapter);
-			mAdapter.NotifyDataSetChanged();
+            mSwipeRefreshLayout = FindViewById<SwipeRefreshLayout>(Resource.Id.refresher);
+            mRecyclerView = FindViewById<RecyclerView>(Resource.Id.recycler_view);
+            mSwipeRefreshLayout.SetColorSchemeColors(Color.ParseColor("#db0000"));
 
-			mSwipeRefreshLayout.SetOnRefreshListener(this);
-			//mSwipeRefreshLayout.SetOnScrollChangeListener(this);
+            linearLayoutManager = new LinearLayoutManager(CurrActivity);
+            mAdapter = new RenewReportAdapter(CurrContext, teachReportList);
+            mRecyclerView.SetLayoutManager(linearLayoutManager);
+            mRecyclerView.SetAdapter(mAdapter);
+            mAdapter.NotifyDataSetChanged();
 
-			//mAdapter.SetOnItemClickListener(this);
+            mSwipeRefreshLayout.SetOnRefreshListener(this);
+            //mSwipeRefreshLayout.SetOnScrollChangeListener(this);
 
-			RecyclerViewItemOnGestureListener viewOnGestureListener = new RecyclerViewItemOnGestureListener(mRecyclerView, this);
-			mRecyclerView.AddOnItemTouchListener(new RecyclerViewItemOnItemTouchListener(mRecyclerView, viewOnGestureListener));
-		}
+            //mAdapter.SetOnItemClickListener(this);
 
-		protected override void InitEvents()
-		{
-			// 返回
-			FindViewById<ImageButton>(Resource.Id.imgBtn_back).Click += (sender, e) =>
-			{
-				CurrActivity.Finish();
-				OverridePendingTransition(Resource.Animation.left_in, Resource.Animation.right_out);
-			};
+            RecyclerViewItemOnGestureListener viewOnGestureListener = new RecyclerViewItemOnGestureListener(mRecyclerView, this);
+            mRecyclerView.AddOnItemTouchListener(new RecyclerViewItemOnItemTouchListener(mRecyclerView, viewOnGestureListener));
+        }
 
-			tv_btn1.SetOnClickListener(this);
-			tv_btn2.SetOnClickListener(this);
-			tv_btn3.SetOnClickListener(this);
-		}
+        protected override void InitEvents()
+        {
+            // 返回
+            FindViewById<ImageButton>(Resource.Id.imgBtn_back).Click += (sender, e) =>
+            {
+                CurrActivity.Finish();
+                OverridePendingTransition(Resource.Animation.left_in, Resource.Animation.right_out);
+            };
 
-		/// <summary>
-		/// 获取数据
-		/// </summary>
-		protected override void LoadData()
-		{
-			var quarters = SharedPreferencesUtil.GetParam(CurrActivity, AppConfig.SP_QUARTER, "").ToString();
-			if (!string.IsNullOrEmpty(quarters))
-			{
-				quarterList = JsonSerializer.ToObjectList<QuarterEntity>(quarters);
-			}
-			GetDistrictList();
-			GetGradeList();
+            tv_btn1.SetOnClickListener(this);
+            tv_btn2.SetOnClickListener(this);
+            tv_btn3.SetOnClickListener(this);
+        }
 
-			mSwipeRefreshLayout.Refreshing = true;
-			GetRenewInfoInTeacherByGroupCode();
-		}
+        /// <summary>
+        /// 获取数据
+        /// </summary>
+        protected override void LoadData()
+        {
+            if (!NetUtil.CheckNetWork(CurrActivity))
+            {
+                ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
+                return;
+            }
+            LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
 
-		/// <summary>
-		/// 下拉刷新
-		/// </summary>
-		public void OnRefresh()
-		{
-			mSwipeRefreshLayout.Refreshing = true;
-			GetRenewInfoInTeacherByGroupCode();
-		}
+            if (BaseApplication.GetInstance().quarterList == null)
+            {
+                BaseApplication.GetInstance().quarterList = RenewService.GetQuarter(CurrUserInfo.SchoolId);
+                quarterList = BaseApplication.GetInstance().quarterList;
+            }
+            if (BaseApplication.GetInstance().gradeList == null)
+            {
+                BaseApplication.GetInstance().gradeList = RenewService.GetGradeList(CurrUserInfo.SchoolId);
+            }
+            if (BaseApplication.GetInstance().districtList == null)
+            {
+                BaseApplication.GetInstance().districtList = RenewService.GetDistrictList(CurrUserInfo.SchoolId);
+            }
 
-		/// <summary>
-		/// 获取区域数据
-		/// </summary>
-		private async void GetGradeList()
-		{
-			try
-			{
-				Dictionary<string, string> requstParams = new Dictionary<string, string>();
-				requstParams.Add("appId", AppConfig.APP_ID);
-				requstParams.Add("method", "GetGradeList");
-				requstParams.Add("schoolId", CurrUserInfo.SchoolId.ToString());
-				requstParams.Add("sign", AppUtils.GetSign(requstParams));
-				var result = await HttpRequestUtil.SendPostRequestBasedOnHttpClient(AppConfig.API_INDEX_REPORT, requstParams);
+            if (searchQuarter != null)
+            {
+                tv_btn1.Text = searchQuarter.QuarterName;
+            }
+            else
+            {
+                if (BaseApplication.GetInstance().quarterList != null && BaseApplication.GetInstance().quarterList.Any())
+                {
+                    searchQuarter = BaseApplication.GetInstance().quarterList.Find(t => t.IsCurrent);
+                    tv_btn1.Text = searchQuarter.QuarterName;
+                }
+            }
+            if (BaseApplication.GetInstance().gradeList != null && BaseApplication.GetInstance().gradeList.Any())
+            {
+                gradeList = new List<string>(BaseApplication.GetInstance().gradeList.Select(i => i.GradeName).ToArray());
 
-				var data = (JsonObject)result;
-				var state = int.Parse(data["State"].ToString());
-				if (state == 1)
-				{
-					gradeList.Clear();
+            }
+            if (searchGradeList != null && searchGradeList.Any())
+            {
+                var selectedgrade = "全部年级";
+                if (searchGradeList.Count>0 && searchGradeList.Count != gradeList.Count)
+                {
+                    selectedgrade = string.Join(",", searchGradeList.ToArray());
+                }
 
-					var jsonArr = JsonValue.Parse(data["Data"].ToString());
-					for (int i = 0; i < jsonArr.Count; i++)
-					{
-						gradeList.Add(jsonArr[i]["GradeName"].ToString().Replace("\"", ""));
-					}
-
-					// 默认全选
-					searchGradeList = new List<string>(gradeList.ToArray());
-				}
-			}
-			catch (Exception ex)
-			{
-				var msg = ex.Message.ToString();
-			}
-		}
-
-		/// <summary>
-		/// 获取区域数据
-		/// </summary>
-		private async void GetDistrictList()
-		{
-			try
-			{
-				Dictionary<string, string> requstParams = new Dictionary<string, string>();
-				requstParams.Add("appId", AppConfig.APP_ID);
-				requstParams.Add("method", "GetDistrictList");
-				requstParams.Add("schoolId", CurrUserInfo.SchoolId.ToString());
-				requstParams.Add("sign", AppUtils.GetSign(requstParams));
-				var result = await HttpRequestUtil.SendPostRequestBasedOnHttpClient(AppConfig.API_INDEX_REPORT, requstParams);
-
-				var data = (JsonObject)result;
-				var state = int.Parse(data["State"].ToString());
-				if (state == 1)
-				{
-					districtList.Clear();
-
-					var jsonArr = JsonValue.Parse(data["Data"].ToString());
-					for (int i = 0; i < jsonArr.Count; i++)
-					{
-						districtList.Add(jsonArr[i]["DistrictName"].ToString().Replace("\"", ""));
-					}
-					if (districtList.Count > 1)
-					{
-						districtList.Insert(0, "全部区域");
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				var msg = ex.Message.ToString();
-			}
-		}
-
-		/// <summary>
-		/// 获取报表数据
-		/// </summary>
-		private async void GetRenewInfoInTeacherByGroupCode()
-		{
-			try
-			{
-				//LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
-				Dictionary<string, string> requstParams = new Dictionary<string, string>();
-				//requstParams.Add("appId", "1004");
-				requstParams.Add("method", "GetRenewInfoInTeacherByGroupCode");
-				requstParams.Add("schoolId", CurrUserInfo.SchoolId.ToString());
-				requstParams.Add("Year", (searchQuarter.Year - 1).ToString());
-				requstParams.Add("Quarter", searchQuarter.Quarter.ToString());
-				requstParams.Add("NeedTotal", "1");
-				requstParams.Add("SortType", "6");
-                requstParams.Add("GroupCode", currReportInfo.ScopeId.ToString());
-				if (!string.IsNullOrEmpty(searchDistrict) && !searchDistrict.Equals("全部区域"))
-				{
-					requstParams.Add("District", searchDistrict);
-				}
-				if (searchGradeList.Any())
-				{
-					var gradeStr = string.Join(",", searchGradeList.ToArray());
-					requstParams.Add("Grade", gradeStr);
-				}
-				requstParams.Add("sign", AppUtils.GetSign(requstParams));
-				var result = await HttpRequestUtil.SendPostRequestBasedOnHttpClient(AppConfig.API_INDEX_REPORT2, requstParams);
+                tv_btn2.Text = selectedgrade;
+            }
+            else
+            {
+                // 默认全选
+                searchGradeList = new List<string>(gradeList.ToArray());
+            }
+            if (BaseApplication.GetInstance().districtList != null && BaseApplication.GetInstance().districtList.Any())
+            {
+                districtList = new List<string>(BaseApplication.GetInstance().districtList.Select(i => i.DistrictName).ToArray());
+                if (districtList.Count > 1)
+                {
+                    districtList.Insert(0, "全部区域");
+                }
+            }
+            if (!string.IsNullOrEmpty(searchDistrict))
+            {
+                tv_btn2.Text = searchDistrict;
+            }
 
 
-				var data = (JsonObject)result;
-				var state = int.Parse(data["State"].ToString());
-				if (state == 1)
-				{
-                    teachReportList.Clear();
+            LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
+            GetRenewInfoInTeacherByGroupCode();
+        }
 
-					var data1 = JsonValue.Parse(data["Data"].ToString());
-					TeachReportEntity total = new TeachReportEntity();
-					total.Id = 0;
-					total.Name = "总计";
-					total.ClassSize = double.Parse(data1["TotalNum"].ToString());
-					total.ClassContinueSize = double.Parse(data1["RenewNum"].ToString());
-					total.ContinueRate = double.Parse(data1["RenewRate"].ToString());
+        /// <summary>
+        /// 下拉刷新
+        /// </summary>
+        public void OnRefresh()
+        {
+            if (!NetUtil.CheckNetWork(CurrActivity))
+            {
+                ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
+            }
+            else
+            {
+                GetRenewInfoInTeacherByGroupCode();
+            }
+        }
 
-					var jsonArr = JsonValue.Parse(data1["RenewInfo"].ToString());
-					for (int i = 0; i < jsonArr.Count; i++)
-					{
-						TeachReportEntity item = new TeachReportEntity();
-						item.Id = int.Parse(jsonArr[i]["Item1"].ToString());
-						item.TeacherCode = jsonArr[i]["Item2"].ToString().Replace("\"", "");
-						item.Name = jsonArr[i]["Item3"].ToString().Replace("\"", "");
-						item.ClassSize = double.Parse(jsonArr[i]["Item4"].ToString());
-						item.ClassContinueSize = double.Parse(jsonArr[i]["Item5"].ToString());
-						item.ContinueRate = double.Parse(jsonArr[i]["Item6"].ToString());
-						teachReportList.Add(item);
-					}
-                    if(teachReportList.Any())
+        /// <summary>
+        /// 获取报表数据
+        /// </summary>
+        private void GetRenewInfoInTeacherByGroupCode()
+        {
+            try
+            {
+                new Thread(new ThreadStart(() =>
+                {
+                    var gradeStr = "";
+                    if (searchGradeList.Any())
                     {
-                        teachReportList.Add(total);
+                        gradeStr = string.Join(",", searchGradeList.ToArray());
                     }
-					mAdapter.NotifyDataSetChanged();
-				}
-			}
-			catch (Exception ex)
-			{
-				var msg = ex.Message.ToString();
-			}
-			finally
-			{
-				//LoadingDialogUtil.DismissLoadingDialog();
-				mSwipeRefreshLayout.Refreshing = false;
-			}
-		}
+                    var districtStr = "";
+                    if (!string.IsNullOrEmpty(searchDistrict) && !searchDistrict.Equals("全部区域"))
+                    {
+                        districtStr = string.Join(",", searchDistrict.ToArray());
+                    }
 
-		public void OnItemClick(View itemView, int position)
-		{
+                    var result = RenewService.GetRenewInfoInTeacherByGroupCode(CurrUserInfo.SchoolId, searchQuarter.Year, searchQuarter.Quarter, gradeStr, districtStr, currReportInfo.Item2.ToString(), 1, 6);
+
+                    CurrActivity.RunOnUiThread(() =>
+                    {
+
+                        LoadingDialogUtil.DismissLoadingDialog();
+                        mSwipeRefreshLayout.Refreshing = false;
+
+                        if (result != null)
+                        {
+                            teachReportList = result.RenewInfo;
+                            mAdapter.SetData(teachReportList);
+                            mAdapter.NotifyDataSetChanged();
+                        }
+                    });
+                })).Start();
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message.ToString();
+                LoadingDialogUtil.DismissLoadingDialog();
+                mSwipeRefreshLayout.Refreshing = false;
+            }
+        }
+
+        public void OnItemClick(View itemView, int position)
+        {
 			var reportItem = teachReportList[position];
-			if (reportItem.Id > 0)
+			if (!string.IsNullOrEmpty(reportItem.Item2))
 			{
-				Intent intent = new Intent(CurrActivity, typeof(ReportListByTeacher));
-				//intent.PutExtra("scopeId", scopeItem.Id);
-				intent.PutExtra("teacherName", reportItem.Name);
-				intent.PutExtra("teacherCode", reportItem.TeacherCode);
+                Intent intent = new Intent(CurrActivity, typeof(ReportListByTeacher));
+                //intent.PutExtra("scopeId", scopeItem.Id);
+    //            intent.PutExtra("teacherName", reportItem.Name);
+				//intent.PutExtra("teacherCode", reportItem.TeacherCode);
+				intent.PutExtra("reportJsonStr", JsonSerializer.ToJsonString(reportItem));
+				// 搜索条件
+				intent.PutExtra("searchQuarter", JsonSerializer.ToJsonString<QuarterEntity>(searchQuarter));
+				var selectedgrade = "";
+				if (searchGradeList.Count != gradeList.Count)
+				{
+					selectedgrade = string.Join(",", searchGradeList.ToArray());
+				}
+				intent.PutExtra("searchGradeList", selectedgrade);
+				intent.PutExtra("searchDistrict", searchDistrict);
 				StartActivity(intent);
-				CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
-			}
-		}
+                CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+            }
+        }
 
-		public void OnItemLongClick(View itemView, int position)
-		{
-			//throw new NotImplementedException();
-		}
+        public void OnItemLongClick(View itemView, int position)
+        {
+            //throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 页面点击事件处理
@@ -433,20 +418,35 @@ namespace YbkManage.Activities
                             };
                         }
 
-                        tvAll.Click += (sender, e) =>
-                        {
-                            tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-                            tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+						tvAll.Click += (sender, e) =>
+						{
+							if (tvAll.CurrentTextColor == ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh))
+							{
+								tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
+								tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
 
-                            for (var i = 0; i < gridlayout_1.ChildCount; i++)
-                            {
-                                var tv = (TextView)gridlayout_1.GetChildAt(i);
-                                tv.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-                                tv.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
-                            }
+								for (var i = 0; i < gridlayout_1.ChildCount; i++)
+								{
+									var tv = (TextView)gridlayout_1.GetChildAt(i);
+									tv.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
+									tv.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+								}
+								searchGradeList = new List<string>();
+							}
+							else
+							{
+								tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+								tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
 
-                            searchGradeList = new List<string>(gradeList.ToArray());
-                        };
+								for (var i = 0; i < gridlayout_1.ChildCount; i++)
+								{
+									var tv = (TextView)gridlayout_1.GetChildAt(i);
+									tv.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+									tv.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+								}
+								searchGradeList = new List<string>(gradeList.ToArray());
+							}
+						};
 
                         Button btnOk = popViwe2.FindViewById<Button>(Resource.Id.btn_ok);
                         btnOk.Click += (sender, e) =>
@@ -542,5 +542,5 @@ namespace YbkManage.Activities
                 }
             }
         }
-	}
+    }
 }

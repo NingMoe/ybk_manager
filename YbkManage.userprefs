@@ -1,9 +1,8 @@
 ﻿<Properties StartupConfiguration="{30BF7E82-EF62-4187-AEE2-0D43951732D2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="YbkManage/Activities/TeacherListActivity.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DataService/RenewService.cs">
     <Files>
-      <File FileName="YbkManage/Activities/AssistantLeaderList.cs" Line="90" Column="82" />
-      <File FileName="DataService/MeService.cs" Line="10" Column="24" />
-      <File FileName="YbkManage/Activities/TeacherListActivity.cs" Line="107" Column="18" />
+      <File FileName="YbkManage/Activities/ReportListByTeacher.cs" Line="222" Column="50" />
+      <File FileName="DataService/RenewService.cs" Line="282" Column="73" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
@@ -11,6 +10,6 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.YbkManage PreferredExecutionTarget="Android.6eb158db" />
+  <MonoDevelop.Ide.ItemProperties.YbkManage AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.6eb158db" AndroidDesignerPreferredTheme="appbasetheme" />
   <MultiItemStartupConfigurations />
 </Properties>

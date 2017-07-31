@@ -814,32 +814,32 @@ namespace YbkManage
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f0c0045
-			public const int abc_background_cache_hint_selector_material_dark = 2131492933;
-			
 			// aapt resource value: 0x7f0c0046
-			public const int abc_background_cache_hint_selector_material_light = 2131492934;
+			public const int abc_background_cache_hint_selector_material_dark = 2131492934;
 			
 			// aapt resource value: 0x7f0c0047
-			public const int abc_color_highlight_material = 2131492935;
+			public const int abc_background_cache_hint_selector_material_light = 2131492935;
+			
+			// aapt resource value: 0x7f0c0048
+			public const int abc_color_highlight_material = 2131492936;
 			
 			// aapt resource value: 0x7f0c0000
 			public const int abc_input_method_navigation_guard = 2131492864;
 			
-			// aapt resource value: 0x7f0c0048
-			public const int abc_primary_text_disable_only_material_dark = 2131492936;
-			
 			// aapt resource value: 0x7f0c0049
-			public const int abc_primary_text_disable_only_material_light = 2131492937;
+			public const int abc_primary_text_disable_only_material_dark = 2131492937;
 			
 			// aapt resource value: 0x7f0c004a
-			public const int abc_primary_text_material_dark = 2131492938;
+			public const int abc_primary_text_disable_only_material_light = 2131492938;
 			
 			// aapt resource value: 0x7f0c004b
-			public const int abc_primary_text_material_light = 2131492939;
+			public const int abc_primary_text_material_dark = 2131492939;
 			
 			// aapt resource value: 0x7f0c004c
-			public const int abc_search_url_text = 2131492940;
+			public const int abc_primary_text_material_light = 2131492940;
+			
+			// aapt resource value: 0x7f0c004d
+			public const int abc_search_url_text = 2131492941;
 			
 			// aapt resource value: 0x7f0c0001
 			public const int abc_search_url_text_normal = 2131492865;
@@ -850,11 +850,11 @@ namespace YbkManage
 			// aapt resource value: 0x7f0c0003
 			public const int abc_search_url_text_selected = 2131492867;
 			
-			// aapt resource value: 0x7f0c004d
-			public const int abc_secondary_text_material_dark = 2131492941;
-			
 			// aapt resource value: 0x7f0c004e
-			public const int abc_secondary_text_material_light = 2131492942;
+			public const int abc_secondary_text_material_dark = 2131492942;
+			
+			// aapt resource value: 0x7f0c004f
+			public const int abc_secondary_text_material_light = 2131492943;
 			
 			// aapt resource value: 0x7f0c0004
 			public const int accent_material_dark = 2131492868;
@@ -1033,11 +1033,11 @@ namespace YbkManage
 			// aapt resource value: 0x7f0c0037
 			public const int switch_thumb_disabled_material_light = 2131492919;
 			
-			// aapt resource value: 0x7f0c004f
-			public const int switch_thumb_material_dark = 2131492943;
-			
 			// aapt resource value: 0x7f0c0050
-			public const int switch_thumb_material_light = 2131492944;
+			public const int switch_thumb_material_dark = 2131492944;
+			
+			// aapt resource value: 0x7f0c0051
+			public const int switch_thumb_material_light = 2131492945;
 			
 			// aapt resource value: 0x7f0c0038
 			public const int switch_thumb_normal_material_dark = 2131492920;
@@ -1053,6 +1053,9 @@ namespace YbkManage
 			
 			// aapt resource value: 0x7f0c0041
 			public const int textColorPrimary = 2131492929;
+			
+			// aapt resource value: 0x7f0c0045
+			public const int textColorRed = 2131492933;
 			
 			// aapt resource value: 0x7f0c0042
 			public const int textColorSecond = 2131492930;

@@ -67,8 +67,8 @@ namespace YbkManage.Activities
             Bundle bundle = Intent.Extras;
             if (bundle != null)
             {
-                scopeId = Intent.Extras.GetInt("scopeId");
-                scopeName = Intent.Extras.GetString("scopeName");
+                scopeId = bundle.GetInt("scopeId");
+                scopeName = bundle.GetString("scopeName");
             }
         }
 

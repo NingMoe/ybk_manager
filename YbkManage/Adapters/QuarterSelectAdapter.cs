@@ -5,8 +5,7 @@ using Android.Graphics;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
-using Java.Lang;
-using YbkManage.Models;
+using DataEntity;
 
 namespace YbkManage.Adapters
 {

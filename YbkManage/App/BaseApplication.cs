@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Android.App;
 using Android.Runtime;
+using DataEntity;
 using YbkManage.Models;
 
 namespace YbkManage.App
@@ -73,5 +74,10 @@ namespace YbkManage.App
 			}
 			return teacherRoleList;
 		}
+
+		// 报表的筛选条件
+		public List<QuarterEntity> quarterList;
+		public List<GradeEntity> gradeList;
+		public List<DistrictEntity> districtList;
     }
 }

@@ -10,6 +10,10 @@ using YbkManage.Models;
 using xxxxxLibrary.Serializer;
 using xxxxxLibrary.Utils;
 using DataEntity;
+using System.Threading;
+using DataService;
+using System;
+using xxxxxLibrary.Network;
 
 namespace YbkManage.Activities
 {
@@ -20,19 +24,33 @@ namespace YbkManage.Activities
     [Activity(Label = "@string/app_name", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait, Icon = "@mipmap/icon", Theme = "@style/splashTheme")]
     public class Splash : Activity
     {
+        private LoginUserInfoEntity currUserInfo;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.activity_splash);
 
+            string userinfoStr = (string)SharedPreferencesUtil.GetParam(this, AppConfig.SP_USERINFO, "");
+            if (!string.IsNullOrEmpty(userinfoStr))
+            {
+                currUserInfo = DataService.Helper.FromJsonTo<LoginUserInfoEntity>(userinfoStr);
+            }
+
+            // 将一些字典数据提前加载
+            if (NetUtil.CheckNetWork(this) && currUserInfo != null)
+            {
+                LoadQuarterData();
+                LoadGradeData();
+                LoadDistrictData();
+            }
+
             new Handler().PostDelayed(() =>
              {
                  Intent intent = new Intent(this, typeof(Login));
-                 string userinfoStr = (string)SharedPreferencesUtil.GetParam(this, AppConfig.SP_USERINFO, "");
-                 if (!string.IsNullOrEmpty(userinfoStr))
+                 if (currUserInfo != null)
                  {
-                     LoginUserInfoEntity currUserInfo = DataService.Helper.FromJsonTo<LoginUserInfoEntity>(userinfoStr);
+
                      intent.SetClass(this, typeof(Main));
                  }
                  StartActivity(intent);
@@ -41,6 +59,60 @@ namespace YbkManage.Activities
              }, 1500);
 
 
-        }
+		}
+
+		/// <summary>
+		/// 获取财年季度数据
+		/// </summary>
+		private void LoadQuarterData()
+		{
+			try
+			{
+				new Thread(new ThreadStart(() =>
+				{
+					BaseApplication.GetInstance().quarterList = RenewService.GetQuarter(currUserInfo.SchoolId);
+				})).Start();
+			}
+			catch (Exception ex)
+			{
+				var msg = ex.Message.ToString();
+			}
+		}
+
+		/// <summary>
+		/// 获取年级数据
+		/// </summary>
+		private void LoadGradeData()
+		{
+			try
+			{
+				new Thread(new ThreadStart(() =>
+				{
+					BaseApplication.GetInstance().gradeList = RenewService.GetGradeList(currUserInfo.SchoolId);
+				})).Start();
+			}
+			catch (Exception ex)
+			{
+				var msg = ex.Message.ToString();
+			}
+		}
+
+		/// <summary>
+		/// 获取区域数据
+		/// </summary>
+		private void LoadDistrictData()
+		{
+			try
+			{
+				new Thread(new ThreadStart(() =>
+				{
+                    BaseApplication.GetInstance().districtList = RenewService.GetDistrictList(currUserInfo.SchoolId);
+				})).Start();
+			}
+			catch (Exception ex)
+			{
+				var msg = ex.Message.ToString();
+			}
+		}
     }
 }
