@@ -2,8 +2,8 @@
 <Paths>
   <Jars></Jars>
   <ResolvedResourceDirectories>
-    <ResolvedResourceDirectory>/Users/dongxiangtao/Desktop/code/YbkManage/DataService/obj/Debug/__library_projects__/DataEntity/library_project_imports/res</ResolvedResourceDirectory>
-    <ResolvedResourceDirectory>/Users/dongxiangtao/Desktop/code/YbkManage/DataService/obj/Debug/__library_projects__/xxxxxLibrary/library_project_imports/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/dongxiangtao/Desktop/xdf/code/YbkManage/DataService/obj/Debug/__library_projects__/DataEntity/library_project_imports/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/dongxiangtao/Desktop/xdf/code/YbkManage/DataService/obj/Debug/__library_projects__/xxxxxLibrary/library_project_imports/res</ResolvedResourceDirectory>
   </ResolvedResourceDirectories>
   <ResolvedAssetDirectories>
     <ResolvedAssetDirectory>obj/Debug/__library_projects__/DataEntity/library_project_imports/assets</ResolvedAssetDirectory>
@@ -11,7 +11,7 @@
   </ResolvedAssetDirectories>
   <ResolvedEnvironmentFiles />
   <ResolvedResourceDirectoryStamps>
-    <ResolvedResourceDirectoryStamp>/Users/dongxiangtao/Desktop/code/YbkManage/DataService/obj/Debug/__library_projects__/DataEntity.stamp</ResolvedResourceDirectoryStamp>
-    <ResolvedResourceDirectoryStamp>/Users/dongxiangtao/Desktop/code/YbkManage/DataService/obj/Debug/__library_projects__/xxxxxLibrary.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/dongxiangtao/Desktop/xdf/code/YbkManage/DataService/obj/Debug/__library_projects__/DataEntity.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/dongxiangtao/Desktop/xdf/code/YbkManage/DataService/obj/Debug/__library_projects__/xxxxxLibrary.stamp</ResolvedResourceDirectoryStamp>
   </ResolvedResourceDirectoryStamps>
 </Paths>
