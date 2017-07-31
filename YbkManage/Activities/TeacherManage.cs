@@ -1,10 +1,10 @@
-﻿﻿
+﻿
 using System;
 using System.Collections.Generic;
 using System.Json;
 using System.Linq;
 using System.Text;
-
+using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -14,12 +14,13 @@ using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using DataEntity;
+using DataService;
 using xxxxxLibrary.LoadingDialog;
 using xxxxxLibrary.Network;
 using xxxxxLibrary.Toast;
 using YbkManage.Adapters;
 using YbkManage.App;
-using YbkManage.Models;
 
 namespace YbkManage.Activities
 {
@@ -29,9 +30,6 @@ namespace YbkManage.Activities
     [Activity(Label = "TeacherManage", ScreenOrientation = ScreenOrientation.Portrait)]
     public class TeacherManage : AppActivity, SwipeRefreshLayout.IOnRefreshListener, IRecyclerViewItemClickListener
     {
-        // 返回按钮
-        private ImageButton imgbtnBack;
-
         private LinearLayout llAdd;
 
         // 教师总数
@@ -47,10 +45,7 @@ namespace YbkManage.Activities
         private TeacherScopeAdapter mAdapter;
 
         // 教研组数据
-        private List<TeacherScopeEntity> teachScopeList = new List<TeacherScopeEntity>();
-
-        // 教研组教师总数
-        private int teacherCount = 0;
+        private List<ScopeModel> teachScopeList = new List<ScopeModel>();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -61,7 +56,6 @@ namespace YbkManage.Activities
 
         protected override void InitViews()
         {
-            imgbtnBack = FindViewById<ImageButton>(Resource.Id.imgBtn_back);
             llAdd = FindViewById<LinearLayout>(Resource.Id.ll_add);
             tvTeacherCount = FindViewById<TextView>(Resource.Id.tv_teachercount);
 
@@ -89,7 +83,7 @@ namespace YbkManage.Activities
         protected override void InitEvents()
         {
             // 返回
-            imgbtnBack.Click += (sender, e) =>
+            FindViewById<ImageButton>(Resource.Id.imgBtn_back).Click += (sender, e) =>
             {
                 CurrActivity.Finish();
                 OverridePendingTransition(Resource.Animation.left_in, Resource.Animation.right_out);
@@ -98,8 +92,8 @@ namespace YbkManage.Activities
             llAdd.Click += (sender, e) =>
             {
                 Intent intent = new Intent(CurrActivity, typeof(TeacherAddActivity));
-				StartActivity(intent);
-				CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+                StartActivity(intent);
+                CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
             };
         }
 
@@ -131,54 +125,47 @@ namespace YbkManage.Activities
         /// </summary>
 		public void OnRefresh()
         {
-            GetTeacherScopeListByGrade();
+			if (!NetUtil.CheckNetWork(CurrActivity))
+			{
+				ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
+			}
+            else
+            {
+				GetTeacherScopeListByGrade();
+			}
         }
 
         /// <summary>
         /// 获取教研组
         /// </summary>
-        private async void GetTeacherScopeListByGrade()
+        private void GetTeacherScopeListByGrade()
         {
             try
             {
-                //LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数11据中...");
-                Dictionary<string, string> requstParams = new Dictionary<string, string>();
-                requstParams.Add("appId", AppConfig.APP_ID);
-                requstParams.Add("method", "GetTeacherScopeListByGrade");
-                requstParams.Add("schoolId", CurrUserInfo.SchoolId.ToString());
-                requstParams.Add("grade", CurrUserInfo.Grade.ToString());
-                requstParams.Add("sign", AppUtils.GetSign(requstParams));
-                var result = await HttpRequestUtil.SendPostRequestBasedOnHttpClient(AppConfig.API_TEACHER_MANAGE, requstParams);
-
-                var data = (JsonObject)result;
-                var state = int.Parse(data["State"].ToString());
-                if (state == 1)
+                var grade = CurrUserInfo.Grade;
+                var schoolId = CurrUserInfo.SchoolId;
+                new Thread(new ThreadStart(() =>
                 {
-                    var jsonArr = JsonValue.Parse(data["Data"].ToString());
 
-                    teachScopeList.Clear();
-                    teacherCount = 0;
-                    for (int i = 0; i < jsonArr.Count; i++)
+                    teachScopeList = new MeService().GetScopeByGrade(schoolId, grade ?? 0);
+                    RunOnUiThread(() =>
                     {
-                        TeacherScopeEntity teacherScope = new TeacherScopeEntity();
-                        teacherScope.Id = int.Parse(jsonArr[i]["Id"].ToString());
-                        teacherScope.SchoolId = int.Parse(jsonArr[i]["SchoolId"].ToString());
-                        teacherScope.TeacherCount = int.Parse(jsonArr[i]["TeacherCount"].ToString());
-                        teacherScope.ScopeName = jsonArr[i]["Name"].ToString().Replace("\"", "");
-                        teachScopeList.Add(teacherScope);
-                        teacherCount += teacherScope.TeacherCount;
-                    }
-                    mAdapter.NotifyDataSetChanged();
+                        LoadingDialogUtil.DismissLoadingDialog();
 
-                    tvTeacherCount.Text = string.Format("我的教研组（{0}人）", teacherCount);
-                }
+                        var teacherCount = teachScopeList.Sum(i => i.TeacherCount ?? 0);
+                        tvTeacherCount.Text = string.Format("我的教研组（{0}人）", teacherCount);
+                        mAdapter.SetData(teachScopeList);
+                        mAdapter.NotifyDataSetChanged();
+                        mSwipeRefreshLayout.Refreshing = false;
+
+                    });
+
+
+                })).Start();
             }
             catch (Exception ex)
             {
                 var msg = ex.Message.ToString();
-            }
-            finally
-            {
                 LoadingDialogUtil.DismissLoadingDialog();
                 mSwipeRefreshLayout.Refreshing = false;
             }
@@ -189,8 +176,8 @@ namespace YbkManage.Activities
             var scopeItem = teachScopeList[position];
             Intent intent = new Intent(CurrActivity, typeof(TeacherListActivity));
             intent.PutExtra("scopeId", scopeItem.Id);
-            intent.PutExtra("scopeName", scopeItem.ScopeName);
-            intent.PutExtra("teacherCount", scopeItem.TeacherCount);
+            intent.PutExtra("scopeName", scopeItem.Name);
+            intent.PutExtra("teacherCount", scopeItem.TeacherCount ?? 0);
             StartActivity(intent);
             CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
         }

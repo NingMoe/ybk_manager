@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using xxxxxLibrary.Network;
 using System.Json;
 using DataService;
+using System.Threading;
 
 namespace YbkManage.Activities
 {
@@ -58,6 +59,8 @@ namespace YbkManage.Activities
             tvProblem = (TextView)FindViewById(Resource.Id.tv_problem);
 
             AppUtils.HideKeyboard(this);
+
+            etAccount.Text = SharedPreferencesUtil.GetParam(this, AppConfig.SP_LAST_LOGIN_ACCOUNT, "").ToString();
         }
 
         /// <summary>
@@ -163,44 +166,49 @@ namespace YbkManage.Activities
             }
 
             if (!NetUtil.CheckNetWork(this))
-			{
+            {
                 ToastUtil.ShowWarningToast(this, "网络未连接！");
-				return;
-			}
+                return;
+            }
 
 
             LoadingDialogUtil.ShowLoadingDialog(this, "登录中...");
 
-			try
-			{
-				var result = DataService.UserService.GetUser(account,passwrod);
-				if (result.State == 1 && result.Data != null)
-				{
-					var loginUserJson =Helper.ToJsonItem(result.Data);
-					SharedPreferencesUtil.SetParam(this, AppConfig.SP_USERINFO, loginUserJson);
+            try
+            {
+                new Thread(new ThreadStart(() =>
+                           {
+                               var result = DataService.UserService.GetUser(account, passwrod);
+                               RunOnUiThread(() =>
+                               {
 
-					Intent intent = new Intent(this, typeof(Main));
-					StartActivity(intent);
-                    OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);
-					this.Finish();
+                                   LoadingDialogUtil.DismissLoadingDialog();
+                                   if (result.State == 1 && result.Data != null)
+                                   {
+                                       var loginUserJson = Helper.ToJsonItem(result.Data);
+                                       SharedPreferencesUtil.SetParam(this, AppConfig.SP_LAST_LOGIN_ACCOUNT, account);
+                                       SharedPreferencesUtil.SetParam(this, AppConfig.SP_USERINFO, loginUserJson);
 
-				}
-				else
-				{
-					LoadingDialogUtil.DismissLoadingDialog();
-					ToastUtil.ShowWarningToast(this, result.Error??"登录失败");
-				}
+                                       Intent intent = new Intent(this, typeof(Main));
+                                       StartActivity(intent);
+                                       OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);
+                                       this.Finish();
+                                   }
+                                   else
+                                   {
+                                       ToastUtil.ShowWarningToast(this, result.Error ?? "登录失败");
+                                   }
 
-			}
-			catch (Exception ex)
-			{
-				var msg = ex.Message.ToString();
-				LoadingDialogUtil.DismissLoadingDialog();
-				ToastUtil.ShowWarningToast(this, msg);
-			}
+                               });
 
-
+                           })).Start();
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message.ToString();
+                LoadingDialogUtil.DismissLoadingDialog();
+                ToastUtil.ShowWarningToast(this, msg);
+            }
         }
-
     }
 }

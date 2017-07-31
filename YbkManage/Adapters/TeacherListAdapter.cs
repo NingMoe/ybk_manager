@@ -4,6 +4,7 @@ using Android.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using DataEntity;
 using Square.Picasso;
 using YbkManage.App;
 using YbkManage.Models;
@@ -22,14 +23,20 @@ namespace YbkManage.Adapters
 
         private Context mContext;
 
-        private List<TeacherInfoEntity> teachReportList;
+        private List<TeacherListModel> teacherList;
+
+        private Picasso picasso;
 
         private bool hideFooter = false;
 
-        public TeacherListAdapter(Context context, List<TeacherInfoEntity> data)
+        // 页面类型 1=教师列表 2=教学主管列表
+        private int pageType = 1;
+
+        public TeacherListAdapter(Context context, int pagetype)
         {
-            this.mContext = context;
-            teachReportList = data;
+            mContext = context;
+            pageType = pagetype;
+            picasso = Picasso.With(mContext);
         }
 
         /// <summary>
@@ -57,33 +64,57 @@ namespace YbkManage.Adapters
         /// <summary>
         /// Ons the bind view holder.
         /// </summary>
-        /// <param name="viewHolder">View holder.</param>
+        /// <param name="holder">View holder.</param>
         /// <param name="position">Position.</param>
-        public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            if (viewHolder is ItemViewHolder)
+            if (holder is ItemViewHolder)
             {
-                var itemInfo = teachReportList[position];
+                var itemInfo = teacherList[position];
 
-                ((ItemViewHolder)viewHolder).Tv_Name.Text = itemInfo.Name;
-                ((ItemViewHolder)viewHolder).Tv_Code.Text = itemInfo.Code;
+                ((ItemViewHolder)holder).Tv_Name.Text = itemInfo.Name;
+                ((ItemViewHolder)holder).Tv_Code.Text = itemInfo.Code;
 
-                Picasso picasso = Picasso.With(mContext);
-                picasso.Load(itemInfo.Avatar).Placeholder(Resource.Drawable.avatar).Error(Resource.Drawable.avatar)
-					.Transform(new CircleImageTransformation(picasso))
-                       .Into(((ItemViewHolder)viewHolder).Iv_Avatar);
+
+                if (pageType == 1)
+                {
+                    ((ItemViewHolder)holder).Tv_Job.Visibility = ViewStates.Gone;
+                    if (itemInfo.Type == 22)
+                    {
+                        ((ItemViewHolder)holder).Tv_Job.Text = "教学区长";
+                        ((ItemViewHolder)holder).Tv_Job.Visibility = ViewStates.Visible;
+                    }
+                    else if (itemInfo.Type == 23)
+                    {
+                        ((ItemViewHolder)holder).Tv_Job.Text = "教学主管";
+                        ((ItemViewHolder)holder).Tv_Job.Visibility = ViewStates.Visible;
+                    }
+                }
+                else
+                {
+                    ((ItemViewHolder)holder).Tv_Job.Visibility = ViewStates.Visible;
+                    ((ItemViewHolder)holder).Tv_Job.Text = itemInfo.ScopeName;
+                }
+
+
+                if (!string.IsNullOrEmpty(itemInfo.Avatar))
+                {
+                    picasso.Load(itemInfo.Avatar).Placeholder(Resource.Drawable.avatar).Error(Resource.Drawable.avatar)
+                    .Transform(new CircleImageTransformation(picasso))
+                       .Into(((ItemViewHolder)holder).Iv_Avatar);
+                }
             }
         }
 
         public override int GetItemViewType(int position)
         {
-            if (teachReportList != null && ItemCount == (position + 1) && !this.hideFooter)
+            if (teacherList != null && ItemCount == (position + 1) && !this.hideFooter)
             {
-            	return TYPE_ITEM_FOOTER;
+                return TYPE_ITEM_FOOTER;
             }
             else
             {
-            	return TYPE_ITEM_ITEM;
+                return TYPE_ITEM_ITEM;
             }
         }
 
@@ -91,28 +122,28 @@ namespace YbkManage.Adapters
         {
             get
             {
-                return teachReportList.Count;
+                return teacherList != null ? teacherList.Count : 0;
             }
-		}
+        }
 
-		public void OnClick(View v)
-		{
-			if (onItemClickListener != null)
-			{
-				int position = m_RecyclerView.GetLayoutManager().GetPosition(v);
-				onItemClickListener.OnItemClick(v, position);
-			}
-		}
+        public void OnClick(View v)
+        {
+            if (onItemClickListener != null)
+            {
+                int position = m_RecyclerView.GetLayoutManager().GetPosition(v);
+                onItemClickListener.OnItemClick(v, position);
+            }
+        }
 
-		public bool OnLongClick(View v)
-		{
+        public bool OnLongClick(View v)
+        {
             if (onItemClickListener != null)
             {
                 int position = m_RecyclerView.GetLayoutManager().GetPosition(v);
                 onItemClickListener.OnItemLongClick(v, position);
             }
-			return true;
-		}
+            return true;
+        }
 
         public void HideFootere(bool isHide)
         {
@@ -123,15 +154,15 @@ namespace YbkManage.Adapters
         public class ItemViewHolder : RecyclerView.ViewHolder
         {
             public ImageView Iv_Avatar;
-            public TextView Tv_Name, Tv_Code,Tv_Admin;
+            public TextView Tv_Name, Tv_Code, Tv_Job;
 
 
             public ItemViewHolder(View itemView) : base(itemView)
             {
                 Iv_Avatar = itemView.FindViewById<ImageView>(Resource.Id.iv_avatar);
                 Tv_Name = itemView.FindViewById<TextView>(Resource.Id.tv_name);
-				Tv_Code = itemView.FindViewById<TextView>(Resource.Id.tv_code);
-				Tv_Admin = itemView.FindViewById<TextView>(Resource.Id.tv_admin);
+                Tv_Code = itemView.FindViewById<TextView>(Resource.Id.tv_code);
+                Tv_Job = itemView.FindViewById<TextView>(Resource.Id.tv_job);
             }
         }
 
@@ -149,6 +180,11 @@ namespace YbkManage.Adapters
         public void SetOnItemClickListener(IRecyclerViewItemClickListener listener)
         {
             this.onItemClickListener = listener;
+        }
+
+        public void SetData(List<TeacherListModel> data)
+        {
+            this.teacherList = data;
         }
     }
 }

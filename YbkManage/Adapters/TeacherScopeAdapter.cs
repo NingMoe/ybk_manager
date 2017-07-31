@@ -4,7 +4,7 @@ using Android.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using YbkManage.Models;
+using DataEntity;
 using static Android.Views.View;
 
 namespace YbkManage.Adapters
@@ -14,18 +14,25 @@ namespace YbkManage.Adapters
     /// </summary>
 	public class TeacherScopeAdapter : RecyclerView.Adapter, IOnClickListener, IOnLongClickListener
     {
-        private static int TYPE_ITEM_ITEM = 1;
-        private static int TYPE_ITEM_FOOTER = 2;
         private RecyclerView m_RecyclerView;
 
         private Context mContext;
 
-        private List<TeacherScopeEntity> teachReportList;
+        private List<ScopeModel> teacherScopeList;
 
-        public TeacherScopeAdapter(Context context, List<TeacherScopeEntity> data)
+        public TeacherScopeAdapter(Context context, List<ScopeModel> data)
         {
             this.mContext = context;
-            teachReportList = data;
+            teacherScopeList = data;
+        }
+
+        /// <summary>
+        /// Sets the data.
+        /// </summary>
+        /// <param name="data">Data.</param>
+        public void SetData(List<ScopeModel> data)
+        {
+            this.teacherScopeList = data;
         }
 
         /// <summary>
@@ -37,76 +44,52 @@ namespace YbkManage.Adapters
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             m_RecyclerView = parent as RecyclerView;
-            var vi = LayoutInflater.From(parent.Context);
-            if (viewType == TYPE_ITEM_FOOTER)
-            {
-                return new FootViewHolder(vi.Inflate(Resource.Layout.listview_footer, parent, false));
-            }
-            else if (viewType == TYPE_ITEM_ITEM)
-            {
-                var itemView = vi.Inflate(Resource.Layout.item_teacher_scope, parent, false);
-                //itemView.SetOnClickListener(this);
-                //itemView.SetOnLongClickListener(this);
-                return new ItemViewHolder(itemView);
-            }
-            return null;
+            var itemView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.item_teacher_scope, parent, false);
+            return new ItemViewHolder(itemView);
         }
 
         /// <summary>
         /// Ons the bind view holder.
         /// </summary>
-        /// <param name="viewHolder">View holder.</param>
+        /// <param name="holder">Vholder.</param>
         /// <param name="position">Position.</param>
-        public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            if (viewHolder is ItemViewHolder)
+            if (holder is ItemViewHolder)
             {
-                var scopeItem = teachReportList[position];
+                var scopeItem = teacherScopeList[position];
 
-                ((ItemViewHolder)viewHolder).TV_ScopeName.Text = scopeItem.ScopeName;
-                ((ItemViewHolder)viewHolder).TV_TeacherNum.Text = scopeItem.TeacherCount + "人";
+                ((ItemViewHolder)holder).TV_ScopeName.Text = scopeItem.Name;
+                ((ItemViewHolder)holder).TV_TeacherNum.Text = (scopeItem.TeacherCount ?? 0) + "人";
             }
-        }
-
-        public override int GetItemViewType(int position)
-        {
-            return TYPE_ITEM_ITEM;
-            //if (teachReportList != null && ItemCount == (position + 1))
-            //{
-            //	return TYPE_ITEM_FOOTER;
-            //}
-            //else
-            //{
-            //	return TYPE_ITEM_ITEM;
-            //}
         }
 
         public override int ItemCount
         {
             get
             {
-                return teachReportList.Count;
+                return teacherScopeList.Count;
             }
-		}
+        }
 
-		public void OnClick(View v)
-		{
-			if (onItemClickListener != null)
-			{
-				int position = m_RecyclerView.GetLayoutManager().GetPosition(v);
-				onItemClickListener.OnItemClick(v, position);
-			}
-		}
+        public void OnClick(View v)
+        {
+            if (onItemClickListener != null)
+            {
+                int position = m_RecyclerView.GetLayoutManager().GetPosition(v);
+                onItemClickListener.OnItemClick(v, position);
+            }
+        }
 
-		public bool OnLongClick(View v)
-		{
+        public bool OnLongClick(View v)
+        {
             if (onItemClickListener != null)
             {
                 int position = m_RecyclerView.GetLayoutManager().GetPosition(v);
                 onItemClickListener.OnItemLongClick(v, position);
             }
-			return true;
-		}
+            return true;
+        }
 
 
 
@@ -119,14 +102,6 @@ namespace YbkManage.Adapters
             {
                 TV_ScopeName = itemView.FindViewById<TextView>(Resource.Id.tv_scopename);
                 TV_TeacherNum = itemView.FindViewById<TextView>(Resource.Id.tv_teachernum);
-            }
-        }
-
-        class FootViewHolder : RecyclerView.ViewHolder
-        {
-            public FootViewHolder(View itemView) : base(itemView)
-            {
-
             }
         }
 

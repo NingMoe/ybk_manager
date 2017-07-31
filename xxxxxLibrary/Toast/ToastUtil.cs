@@ -48,26 +48,25 @@ namespace xxxxxLibrary.Toast
 			ShowMyToast(mContext, Resource.Drawable.icn_toast_error, words);
 		}
 
-		/// <summary>
-		/// 显示自定义Toast提示
-		/// </summary>
-		/// <param name="mContext">M context.</param>
-		/// <param name="iconResId">Icon res identifier.</param>
-		/// <param name="words">Words.</param>
-		private static void ShowMyToast(Context mContext, int iconResId, String words)
-		{
-			if (mToast != null)
-			{
+        /// <summary>
+        /// 显示自定义Toast提示
+        /// </summary>
+        /// <param name="mContext">M context.</param>
+        /// <param name="iconResId">Icon res identifier.</param>
+        /// <param name="words">Words.</param>
+        private static void ShowMyToast(Context mContext, int iconResId, String words)
+        {
+            if (mToast != null)
+            {
                 if (Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.IceCreamSandwich)
-				{
-					mToast.Cancel();
-				}
-			}
-			else
-			{
-                mToast = MyToast.Create(mContext,iconResId,words,Android.Widget.ToastLength.Long);
-			}
-			mToast.Show();
-		}
+                {
+                    mToast.Cancel();
+                }
+            }
+
+            mToast = MyToast.Create(mContext, iconResId, words, Android.Widget.ToastLength.Short);
+
+            mToast.Show();
+        }
     }
 }

@@ -1,15 +1,11 @@
 ﻿
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
@@ -24,23 +20,26 @@ namespace YbkManage.Activities
     [Activity(Label = "ActivityRoleList", ScreenOrientation = ScreenOrientation.Portrait)]
     public class TeacherRoleSelectActivity : AppActivity
     {
-        private LinearLayout llBox;
+		private LinearLayout llBox;
+
+		private Intent fromIntent;
 
         private int roleId = 0;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            LayoutReourceId = Resource.Layout.activity_teacher_role_list;
+            LayoutReourceId = Resource.Layout.activity_teacher_role_select;
 
             base.OnCreate(savedInstanceState);
         }
 
         protected override void InitVariables()
         {
-			Bundle bundle = Intent.Extras;
-            if (bundle != null)
+			fromIntent = this.Intent;
+			Bundle bundle = fromIntent.Extras;
+			if (bundle != null)
             {
-                roleId = bundle.GetInt("roleId", 0);
+                roleId = int.Parse(bundle.GetString("roleId","0")) ;
             }
         }
 
@@ -80,21 +79,10 @@ namespace YbkManage.Activities
 				itemWrapper.Click += (sender, e) =>
 				{
 
-					Intent myIntent = new Intent(this, typeof(TeacherAddActivity));
-					myIntent.PutExtra("roleId", role.RoleId.ToString());
-					myIntent.PutExtra("scopeName", role.RoleName);
-					SetResult(Result.Ok, myIntent);
-					Finish();
-					OverridePendingTransition(Resource.Animation.left_in, Resource.Animation.right_out);
-				};
-
-				roleLabel.Click += (sender, e) =>
-				{
-
-					Intent myIntent = new Intent(this, typeof(TeacherAddActivity));
-					myIntent.PutExtra("roleId", role.RoleId.ToString());
-					myIntent.PutExtra("scopeName", role.RoleName);
-					SetResult(Result.Ok, myIntent);
+					fromIntent.SetClass(this, typeof(TeacherAddActivity));
+                    fromIntent.PutExtra("roleId", role.RoleId.ToString());
+					fromIntent.PutExtra("roleName", role.RoleName);
+					SetResult(Result.Ok, fromIntent);
 					Finish();
 					OverridePendingTransition(Resource.Animation.left_in, Resource.Animation.right_out);
 				};

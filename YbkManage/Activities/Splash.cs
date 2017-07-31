@@ -26,14 +26,8 @@ namespace YbkManage.Activities
 
             SetContentView(Resource.Layout.activity_splash);
 
-            var tvVersion = FindViewById<TextView>(Resource.Id.tv_version);
-            tvVersion.Text = "当前版本：" + PackageManager.GetPackageInfo(this.PackageName, PackageInfoFlags.MatchAll).VersionName;
-
-            var ivLogo = FindViewById<ImageView>(Resource.Id.iv_logo);
-
             new Handler().PostDelayed(() =>
              {
-                 ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.MakeSceneTransitionAnimation(this, ivLogo, "logo");
                  Intent intent = new Intent(this, typeof(Login));
                  string userinfoStr = (string)SharedPreferencesUtil.GetParam(this, AppConfig.SP_USERINFO, "");
                  if (!string.IsNullOrEmpty(userinfoStr))
@@ -41,7 +35,6 @@ namespace YbkManage.Activities
                      LoginUserInfoEntity currUserInfo = DataService.Helper.FromJsonTo<LoginUserInfoEntity>(userinfoStr);
                      intent.SetClass(this, typeof(Main));
                  }
-                 ActivityCompat.StartActivity(this, intent, optionsCompat.ToBundle());
                  StartActivity(intent);
                  Finish();
                  OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);

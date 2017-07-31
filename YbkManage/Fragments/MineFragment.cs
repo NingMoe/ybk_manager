@@ -1,9 +1,10 @@
 ﻿using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using DataEntity;
 using Square.Picasso;
-using xxxxxLibrary.LoadingDialog;
 using xxxxxLibrary.Utils;
 using YbkManage.Activities;
 using YbkManage.App;
@@ -21,8 +22,8 @@ namespace YbkManage.Fragments
         // 姓名、学校
         private TextView tvName, tvSchool;
 
-        // 教师管理、退出
-        private RelativeLayout rlTeacherManage, rlLogout;
+        private RelativeLayout rlTeacherManage,rlDirector,rlAssistantLeader, rlLogout;
+        private View viewLineTeacher, viewLineDirector, viewLineAssistant;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -49,6 +50,14 @@ namespace YbkManage.Fragments
             tvSchool = (TextView)view.FindViewById(Resource.Id.tv_school);
 
             rlTeacherManage = (RelativeLayout)view.FindViewById(Resource.Id.rl_teacher);
+            rlDirector = (RelativeLayout)view.FindViewById(Resource.Id.rl_director);
+			rlAssistantLeader = (RelativeLayout)view.FindViewById(Resource.Id.rl_assistant_leader);
+			viewLineTeacher = view.FindViewById<View>(Resource.Id.v_teacher_line);
+            viewLineDirector = view.FindViewById<View>(Resource.Id.v_director_line);
+            viewLineAssistant = view.FindViewById<View>(Resource.Id.v_assistant_line);
+
+            view.FindViewById<TextView>(Resource.Id.tv_version).Text = this.Activity.PackageManager.GetPackageInfo(this.Activity.PackageName, PackageInfoFlags.MatchAll).VersionName;
+
             rlLogout = (RelativeLayout)view.FindViewById(Resource.Id.rl_logout);
 
 			// 头像
@@ -59,7 +68,29 @@ namespace YbkManage.Fragments
 
 			tvName.Text = CurrUserInfo.Name;
 			tvSchool.Text = CurrUserInfo.SchoolName;
+
+			// 教学经理--教师管理与教学主管管理
+			if(CurrUserInfo.Type == (int)UserType.Manager || CurrUserInfo.Type == (int)UserType.TeacherManager)
+            {
+                rlTeacherManage.Visibility = ViewStates.Visible;
+                rlDirector.Visibility = ViewStates.Visible;
+                viewLineTeacher.Visibility = ViewStates.Visible;
+                viewLineDirector.Visibility = ViewStates.Visible;
+			}
+			// 教学主管--教师管理
+			else if (CurrUserInfo.Type == (int)UserType.TeacherDirector)
+			{
+                rlTeacherManage.Visibility = ViewStates.Visible;
+                viewLineTeacher.Visibility = ViewStates.Visible;
+			}
+			// 助教主管--助教组长管理
+			else if (CurrUserInfo.Type == (int)UserType.AssistantDirector)
+			{
+                rlAssistantLeader.Visibility = ViewStates.Visible;
+                viewLineAssistant.Visibility = ViewStates.Visible;
+			}
         }
+        
 
         /// <summary>
         /// 页面事件
@@ -71,8 +102,22 @@ namespace YbkManage.Fragments
              {
                  Intent intent = new Intent(CurrActivity, typeof(TeacherManage));
                  StartActivity(intent);
-				 CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
-			 };
+                 CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+             };
+            // 教学主管
+            rlDirector.Click += (sender, e) =>
+             {
+                 Intent intent = new Intent(CurrActivity, typeof(DirectorListActivity));
+                 StartActivity(intent);
+                 CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+             };
+            // 助教组长
+            rlAssistantLeader.Click += (sender, e) =>
+             {
+                 Intent intent = new Intent(CurrActivity, typeof(AssistantLeaderList));
+                 StartActivity(intent);
+                 CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+             };
 
             // 退出操作
             rlLogout.Click += (sender, e) =>
@@ -81,14 +126,6 @@ namespace YbkManage.Fragments
                 AppUtils.ShowDialog(CurrActivity, "提示", "您确认要退出账号吗？", 2, callbackFunc);
 
             };
-        }
-
-        /// <summary>
-        /// 页面数据
-        /// </summary>
-		protected void LoadData()
-        {
-           
         }
 
         /// <summary>

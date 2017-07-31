@@ -95,17 +95,14 @@
     <Compile Include="Activities\TeacherManage.cs" />
     <Compile Include="Activities\TeacherAddActivity.cs" />
     <Compile Include="Activities\TeacherRoleSelectActivity.cs" />
-    <Compile Include="Activities\TeacherGroupList.cs" />
     <Compile Include="Adapters\PopupSelectAdapter.cs" />
     <Compile Include="Models\TeachReportEntity.cs" />
-    <Compile Include="Models\UserInfoEntity.cs" />
     <Compile Include="App\BaseApplication.cs" />
     <Compile Include="Models\TeacherScopeEntity.cs" />
     <Compile Include="Adapters\TeacherScopeAdapter.cs" />
     <Compile Include="Adapters\IRecyclerViewItemClickListener.cs" />
     <Compile Include="Adapters\RecyclerViewItemOnItemTouchListener.cs" />
     <Compile Include="Adapters\RecyclerViewItemOnGestureListener..cs" />
-    <Compile Include="Models\TeacherInfoEntity.cs" />
     <Compile Include="Adapters\ReportAdapter.cs" />
     <Compile Include="Activities\ReportListByGroup.cs" />
     <Compile Include="Activities\ReportListByTeacher.cs" />
@@ -126,6 +123,10 @@
     <Compile Include="Adapters\AssistantAdapter.cs" />
     <Compile Include="Activities\AssistantLeaderList.cs" />
     <Compile Include="Models\TeacherRoleEntity.cs" />
+    <Compile Include="Activities\DirectorListActivity.cs" />
+    <Compile Include="Activities\AssistantAddActivity.cs" />
+    <Compile Include="Activities\AreaSelectActivity.cs" />
+    <Compile Include="Activities\TeacherScopeSelectActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -175,8 +176,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\actionbar_back.png" />
     <AndroidResource Include="Resources\layout\activity_teacher_list.axml" />
     <AndroidResource Include="Resources\layout\activity_teacher_add.axml" />
-    <AndroidResource Include="Resources\layout\activity_teacher_role_list.axml" />
-    <AndroidResource Include="Resources\layout\activity_teacher_group_list.axml" />
+    <AndroidResource Include="Resources\layout\activity_teacher_role_select.axml" />
     <AndroidResource Include="Resources\drawable\button_bg_disabled.axml" />
     <AndroidResource Include="Resources\layout\listview_footer.axml" />
     <AndroidResource Include="Resources\values\Attrs.xml" />
@@ -218,6 +218,14 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icn_selected.png" />
     <AndroidResource Include="Resources\layout\activity_assistant_list.axml" />
     <AndroidResource Include="Resources\layout\item_assistant.axml" />
+    <AndroidResource Include="Resources\layout\activity_director_list.axml" />
+    <AndroidResource Include="Resources\layout\activity_assistant_add.axml" />
+    <AndroidResource Include="Resources\layout\activity_area_select.axml" />
+    <AndroidResource Include="Resources\layout\activity_teacher_scope_select.axml" />
+    <AndroidResource Include="Resources\drawable\ripple_bg.axml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\splash_logo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\splash_logo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\splash_logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

@@ -18,6 +18,11 @@ namespace YbkManage.App
 		public const string SP_USERINFO = "sp_userInfo";
 
 		/// <summary>
+		/// 上次登录账号
+		/// </summary>
+		public const string SP_LAST_LOGIN_ACCOUNT = "sp_last_loginaccount";
+
+		/// <summary>
 		/// 季度
 		/// </summary>
 		public const string SP_QUARTER = "sp_quarterInfo";
@@ -75,6 +80,11 @@ namespace YbkManage.App
 		/// 课程信息
 		/// </summary>
 		public static string API_CLASS_INFO = "http://i.xdf.cn/upoc/Class/";
+
+        /// <summary>
+        /// 教学主管相关接口
+        /// </summary>
+        public static string API_ASSISTANT = "http://member.i.xdf.cn/Assistant/Index";
 
     }
 }
