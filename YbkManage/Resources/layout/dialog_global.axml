@@ -9,10 +9,9 @@
         android:id="@+id/global_dialog_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#F5F5F5"
         android:paddingLeft="15dp"
         android:text="温馨提示"
-        android:textColor="#2A2A2A"
+        android:textColor="@color/textColorPrimary"
         android:textAlignment="center"
         android:gravity="center"
         android:textSize="18sp" />
@@ -22,7 +21,7 @@
         android:layout_height="2dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:background="#EBEBEB" />
+        android:background="@color/line_split" />
 <!-- 提示内容 -->
     <ScrollView
         android:id="@+id/SCROLLER_ID"
@@ -40,18 +39,18 @@
             android:paddingRight="15dp"
             android:paddingTop="15dp"
             android:text="温馨提示"
-            android:textColor="#666666"
+            android:textColor="@color/textColorSecond"
             android:textSize="16sp"
             android:layout_marginBottom="15dp" />
     </ScrollView>
 <!-- 横线（下） -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.6dp"
-        android:background="#DDDDDD" />
+        android:layout_height="1dp"
+        android:background="@color/line_split" />
 <!-- 按钮 -->
     <LinearLayout
-        android:layout_width="288dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
@@ -67,9 +66,9 @@
             android:visibility="gone" />
         <View
             android:id="@+id/line_hori_center"
-            android:layout_width="0.6dp"
+            android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#DDDDDD"
+            android:background="@color/line_split"
             android:visibility="gone" />
         <Button
             android:id="@+id/setting_account_bind_confirm"

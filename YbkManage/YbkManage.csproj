@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,14 +8,14 @@
     <OutputType>Library</OutputType>
     <RootNamespace>YbkManage</RootNamespace>
     <AssemblyName>YbkManage</AssemblyName>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -26,7 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
-<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,6 +37,13 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AndroidSupportedAbis>armeabi-v7a</AndroidSupportedAbis>
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningKeyStore>/Users/dongxiangtao/Desktop/xdf/xdf.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>xdf123123</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>xdf</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>xdf123123</AndroidSigningKeyPass>
+    <AndroidLinkMode>Full</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -74,6 +81,9 @@
     <Reference Include="Xamarin.Android.Support.v7.RecyclerView">
       <HintPath>..\packages\Xamarin.Android.Support.v7.RecyclerView.23.4.0.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.RecyclerView.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -91,16 +101,33 @@
     <Compile Include="App\CircleImageTransformation.cs" />
     <Compile Include="Activities\TeacherManage.cs" />
     <Compile Include="Activities\TeacherAddActivity.cs" />
+    <Compile Include="Activities\TeacherRoleSelectActivity.cs" />
+    <Compile Include="Adapters\PopupSelectAdapter.cs" />
+    <Compile Include="App\BaseApplication.cs" />
+    <Compile Include="Adapters\TeacherScopeAdapter.cs" />
+    <Compile Include="Adapters\IRecyclerViewItemClickListener.cs" />
+    <Compile Include="Adapters\RecyclerViewItemOnItemTouchListener.cs" />
+    <Compile Include="Adapters\RecyclerViewItemOnGestureListener..cs" />
+    <Compile Include="Activities\ReportListByGroup.cs" />
+    <Compile Include="Activities\ReportListByTeacher.cs" />
+    <Compile Include="Adapters\ReportByTeacherAdapter.cs" />
+    <Compile Include="Activities\ClassRenewInfo.cs" />
+    <Compile Include="Activities\StuentClassActivity.cs" />
+    <Compile Include="Fragments\StudentClassListFragment.cs" />
+    <Compile Include="Adapters\StudentClassAdapter.cs" />
+    <Compile Include="Adapters\SimpleFragmentAdapter.cs" />
+    <Compile Include="Adapters\QuarterSelectAdapter.cs" />
+    <Compile Include="Adapters\DistrictSelectAdapter.cs" />
     <Compile Include="Activities\TeacherListActivity.cs" />
-    <Compile Include="Activities\TeacherRoleList.cs" />
-    <Compile Include="Activities\TeacherGroupList.cs" />
-    <Compile Include="Models\NoteEntity.cs" />
-    <Compile Include="Adapters\ListAdapter.cs" />
-    <Compile Include="Adapters\PlanetAdapter.cs" />
-    <Compile Include="Views\TeachPopupButton.cs" />
-    <Compile Include="Adapters\PopupAdapter.cs" />
-    <Compile Include="Models\TeachReportEntity.cs" />
-    <Compile Include="Models\UserInfoEntity.cs" />
+    <Compile Include="Adapters\TeacherListAdapter.cs" />
+    <Compile Include="Adapters\AssistantAdapter.cs" />
+    <Compile Include="Activities\AssistantLeaderList.cs" />
+    <Compile Include="Models\TeacherRoleEntity.cs" />
+    <Compile Include="Activities\DirectorListActivity.cs" />
+    <Compile Include="Activities\AssistantAddActivity.cs" />
+    <Compile Include="Activities\AreaSelectActivity.cs" />
+    <Compile Include="Activities\TeacherScopeSelectActivity.cs" />
+    <Compile Include="Adapters\RenewReportAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -149,22 +176,69 @@
     <AndroidResource Include="Resources\layout\activity_teacher_manage.axml" />
     <AndroidResource Include="Resources\drawable-xxhdpi\actionbar_back.png" />
     <AndroidResource Include="Resources\layout\activity_teacher_list.axml" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\icon_eidt.png" />
     <AndroidResource Include="Resources\layout\activity_teacher_add.axml" />
-    <AndroidResource Include="Resources\layout\activity_teacher_role_list.axml" />
-    <AndroidResource Include="Resources\layout\activity_teacher_group_list.axml" />
+    <AndroidResource Include="Resources\layout\activity_teacher_role_select.axml" />
     <AndroidResource Include="Resources\drawable\button_bg_disabled.axml" />
-    <AndroidResource Include="Resources\layout\drawer_list_item.axml" />
     <AndroidResource Include="Resources\layout\listview_footer.axml" />
     <AndroidResource Include="Resources\values\Attrs.xml" />
-    <AndroidResource Include="Resources\drawable-xhdpi\arrow_down_shop.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\arrow_up_shop.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\tab_bkg_selected.9.png" />
     <AndroidResource Include="Resources\layout\popup_select1.axml" />
     <AndroidResource Include="Resources\layout\dialog_global.axml" />
     <AndroidResource Include="Resources\drawable\dialog_bg.axml" />
     <AndroidResource Include="Resources\drawable\button_globaldialog.axml" />
     <AndroidResource Include="Resources\drawable\button_globaldialog_status.axml" />
+    <AndroidResource Include="Resources\anim\right_in.xml" />
+    <AndroidResource Include="Resources\anim\left_out.xml" />
+    <AndroidResource Include="Resources\anim\left_in.xml" />
+    <AndroidResource Include="Resources\anim\right_out.xml" />
+    <AndroidResource Include="Resources\layout\item_teacher_scope.axml" />
+    <AndroidResource Include="Resources\layout\item_teacher.axml" />
+    <AndroidResource Include="Resources\layout\item_report.axml" />
+    <AndroidResource Include="Resources\layout\activity_report_list_bygroup.axml" />
+    <AndroidResource Include="Resources\layout\activity_report_list_byteacher.axml" />
+    <AndroidResource Include="Resources\layout\item_report_byteacher.axml" />
+    <AndroidResource Include="Resources\layout\activity_class_renew_info.axml" />
+    <AndroidResource Include="Resources\drawable\textview_circle_bg.axml" />
+    <AndroidResource Include="Resources\layout\item_renew_avatar.axml" />
+    <AndroidResource Include="Resources\layout\activity_student_class.axml" />
+    <AndroidResource Include="Resources\layout\item_student_class.axml" />
+    <AndroidResource Include="Resources\layout\fragment_studentclass_list.axml" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\arrow_down.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\arrow_down_on.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\icon_eidt.png" />
+    <AndroidResource Include="Resources\layout\item_popupselect1.axml" />
+    <AndroidResource Include="Resources\layout\popup_grade.axml" />
+    <AndroidResource Include="Resources\drawable\textview_bg.axml" />
+    <AndroidResource Include="Resources\drawable\textview_bg_on.axml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\avatar.png" />
+    <AndroidResource Include="Resources\layout\item_index_renewrate.axml" />
+    <AndroidResource Include="Resources\drawable\button_bg_red.axml" />
+    <AndroidResource Include="Resources\layout\item_role_select.axml" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\icn_selected.png" />
+    <AndroidResource Include="Resources\layout\activity_assistant_list.axml" />
+    <AndroidResource Include="Resources\layout\item_assistant.axml" />
+    <AndroidResource Include="Resources\layout\activity_director_list.axml" />
+    <AndroidResource Include="Resources\layout\activity_assistant_add.axml" />
+    <AndroidResource Include="Resources\layout\activity_area_select.axml" />
+    <AndroidResource Include="Resources\layout\activity_teacher_scope_select.axml" />
+    <AndroidResource Include="Resources\drawable\ripple_bg.axml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\splash_logo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\splash_logo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\splash_logo.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\avatar_student.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_more.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_dili.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_huaxue.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_lishi.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_lizong.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_shengwu.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_shuxue.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_wenzong.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_wuli.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_yingyu.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_youcai.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_yuwen.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_zhengzhi.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_zhuanxiang.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -179,11 +253,20 @@
     <Folder Include="Models\" />
     <Folder Include="Adapters\" />
     <Folder Include="Views\" />
+    <Folder Include="Resources\anim\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\xxxxxLibrary\xxxxxLibrary.csproj">
       <Project>{CFE09C2B-680A-4CD5-80F8-6A0CA18A24D9}</Project>
       <Name>xxxxxLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEntity\DataEntity.csproj">
+      <Project>{8D7D1E85-EA6A-4CC0-96A9-931B43E1DEF5}</Project>
+      <Name>DataEntity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataService\DataService.csproj">
+      <Project>{A99EF0BF-3737-442F-BEBA-DC54A34B0C87}</Project>
+      <Name>DataService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

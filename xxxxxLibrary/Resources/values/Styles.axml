@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <style name="CustomDialog" parent="@android:style/Theme.Material.Dialog">
-        <item name="android:backgroundDimEnabled">false</item>
+    <style name="myDialog" parent="@android:style/Theme.Material.Light.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+		<item name="android:colorAccent">#17bfa0</item>
     </style>
 </resources>

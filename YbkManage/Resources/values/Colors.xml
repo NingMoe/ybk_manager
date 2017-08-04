@@ -20,6 +20,8 @@
 	<color name="textColorPrimary">#dd000000</color>
     <color name="textColorSecond">#89000000</color>
     <color name="textColorHint">#42000000</color>
-	<!-- 高亮字体颜色 -->
+    <!-- 高亮字体颜色 -->
     <color name="textColorHigh">#00ba97</color>
+    <!-- 红色字体颜色 -->
+    <color name="textColorRed">#f46d5f</color>
 </resources>

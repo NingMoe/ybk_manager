@@ -3,7 +3,8 @@
     xmlns:popupbtn="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/body_bg">
     <RelativeLayout
         android:id="@+id/rl_actionbar"
         style="@style/actionbarStyle">
@@ -27,77 +28,89 @@
             android:textSize="18sp" />
     </RelativeLayout>
     <LinearLayout
-        android:id="@+id/ll_wrapper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:orientation="horizontal">
-            <YbkManage.Views.TeachPopupButton
-                android:id="@+id/pop_btn1"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="10dp"
+            android:background="@android:color/white">
+            <TextView
+                android:id="@+id/tv_btn1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="教研组"
-                android:textSize="16dp"
-                popupbtn:normalIcon="@drawable/arrow_down_shop"
-                android:background="@null" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:clickable="true"
+                android:drawableRight="@drawable/arrow_down"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="2018财年Q1"
+                android:textSize="15sp"
+                android:textColor="@color/textColorPrimary" />
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/line_split" />
-            <YbkManage.Views.TeachPopupButton
-                android:id="@+id/pop_btn2"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:background="@color/line_split"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
+            <TextView
+                android:id="@+id/tv_btn2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:clickable="true"
+                android:drawableRight="@drawable/arrow_down"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="全部年级"
-                android:textSize="16dp"
-                popupbtn:normalIcon="@drawable/arrow_down_shop"
-                android:background="@null" />
+                android:textSize="15sp"
+                android:textColor="@color/textColorPrimary" />
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/line_split" />
-            <YbkManage.Views.TeachPopupButton
-                android:id="@+id/pop_btn3"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:background="@color/line_split"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
+            <TextView
+                android:id="@+id/tv_btn3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:clickable="true"
+                android:drawableRight="@drawable/arrow_down"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="全部区域"
-                android:textSize="16dp"
-                popupbtn:normalIcon="@drawable/arrow_down_shop"
-                android:background="@null" />
+                android:textSize="15sp"
+                android:textColor="@color/textColorPrimary" />
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/line_split" />
+            android:background="#dddede" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#dddddd"
-            android:paddingTop="8dp"
+            android:background="#eeeeee"
+            android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingBottom="8dp"
-            android:paddingLeft="12dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="教研组"
-                android:textColor="@color/textColorPrimary"
+                android:textColor="@color/textColorSecond"
                 android:textSize="14sp" />
             <TextView
                 android:layout_width="match_parent"
@@ -127,7 +140,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/line_split" />
+            android:background="#dddede" />
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresher"
             android:layout_width="match_parent"

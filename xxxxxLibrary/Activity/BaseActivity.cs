@@ -8,13 +8,14 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.App;
 using Android.Views;
 using Android.Widget;
 
 namespace xxxxxLibrary.Activity
 {
     [Activity(Label = "BaseActivity")]
-    public abstract class BaseActivity : Android.App.Activity
+    public abstract class BaseActivity : FragmentActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {

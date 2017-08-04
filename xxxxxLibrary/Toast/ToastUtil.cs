@@ -13,9 +13,9 @@ namespace xxxxxLibrary.Toast
 		/// </summary>
 		/// <param name="mContext">M context.</param>
 		/// <param name="words">Words.</param>
-		public static void showSuccessToast(Context mContext,String words)
+		public static void ShowSuccessToast(Context mContext,String words)
 		{
-            showMyToast(mContext, Resource.Drawable.icn_toast_success, words);
+            ShowMyToast(mContext, Resource.Drawable.icn_toast_success, words);
 		}
 
 		/// <summary>
@@ -23,9 +23,9 @@ namespace xxxxxLibrary.Toast
 		/// </summary>
 		/// <param name="mContext">M context.</param>
 		/// <param name="words">Words.</param>
-		public static void showSmileToast(Context mContext, String words)
+		public static void ShowSmileToast(Context mContext, String words)
 		{
-			showMyToast(mContext, Resource.Drawable.icn_toast_smile, words);
+			ShowMyToast(mContext, Resource.Drawable.icn_toast_smile, words);
 		}
 
 		/// <summary>
@@ -33,9 +33,9 @@ namespace xxxxxLibrary.Toast
 		/// </summary>
 		/// <param name="mContext">M context.</param>
 		/// <param name="words">Words.</param>
-		public static void showWarningToast(Context mContext, String words)
+		public static void ShowWarningToast(Context mContext, String words)
 		{
-			showMyToast(mContext, Resource.Drawable.icn_toast_warning, words);
+			ShowMyToast(mContext, Resource.Drawable.icn_toast_warning, words);
 		}
 
 		/// <summary>
@@ -43,31 +43,30 @@ namespace xxxxxLibrary.Toast
 		/// </summary>
 		/// <param name="mContext">M context.</param>
 		/// <param name="words">Words.</param>
-		public static void showErrorToast(Context mContext, String words)
+		public static void ShowErrorToast(Context mContext, String words)
 		{
-			showMyToast(mContext, Resource.Drawable.icn_toast_error, words);
+			ShowMyToast(mContext, Resource.Drawable.icn_toast_error, words);
 		}
 
-		/// <summary>
-		/// 显示自定义Toast提示
-		/// </summary>
-		/// <param name="mContext">M context.</param>
-		/// <param name="iconResId">Icon res identifier.</param>
-		/// <param name="words">Words.</param>
-		private static void showMyToast(Context mContext, int iconResId, String words)
-		{
-			if (mToast != null)
-			{
+        /// <summary>
+        /// 显示自定义Toast提示
+        /// </summary>
+        /// <param name="mContext">M context.</param>
+        /// <param name="iconResId">Icon res identifier.</param>
+        /// <param name="words">Words.</param>
+        private static void ShowMyToast(Context mContext, int iconResId, String words)
+        {
+            if (mToast != null)
+            {
                 if (Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.IceCreamSandwich)
-				{
-					mToast.Cancel();
-				}
-			}
-			else
-			{
-                mToast = MyToast.Create(mContext,iconResId,words,Android.Widget.ToastLength.Long);
-			}
-			mToast.Show();
-		}
+                {
+                    mToast.Cancel();
+                }
+            }
+
+            mToast = MyToast.Create(mContext, iconResId, words, Android.Widget.ToastLength.Short);
+
+            mToast.Show();
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using Android.App;
 using Android.Content;
-using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -10,14 +9,25 @@ namespace xxxxxLibrary.LoadingDialog
 {
     public class MyLoadingDialog : ProgressDialog
     {
+        private Context mContext;
         private string message = string.Empty;
         private TextView tvMessage;
 
-        public MyLoadingDialog(Context context, String message):base(context)
+        public MyLoadingDialog(Context context, String message) : base(context)
         {
+            this.mContext = context;
             this.message = message;
+        }
 
-            init(context);
+        public MyLoadingDialog(Context context, int theme, String message) : base(context, theme)
+        {
+            this.mContext = context;
+            this.message = message;
+        }
+
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            init(mContext);
         }
 
         private void init(Context context)
@@ -25,34 +35,31 @@ namespace xxxxxLibrary.LoadingDialog
             SetCancelable(false);
             SetCanceledOnTouchOutside(false);
 
-
-			Show();
-			View view = LayoutInflater.FromContext(context).Inflate(Resource.Layout.loadingdialog_bg, null);
-			tvMessage = (TextView)view.FindViewById(Resource.Id.tv_loading_msg);
-            tvMessage.SetText(this.message, TextView.BufferType.Normal);
+            View view = LayoutInflater.FromContext(context).Inflate(Resource.Layout.loadingdialog_bg, null);
+            tvMessage = (TextView)view.FindViewById(Resource.Id.tv_loading_msg);
+            tvMessage.Text = this.message;
 
             SetContentView(view);
 
+            // 设置对话框的宽度
+            //Window dialogWindow = this.Window;
+            //WindowManagerLayoutParams pars = dialogWindow.Attributes;
+            //pars.Width = WindowManagerLayoutParams.WrapContent;
+            //pars.Height = WindowManagerLayoutParams.WrapContent;
+            //this.Window.Attributes = pars;
+        }
 
-   //         Window.Attributes.Width = windowma
-
-   //         Android.Views.WindowManagerLayoutParams params = Window.Attributes;
-
-			//WindowManager windowManager = this.getWindowManager();
-			//Display display = windowManager.getDefaultDisplay();
-			//WindowManager.LayoutParams lParams = alertWindow.getAttributes();
-			//lParams.alpha = 0.9f;
-			//lParams.width = (int)(display.getWidth() * 0.4);
-			//lParams.height = lParams.width;
-			//alertWindow.setAttributes(lParams);
-		}
+        public override void Show()
+        {
+            base.Show();
+        }
 
         public void SetMsg(string msg)
         {
-            if(tvMessage!=null)
-			{
-				tvMessage.SetText(msg, TextView.BufferType.Normal);
-			}
+            if (tvMessage != null)
+            {
+                tvMessage.Text = msg;
+            }
         }
     }
 }

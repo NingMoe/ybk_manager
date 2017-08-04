@@ -1,0 +1,13 @@
+﻿<Properties StartupConfiguration="{30BF7E82-EF62-4187-AEE2-0D43951732D2}|Default">
+  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/dongxiangtao/Desktop/xdf/code/YbkManage/YbkManage/Activities/TeacherAddActivity.cs" relfile="YbkManage/Activities/TeacherAddActivity.cs" line="132" column="1" />
+      <Breakpoint file="/Users/dongxiangtao/Desktop/xdf/code/YbkManage/YbkManage/Activities/TeacherScopeSelectActivity.cs" relfile="YbkManage/Activities/TeacherScopeSelectActivity.cs" line="45" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.YbkManage AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.Android_Accelerated_x86" AndroidDesignerPreferredTheme="appbasetheme" />
+  <MultiItemStartupConfigurations />
+</Properties>

@@ -82,7 +82,6 @@ namespace xxxxxLibrary.Serializer
         /// List转成json 
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="jsonName"></param>
         /// <param name="list"></param>
         /// <returns></returns>
         public static string ListToJsonString<T>(IList<T> list)
@@ -176,7 +175,23 @@ namespace xxxxxLibrary.Serializer
             MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
             T[] arrayObj = (T[])ser.ReadObject(ms);
             return arrayObj;
-        }
+		}
+
+		/// <summary> 
+		/// 反序列化集合对象
+		/// </summary> 
+		public static List<T> ToObjectList<T>(string jsonString)
+		{
+			//将"yyyy-MM-dd HH:mm:ss"格式的字符串转为"\/Date(1294499956278+0800)\/"格式  
+			string p = @"\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}";
+			MatchEvaluator matchEvaluator = new MatchEvaluator(ConvertDateStringToJsonDate);
+			Regex reg = new Regex(p);
+			jsonString = reg.Replace(jsonString, matchEvaluator);
+			DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T[]));
+			MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
+			T[] arrayObj = (T[])ser.ReadObject(ms);
+            return new List<T>(arrayObj);
+		}
 
         /// <summary> 
         /// 将Json序列化的时间由/Date(1294499956278+0800)转为字符串 
@@ -209,7 +224,7 @@ namespace xxxxxLibrary.Serializer
 		/// </summary>
 		/// <param name="s"></param>
 		/// <returns></returns>
-		public static string String2Json(String s)
+		public static string StringToJson(String s)
 		{
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < s.Length; i++)
@@ -258,7 +273,7 @@ namespace xxxxxLibrary.Serializer
             }
             else if (type == typeof(string))
             {
-                str = String2Json(str);
+                str = StringToJson(str);
                 str = "\"" + str + "\"";
             }
             else if (type == typeof(DateTime))

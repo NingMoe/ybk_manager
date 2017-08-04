@@ -8,6 +8,12 @@
 		<item name="android:windowBackground">@android:color/white</item>
 	</style>
 
+    <!-- 启动界面，解决白屏问题 -->
+    <style name="splashTheme" parent="appbasetheme">
+		<item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <!-- 顶部状态栏的样式 -->
     <style name="actionbarStyle">
         <item name="android:layout_width">match_parent</item>
@@ -15,8 +21,8 @@
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:background">@color/actionbar_bg</item>
         <item name="android:elevation">3dp</item>
-        <item name="android:paddingStart">15sp</item>
-        <item name="android:paddingEnd">15sp</item>
+        <item name="android:paddingStart">12sp</item>
+        <item name="android:paddingEnd">12sp</item>
     </style>
     
     <!-- 设置界面的TextView样式 -->
@@ -38,9 +44,14 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-    <!-- 默认按钮样式 -->
-    <!--<style name="CustomButton" parent="Theme.Material.Light">
-        <item name="colorButtonNormal">#ffffff</item>
-        <item name="colorControlHighlight">#111111</item>
-    </style>-->
+    <!-- dialog样式 -->
+    <style name="myDialog" parent="@android:style/Theme.Material.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <!-- 无边框 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 没有标题 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 背景是否半透明 -->
+    </style>
 </resources>
