@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -26,7 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
-<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,7 +57,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="JakeWharton.Picasso2OkHttp3Downloader">
-      <HintPath>..\packages\JakeWharton.Picasso2OkHttp3Downloader.1.1.0\lib\MonoAndroid\JakeWharton.Picasso2OkHttp3Downloader.dll</HintPath>
+      <HintPath>..\..\..\ybk_manager_android\packages\JakeWharton.Picasso2OkHttp3Downloader.1.1.0\lib\MonoAndroid\JakeWharton.Picasso2OkHttp3Downloader.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\packages\Xamarin.Android.Support.v4.23.4.0.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
@@ -195,9 +195,6 @@
     <AndroidResource Include="Resources\layout\item_renew_avatar.axml" />
     <AndroidResource Include="Resources\layout\activity_student_class.axml" />
     <AndroidResource Include="Resources\layout\item_student_class.axml" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\class_1.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\class_2.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\class_3.png" />
     <AndroidResource Include="Resources\layout\fragment_studentclass_list.axml" />
     <AndroidResource Include="Resources\drawable-xxhdpi\arrow_down.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\arrow_down_on.png" />
@@ -222,21 +219,24 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\splash_logo.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\splash_logo.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\avatar_student.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_more.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_dili.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_huaxue.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_lishi.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_lizong.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_shengwu.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_shuxue.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_wenzong.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_wuli.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_yingyu.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_youcai.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_yuwen.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_zhengzhi.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_zhuanxiang.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\drawable\" />
-    <Folder Include="Activities\" />
-    <Folder Include="Resources\drawable-hdpi\" />
-    <Folder Include="Fragments\" />
-    <Folder Include="Resources\drawable-xhdpi\" />
-    <Folder Include="App\" />
     <Folder Include="Resources\drawable-mdpi\" />
-    <Folder Include="Resources\drawable-xxxhdpi\" />
-    <Folder Include="Resources\drawable-xxhdpi\" />
-    <Folder Include="Models\" />
-    <Folder Include="Adapters\" />
     <Folder Include="Views\" />
-    <Folder Include="Resources\anim\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\xxxxxLibrary\xxxxxLibrary.csproj">

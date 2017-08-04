@@ -1,10 +1,9 @@
 ﻿<Properties StartupConfiguration="{30BF7E82-EF62-4187-AEE2-0D43951732D2}|Default">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="YbkManage/Adapters/ReportByTeacherAdapter.cs">
     <Files>
-      <File FileName="YbkManage/Activities/ClassRenewInfo.cs" Line="46" Column="66" />
-      <File FileName="YbkManage/Activities/StuentClassActivity.cs" Line="80" Column="47" />
-      <File FileName="YbkManage/Fragments/StudentClassListFragment.cs" Line="39" Column="28" />
-      <File FileName="YbkManage/Adapters/StudentClassAdapter.cs" Line="40" Column="98" />
+      <File FileName="YbkManage/Activities/ClassRenewInfo.cs" Line="26" Column="18" />
+      <File FileName="YbkManage/Activities/ReportListByTeacher.cs" Line="50" Column="31" />
+      <File FileName="YbkManage/Adapters/ReportByTeacherAdapter.cs" Line="88" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

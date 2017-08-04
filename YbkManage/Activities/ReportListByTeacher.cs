@@ -52,7 +52,10 @@ namespace YbkManage.Activities
         // 续班情况
         private List<Statistics_ClassRenewSummary> renewInfoList = new List<Statistics_ClassRenewSummary>();
 
-        private RenewInfo currReportInfo = new RenewInfo();
+		private RenewInfo currReportInfo = new RenewInfo();
+
+		// 所在项目组的平均续班率
+		private decimal avgRenewRateScope = 1;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -63,14 +66,13 @@ namespace YbkManage.Activities
 
         protected override void InitVariables()
         {
-            //scopeId = Intent.Extras.GetInt("scopeId");
-            //teacherCode = Intent.Extras.GetString("teacherCode");
-            //teacherName = Intent.Extras.GetString("teacherName");
             Bundle bundle = Intent.Extras;
             if (bundle != null)
             {
                 var reportJsonStr = bundle.GetString("reportJsonStr");
-                currReportInfo = JsonSerializer.ToObject<RenewInfo>(reportJsonStr);
+				currReportInfo = JsonSerializer.ToObject<RenewInfo>(reportJsonStr);
+
+				avgRenewRateScope = decimal.Parse(bundle.GetString("avgRenewRate", "1"));
 
                 var searchQuarterJsonStr = bundle.GetString("searchQuarter");
                 searchQuarter = JsonSerializer.ToObject<QuarterEntity>(searchQuarterJsonStr);
@@ -97,7 +99,7 @@ namespace YbkManage.Activities
             mSwipeRefreshLayout.SetColorSchemeColors(Color.ParseColor("#db0000"));
 
             linearLayoutManager = new LinearLayoutManager(CurrActivity);
-            mAdapter = new ReportByTeacherAdapter(CurrContext, renewInfoList);
+            mAdapter = new ReportByTeacherAdapter(CurrContext, renewInfoList,avgRenewRateScope);
             mRecyclerView.SetLayoutManager(linearLayoutManager);
             mRecyclerView.SetAdapter(mAdapter);
             mAdapter.NotifyDataSetChanged();
@@ -141,7 +143,6 @@ namespace YbkManage.Activities
             if (BaseApplication.GetInstance().quarterList == null)
             {
                 BaseApplication.GetInstance().quarterList = RenewService.GetQuarter(CurrUserInfo.SchoolId);
-                quarterList = BaseApplication.GetInstance().quarterList;
             }
             if (BaseApplication.GetInstance().gradeList == null)
             {
@@ -152,6 +153,10 @@ namespace YbkManage.Activities
                 BaseApplication.GetInstance().districtList = RenewService.GetDistrictList(CurrUserInfo.SchoolId);
             }
 
+			if (BaseApplication.GetInstance().quarterList != null && BaseApplication.GetInstance().quarterList.Any())
+			{
+				quarterList = BaseApplication.GetInstance().quarterList;
+			}
             if (searchQuarter != null)
             {
                 tv_btn1.Text = searchQuarter.QuarterName;
@@ -187,14 +192,10 @@ namespace YbkManage.Activities
             if (BaseApplication.GetInstance().districtList != null && BaseApplication.GetInstance().districtList.Any())
             {
                 districtList = new List<string>(BaseApplication.GetInstance().districtList.Select(i => i.DistrictName).ToArray());
-                if (districtList.Count > 1)
-                {
-                    districtList.Insert(0, "全部区域");
-                }
             }
             if (!string.IsNullOrEmpty(searchDistrict))
             {
-                tv_btn2.Text = searchDistrict;
+                tv_btn3.Text = searchDistrict;
             }
 
             LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
@@ -234,7 +235,7 @@ namespace YbkManage.Activities
                     var districtStr = "";
                     if (!string.IsNullOrEmpty(searchDistrict) && !searchDistrict.Equals("全部区域"))
                     {
-                        districtStr = string.Join(",", searchDistrict.ToArray());
+                        districtStr = searchDistrict;
                     }
 
                     var result = RenewService.GetRenewInfoInClassByTeacher(CurrUserInfo.SchoolId, searchQuarter.Year, searchQuarter.Quarter, gradeStr, districtStr, currReportInfo.Item2, 1, 0);
@@ -352,7 +353,17 @@ namespace YbkManage.Activities
                         var tvAll = popViwe2.FindViewById<TextView>(Resource.Id.tv_all);
                         ViewGroup.LayoutParams tvallParams = tvAll.LayoutParameters;
                         tvallParams.Width = itemWidth;
-                        tvAll.LayoutParameters = tvallParams;
+						tvAll.LayoutParameters = tvallParams; 
+                        if (searchGradeList.Count == gradeList.Count)
+						{
+							tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+							tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+						}
+						else
+						{
+							tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+							tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
+						}
 
                         GridLayout gridlayout_1 = popViwe2.FindViewById<GridLayout>(Resource.Id.gridlayout_1);
                         for (var i = 0; i < gradeList.Count; i++)
@@ -372,9 +383,17 @@ namespace YbkManage.Activities
                             tvGrade.Text = itemGrade;
                             tvGrade.TextSize = 14;
                             tvGrade.Gravity = GravityFlags.Center;
-                            tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
                             tvGrade.SetPadding(0, AppUtils.dip2px(CurrActivity, 5), 0, AppUtils.dip2px(CurrActivity, 5));
-                            tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+							if (searchGradeList.Contains(itemGrade))
+							{
+								tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+								tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+							}
+							else
+							{
+								tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+								tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
+							}
 
                             gridlayout_1.AddView(tvGrade);
 

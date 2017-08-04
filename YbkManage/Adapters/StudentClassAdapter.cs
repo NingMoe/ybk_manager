@@ -5,6 +5,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using DataEntity;
+using YbkManage.App;
 using static Android.Views.View;
 
 namespace YbkManage.Adapters
@@ -25,7 +26,7 @@ namespace YbkManage.Adapters
 
         public void SetData(List<PureClassEntity> data)
         {
-			teachReportList = data;
+            teachReportList = data;
         }
 
         /// <summary>
@@ -53,11 +54,13 @@ namespace YbkManage.Adapters
                 var itemInfo = teachReportList[position];
 
                 ((ItemViewHolder)holder).Tv_Name.Text = itemInfo.ClassName;
-				((ItemViewHolder)holder).Tv_ClassCode.Text = itemInfo.ClassCode;
-				((ItemViewHolder)holder).Tv_Teachers.Text = itemInfo.TeacherNames;
-				((ItemViewHolder)holder).Tv_Address.Text = itemInfo.PrintAddress;
-                ((ItemViewHolder)holder).Tv_Date.Text = itemInfo.BeginDate+"--"+itemInfo.EndDate;
+                ((ItemViewHolder)holder).Tv_ClassCode.Text = itemInfo.ClassCode;
+                ((ItemViewHolder)holder).Tv_Teachers.Text = itemInfo.TeacherNames;
+                ((ItemViewHolder)holder).Tv_Address.Text = itemInfo.PrintAddress;
+                ((ItemViewHolder)holder).Tv_Date.Text = itemInfo.BeginDate + "--" + itemInfo.EndDate;
                 ((ItemViewHolder)holder).Tv_Time.Text = itemInfo.PrintTime;
+
+                ((ItemViewHolder)holder).Iv_Class_Type.SetImageResource(AppUtils.GetCourseIcon(itemInfo.ClassName));
 
             }
         }
@@ -94,18 +97,18 @@ namespace YbkManage.Adapters
         public class ItemViewHolder : RecyclerView.ViewHolder
         {
             public ImageView Iv_Class_Type;
-            public TextView Tv_Name, Tv_ClassCode, Tv_Teachers, Tv_Address,Tv_Date,Tv_Time;
+            public TextView Tv_Name, Tv_ClassCode, Tv_Teachers, Tv_Address, Tv_Date, Tv_Time;
 
 
             public ItemViewHolder(View itemView) : base(itemView)
-			{
-				Iv_Class_Type = (ImageView)itemView.FindViewById(Resource.Id.iv_classtype);
+            {
+                Iv_Class_Type = (ImageView)itemView.FindViewById(Resource.Id.iv_classtype);
 
-				Tv_Name = (TextView)itemView.FindViewById(Resource.Id.tv_name);
+                Tv_Name = (TextView)itemView.FindViewById(Resource.Id.tv_name);
                 Tv_ClassCode = (TextView)itemView.FindViewById(Resource.Id.tv_classcode);
                 Tv_Teachers = (TextView)itemView.FindViewById(Resource.Id.tv_teachers);
-				Tv_Address= (TextView)itemView.FindViewById(Resource.Id.tv_address);
-				Tv_Date = (TextView)itemView.FindViewById(Resource.Id.tv_date);
+                Tv_Address = (TextView)itemView.FindViewById(Resource.Id.tv_address);
+                Tv_Date = (TextView)itemView.FindViewById(Resource.Id.tv_date);
                 Tv_Time = (TextView)itemView.FindViewById(Resource.Id.tv_time);
             }
         }
