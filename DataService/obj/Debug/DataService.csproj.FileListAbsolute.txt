@@ -34,3 +34,19 @@
 /Users/dongxiangtao/Desktop/xdf/code/YbkManage/DataService/obj/Debug/res/values/strings.xml
 /Users/dongxiangtao/Desktop/xdf/code/YbkManage/DataService/obj/Debug/R.cs.flag
 /Users/dongxiangtao/Desktop/xdf/code/YbkManage/DataService/obj/Debug/uploadflags.txt
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Debug\DataService.csprojResolveAssemblyReference.cache
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Debug\DataService.dll
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Debug\DataService.pdb
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Debug\DataService.DataService.apk
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Debug\DataService.DataService-Signed.apk
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Debug\DataEntity.dll
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Debug\Newtonsoft.Json.dll
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Debug\DataEntity.pdb
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Debug\DataService.dll
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Debug\DataService.pdb
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Debug\android\bin\DataService.DataService.apk
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Debug\res\values\strings.xml
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Debug\R.cs.flag
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Debug\uploadflags.txt
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Debug\DataService.dll.mdb
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Debug\DataService.dll.mdb

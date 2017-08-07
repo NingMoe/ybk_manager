@@ -22,3 +22,15 @@
 /Users/dongxiangtao/Desktop/xdf/code/YbkManage/DataEntity/obj/Debug/res/values/strings.xml
 /Users/dongxiangtao/Desktop/xdf/code/YbkManage/DataEntity/obj/Debug/R.cs.flag
 /Users/dongxiangtao/Desktop/xdf/code/YbkManage/DataEntity/obj/Debug/uploadflags.txt
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\bin\Debug\DataEntity.dll
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\bin\Debug\DataEntity.pdb
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\bin\Debug\DataEntity.DataEntity.apk
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\bin\Debug\DataEntity.DataEntity-Signed.apk
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Debug\DataEntity.dll
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Debug\DataEntity.pdb
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Debug\android\bin\DataEntity.DataEntity.apk
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Debug\res\values\strings.xml
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Debug\R.cs.flag
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Debug\uploadflags.txt
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Debug\DataEntity.dll.mdb
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\bin\Debug\DataEntity.dll.mdb

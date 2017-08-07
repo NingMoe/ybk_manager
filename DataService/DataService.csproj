@@ -64,10 +64,6 @@
       <Project>{8D7D1E85-EA6A-4CC0-96A9-931B43E1DEF5}</Project>
       <Name>DataEntity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\xxxxxLibrary\xxxxxLibrary.csproj">
-      <Project>{CFE09C2B-680A-4CD5-80F8-6A0CA18A24D9}</Project>
-      <Name>xxxxxLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using DataEntity;
-using xxxxxLibrary.Network;
 
 namespace DataService
 {
