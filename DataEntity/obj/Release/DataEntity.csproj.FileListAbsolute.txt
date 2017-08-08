@@ -1,0 +1,12 @@
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\bin\Release\DataEntity.dll
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\bin\Release\DataEntity.pdb
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\bin\Release\DataEntity.DataEntity.apk
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\bin\Release\DataEntity.DataEntity-Signed.apk
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Release\DataEntity.dll
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Release\DataEntity.pdb
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Release\android\bin\DataEntity.DataEntity.apk
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Release\res\values\strings.xml
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Release\R.cs.flag
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Release\uploadflags.txt
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\obj\Release\DataEntity.dll.mdb
+D:\Pro\Source Code\Git\ybk_manager\DataEntity\bin\Release\DataEntity.dll.mdb

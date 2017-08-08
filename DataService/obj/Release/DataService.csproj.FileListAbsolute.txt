@@ -1,0 +1,16 @@
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Release\DataService.csprojResolveAssemblyReference.cache
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Release\DataService.dll
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Release\DataService.pdb
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Release\DataService.DataService.apk
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Release\DataService.DataService-Signed.apk
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Release\DataEntity.dll
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Release\Newtonsoft.Json.dll
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Release\DataEntity.pdb
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Release\DataService.dll
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Release\DataService.pdb
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Release\android\bin\DataService.DataService.apk
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Release\res\values\strings.xml
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Release\R.cs.flag
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Release\uploadflags.txt
+D:\Pro\Source Code\Git\ybk_manager\DataService\obj\Release\DataService.dll.mdb
+D:\Pro\Source Code\Git\ybk_manager\DataService\bin\Release\DataService.dll.mdb

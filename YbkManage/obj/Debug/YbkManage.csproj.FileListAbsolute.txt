@@ -247,6 +247,7 @@
 /Users/dongxiangtao/Desktop/xdf/code/YbkManage/YbkManage/obj/Debug/res/drawable-xxhdpi/ic_yuwen.png
 /Users/dongxiangtao/Desktop/xdf/code/YbkManage/YbkManage/obj/Debug/res/drawable-xxhdpi/ic_zhengzhi.png
 /Users/dongxiangtao/Desktop/xdf/code/YbkManage/YbkManage/obj/Debug/res/drawable-xxhdpi/ic_zhuanxiang.png
+D:\Pro\Source Code\Git\ybk_manager\YbkManage\obj\Debug\YbkManage.csprojResolveAssemblyReference.cache
 D:\Pro\Source Code\Git\ybk_manager\YbkManage\bin\Debug\YbkManage.dll
 D:\Pro\Source Code\Git\ybk_manager\YbkManage\bin\Debug\YbkManage.pdb
 D:\Pro\Source Code\Git\ybk_manager\YbkManage\bin\Debug\cn.xdf.ybkmanage.apk
@@ -264,10 +265,9 @@ D:\Pro\Source Code\Git\ybk_manager\YbkManage\bin\Debug\Xamarin.Android.Support.v
 D:\Pro\Source Code\Git\ybk_manager\YbkManage\bin\Debug\Xamarin.Android.Support.Vector.Drawable.dll
 D:\Pro\Source Code\Git\ybk_manager\YbkManage\bin\Debug\xxxxxLibrary.dll
 D:\Pro\Source Code\Git\ybk_manager\YbkManage\bin\Debug\Newtonsoft.Json.dll
-D:\Pro\Source Code\Git\ybk_manager\YbkManage\bin\Debug\xxxxxLibrary.pdb
 D:\Pro\Source Code\Git\ybk_manager\YbkManage\bin\Debug\DataEntity.pdb
 D:\Pro\Source Code\Git\ybk_manager\YbkManage\bin\Debug\DataService.pdb
-D:\Pro\Source Code\Git\ybk_manager\YbkManage\obj\Debug\YbkManage.csprojResolveAssemblyReference.cache
+D:\Pro\Source Code\Git\ybk_manager\YbkManage\bin\Debug\xxxxxLibrary.pdb
 D:\Pro\Source Code\Git\ybk_manager\YbkManage\obj\Debug\YbkManage.dll
 D:\Pro\Source Code\Git\ybk_manager\YbkManage\obj\Debug\YbkManage.pdb
 D:\Pro\Source Code\Git\ybk_manager\YbkManage\obj\Debug\android\bin\cn.xdf.ybkmanage.apk
