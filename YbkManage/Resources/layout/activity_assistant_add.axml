@@ -159,7 +159,6 @@
             android:id="@+id/btn_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
             android:gravity="center"
             android:background="@android:color/white"
             android:text="删除助教组长"

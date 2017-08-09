@@ -233,12 +233,11 @@
             android:id="@+id/btn_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
             android:gravity="center"
-            android:background="@drawable/button_bg_red"
+            android:background="@android:color/white"
             android:text="删除老师"
-            android:textColor="#fefefe"
+            android:textColor="#f46d5f"
             android:textSize="18sp"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </LinearLayout>
 </LinearLayout>
