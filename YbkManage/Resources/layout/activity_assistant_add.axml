@@ -42,7 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:showDividers="none">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -158,12 +159,11 @@
             android:id="@+id/btn_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="0dp"
             android:gravity="center"
-            android:background="@drawable/button_bg_red"
+            android:background="@android:color/white"
             android:text="删除助教组长"
-            android:textColor="#fefefe"
-            android:textSize="18sp"
-            android:visibility="gone" />
+            android:textColor="#f46d5f"
+            android:textSize="18sp" />
     </LinearLayout>
 </LinearLayout>

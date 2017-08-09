@@ -773,27 +773,7 @@ namespace DataService
 			return url;
 		}
 
-		/// <summary>
-		/// 是否中国大陆手机号 ^0?1[3456789]\d{9}$，
-		/// 必须加前^后$限制，否则abc15877778888abc也被认为是手机1\d{10}
-		/// 内部已判断非空
-		/// </summary>
-		public static bool IsMobile(string txt)
-		{
-			if (string.IsNullOrEmpty(txt))
-				return false;
 
-			//var regx = @"0?1[3|5|8]\d{9}"; // |符号被误认为正确
-			//var regx = @"0?1\d{10}";
-			//var regx = @"1\d{10}"; //有bug，abc15877778888abc也被认为是手机，必须加前^后$限制
-			//var regx = @"^1\d{10}$"; 
-			var regx = @"^0?1[3456789]\d{9}$";
-			Match m = Regex.Match(txt, regx);
-			if (m.Success)
-				return true;
-			else
-				return false;
-		}
 
 		/// <summary>
 		///将URL参数解析成Dictionary
@@ -816,23 +796,59 @@ namespace DataService
 			return dic;
 		}
 
-#region GetSign
-public static string GetSign(Dictionary<string, string> dic)
-{
-	var signText = "";
-	foreach (var item in dic)
-	{
-		if (!String.IsNullOrEmpty(item.Value))
+		#region GetSign
+		public static string GetSign(Dictionary<string, string> dic)
 		{
-			signText += item.Key + "=" + item.Value + "&";
-		}
-	}
+			var signText = "";
+			foreach (var item in dic)
+			{
+				if (!String.IsNullOrEmpty(item.Value))
+				{
+					signText += item.Key + "=" + item.Value + "&";
+				}
+			}
 			signText += "appkey=" + Config.AppKey;
-	signText = signText.ToLower();
-	var sign = GetMD5(signText);
-	return sign;
-}
-#endregion
+			signText = signText.ToLower();
+			var sign = GetMD5(signText);
+			return sign;
+		}
+		#endregion
+
+		/// <summary>
+		/// 是否中国大陆手机号 ^0?1[3456789]\d{9}$，
+		/// 必须加前^后$限制，否则abc15877778888abc也被认为是手机1\d{10}
+		/// 内部已判断非空
+		/// </summary>
+		public static bool IsMobile(string txt)
+		{
+			if (string.IsNullOrEmpty(txt))
+				return false;
+
+			//var regx = @"0?1[3|5|8]\d{9}"; // |符号被误认为正确
+			//var regx = @"0?1\d{10}";
+			//var regx = @"1\d{10}"; //有bug，abc15877778888abc也被认为是手机，必须加前^后$限制
+			//var regx = @"^1\d{10}$"; 
+			var regx = @"^0?1[3456789]\d{9}$";
+			Match m = Regex.Match(txt, regx);
+			if (m.Success)
+				return true;
+			else
+				return false;
+		}
+		public static bool IsEmail(string txt)
+		{
+			if (string.IsNullOrEmpty(txt))
+				return false;
+
+
+			var regx = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+			Match m = Regex.Match(txt, regx);
+			if (m.Success)
+				return true;
+			else
+				return false;
+		}
+
 
 	}
 

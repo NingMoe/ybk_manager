@@ -86,15 +86,16 @@ namespace YbkManage.Activities
             else
             {
                 isNewAdd = false;
-                tvTitle.Text = "编辑助教组长";
+                tvTitle.Text = "编辑助88888教组长";
 
-                tvTitle.Text = currAssistant.Name;
+                tvTitle.Text = currAssistant.Name+"fdsfa";
                 btnAdd.Visibility = ViewStates.Gone;
                 btnDelete.Visibility = ViewStates.Visible;
 
+				etName.Enabled = false;
+				etAmount.Enabled = false;
                 etName.Text = currAssistant.Name;
                 etAmount.Text = currAssistant.Mobile;
-
                 tvArea.Text = currAssistant.AreaName;
                 tvArea.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
             }
@@ -172,7 +173,7 @@ namespace YbkManage.Activities
                     return;
                 }
 
-                if (!CheckUtil.IsValidPhone(currAssistant.Mobile))
+				if (!Helper.IsMobile(currAssistant.Mobile))
                 {
                     ToastUtil.ShowWarningToast(this, "请输入正确的手机号");
                     etAmount.RequestFocus();
@@ -309,65 +310,65 @@ namespace YbkManage.Activities
             }
         }
 
-        /// <summary>
-        /// 删除教师信息
-        /// </summary>
-        private void DoDelete()
-        {
-            try
-            {
-                if (!NetUtil.CheckNetWork(CurrActivity))
-                {
-                    ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
-                    return;
-                }
+		/// <summary>
+		/// 删除教师信息
+		/// </summary>
+		private void DoDelete()
+		{
+			try
+			{
+				if (!NetUtil.CheckNetWork(CurrActivity))
+				{
+					ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
+					return;
+				}
 
 
-                LoadingDialogUtil.ShowLoadingDialog(this, "删除中...");
+				LoadingDialogUtil.ShowLoadingDialog(this, "删除中...");
 
-                new Thread(new ThreadStart(() =>
-                            {
-                                var schoolId = CurrUserInfo.SchoolId;
-                                var type = 1; //type = 1 助教相关身份 type = 2 教师相关身份
-                                var keyword = currAssistant.Name;
-                                var modifier = currAssistant.Mobile;
-                                var rd = _meService.DeleteManagerUser(schoolId, type.ToString(), keyword, modifier);
+				new Thread(new ThreadStart(() =>
+							{
+								var schoolId = CurrUserInfo.SchoolId;
+								var type = 1; //type = 1 助教相关身份 type = 2 教师相关身份
+								var keyword = currAssistant.Mobile;
+								var modifier = CurrUserInfo.Name;
+								var rd = _meService.DeleteManagerUser(schoolId, type.ToString(), keyword, modifier);
 
-                                RunOnUiThread(() =>
-                                {
-                                    LoadingDialogUtil.DismissLoadingDialog();
-                                    if (rd.State == 0)
-                                    {
-                                        ToastUtil.ShowErrorToast(this, (string.IsNullOrEmpty(rd.Error) ? "操作失败" : rd.Error));
+								RunOnUiThread(() =>
+								{
+									LoadingDialogUtil.DismissLoadingDialog();
+									if (rd.State == 0)
+									{
+										ToastUtil.ShowErrorToast(this, (string.IsNullOrEmpty(rd.Error) ? "操作失败" : rd.Error));
 
-                                    }
-                                    else
-                                    {
-                                        ToastUtil.ShowSuccessToast(this, "操作成功");
-                                        new Handler().PostDelayed(() =>
-                                            {
+									}
+									else
+									{
+										ToastUtil.ShowSuccessToast(this, "操作成功");
+										new Handler().PostDelayed(() =>
+											{
 
-                                                Finish();
-                                                OverridePendingTransition(Resource.Animation.left_in, Resource.Animation.right_out);
-                                            }, 1000);
-                                    }
+												Finish();
+												OverridePendingTransition(Resource.Animation.left_in, Resource.Animation.right_out);
+											}, 1000);
+									}
 
 
-                                });
+								});
 
-                            })).Start();
+							})).Start();
 
-            }
-            catch (Exception ex)
-            {
-                var msg = ex.Message.ToString();
-                ToastUtil.ShowErrorToast(this, "操作失败");
-            }
-            finally
-            {
-                LoadingDialogUtil.DismissLoadingDialog();
-            }
-        }
+			}
+			catch (Exception ex)
+			{
+				var msg = ex.Message.ToString();
+				ToastUtil.ShowErrorToast(this, "操作失败");
+			}
+			finally
+			{
+				LoadingDialogUtil.DismissLoadingDialog();
+			}
+		}
 
 
         protected override void OnActivityResult(int requestCode, Android.App.Result resultCode, Intent data)

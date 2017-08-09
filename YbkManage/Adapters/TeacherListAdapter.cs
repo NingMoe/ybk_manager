@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Android.Content;
+using Android.Content.Res;
+using Android.Graphics;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
@@ -78,6 +80,9 @@ namespace YbkManage.Adapters
 
                 if (pageType == 1)
                 {
+					((ItemViewHolder)holder).Tv_Job.SetBackgroundResource(Resource.Drawable.button_bg);
+					((ItemViewHolder)holder).Tv_Job.SetTextColor(ColorStateList.ValueOf(Color.Rgb(255,255,255)));
+					
                     ((ItemViewHolder)holder).Tv_Job.Visibility = ViewStates.Gone;
                     if (itemInfo.Type == 22)
                     {
@@ -92,6 +97,9 @@ namespace YbkManage.Adapters
                 }
                 else
                 {
+					((ItemViewHolder)holder).Tv_Job.SetBackgroundResource(Resource.Drawable.textview_circle_green);
+					((ItemViewHolder)holder).Tv_Job.SetTextColor(ColorStateList.ValueOf(Color.Rgb(23,191,160)));
+
                     ((ItemViewHolder)holder).Tv_Job.Visibility = ViewStates.Visible;
                     ((ItemViewHolder)holder).Tv_Job.Text = itemInfo.ScopeName;
                 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Json;
 using System.Linq;
 using System.Text;
-
+using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -12,9 +12,11 @@ using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.Content;
+using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
 using DataEntity;
+using DataService;
 using xxxxxLibrary.LoadingDialog;
 using xxxxxLibrary.Network;
 using xxxxxLibrary.Toast;
@@ -78,52 +80,33 @@ namespace YbkManage.Activities
 				ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
 				return;
 			}
-			else
-			{
-				LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
-				GetAreaByDistrictCode();
-			}
-		}
-
-		/// <summary>
-		/// 获取地域列表
-		/// </summary>
-		private async void GetAreaByDistrictCode()
-		{
 			try
 			{
-				Dictionary<string, string> requstParams = new Dictionary<string, string>();
-				requstParams.Add("appId", AppConfig.APP_ID);
-				requstParams.Add("method", "GetAreaByDistrictCode");
-				requstParams.Add("schoolId", CurrUserInfo.SchoolId.ToString());
-				requstParams.Add("districtCode", "Northeast");
-				requstParams.Add("sign", AppUtils.GetSign(requstParams));
-				var result = await HttpRequestUtil.SendPostRequestBasedOnHttpClient(AppConfig.API_INDEX_REPORT, requstParams);
+				LoadingDialogUtil.ShowLoadingDialog(this, "数据获取中...");
 
+				new Thread(new ThreadStart(() =>
+							{
+								var schoolId = CurrUserInfo.SchoolId;
+					var districtCode = CurrUserInfo.DistrictCode;
+					schoolAreaList = new MeService().GetAreaByDistrict(schoolId, districtCode);
 
-				var data = (JsonObject)result;
-				var state = int.Parse(data["State"].ToString());
-				schoolAreaList.Clear();
-				if (state == 1)
-				{
-					var jsonArr = JsonValue.Parse(data["Data"].ToString());
+								RunOnUiThread(() =>
+								{
+									LoadingDialogUtil.DismissLoadingDialog();
+									InitList();
 
-					for (int i = 0; i < jsonArr.Count; i++)
-					{
-						AreaModel area = new AreaModel();
-						area.sName = jsonArr[i]["sName"].ToString().Replace("\"", "");
-                        area.sCode = jsonArr[i]["sCode"].ToString().Replace("\"", "");
-						area.DistrictCode = jsonArr[i]["DistrictCode"].ToString().Replace("\"", "");
-						area.DistrictName = jsonArr[i]["DistrictName"].ToString().Replace("\"", "");
-						schoolAreaList.Add(area);
-					}
+								});
 
-                    InitList();
-				}
+							})).Start();
+
 			}
 			catch (Exception ex)
 			{
 				var msg = ex.Message.ToString();
+				ToastUtil.ShowErrorToast(this, "操作失败");
+			}
+			finally
+			{
 				LoadingDialogUtil.DismissLoadingDialog();
 			}
 		}

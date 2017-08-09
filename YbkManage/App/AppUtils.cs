@@ -198,24 +198,24 @@ namespace YbkManage.App
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        public static string GetSign(Dictionary<string, string> param)
-        {
-            string paramList = string.Empty;
-            foreach (var key in param.Keys)
-            {
-                if (!String.IsNullOrEmpty(param[key]))
-                {
-                    paramList += key + "=" + param[key] + "&";
-                }
-            }
-            paramList += "appkey=" + AppConfig.APP_KEY;
-            //LogHelper.Info("1.paramList:"+ paramList);
-            paramList = paramList.ToLower();
-            //LogHelper.Info("2.paramList:" + paramList);
-            var sign = EncryptUtil.MD5(paramList).ToUpper(); //签名
-                                                             //LogHelper.Info("3.sign:" + sign);
-            return sign;
-        }
+        //public static string GetSign(Dictionary<string, string> param)
+        //{
+        //    string paramList = string.Empty;
+        //    foreach (var key in param.Keys)
+        //    {
+        //        if (!String.IsNullOrEmpty(param[key]))
+        //        {
+        //            paramList += key + "=" + param[key] + "&";
+        //        }
+        //    }
+        //    paramList += "appkey=" + AppConfig.APP_KEY;
+        //    //LogHelper.Info("1.paramList:"+ paramList);
+        //    paramList = paramList.ToLower();
+        //    //LogHelper.Info("2.paramList:" + paramList);
+        //    var sign = EncryptUtil.MD5(paramList).ToUpper(); //签名
+        //                                                     //LogHelper.Info("3.sign:" + sign);
+        //    return sign;
+        //}
 
         /// <summary>
         /// 将dip或dp值转换为px值，保证尺寸大小不变

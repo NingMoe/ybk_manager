@@ -105,6 +105,9 @@ namespace YbkManage.Activities
                 btnAdd.Visibility = ViewStates.Gone;
                 btnDelete.Visibility = ViewStates.Visible;
 
+				et_teachercode.Enabled = false;
+				et_teachername.Enabled = false;
+				et_teacheramount.Enabled = false;
                 et_teachercode.Text = currTeacher.Code;
                 et_teacheramount.Text = currTeacher.Email;
                 et_teachername.Text = currTeacher.Name;
