@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>YbkManage</RootNamespace>
     <AssemblyName>YbkManage</AssemblyName>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -26,7 +26,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -224,10 +234,25 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_zhuanxiang.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\drawable\" />
+    <Folder Include="Activities\" />
+    <Folder Include="Resources\drawable-hdpi\" />
+    <Folder Include="Fragments\" />
+    <Folder Include="Resources\drawable-xhdpi\" />
+    <Folder Include="App\" />
     <Folder Include="Resources\drawable-mdpi\" />
+    <Folder Include="Resources\drawable-xxxhdpi\" />
+    <Folder Include="Resources\drawable-xxhdpi\" />
+    <Folder Include="Models\" />
+    <Folder Include="Adapters\" />
     <Folder Include="Views\" />
+    <Folder Include="Resources\anim\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\xxxxxLibrary\xxxxxLibrary.csproj">
+      <Project>{CFE09C2B-680A-4CD5-80F8-6A0CA18A24D9}</Project>
+      <Name>xxxxxLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataEntity\DataEntity.csproj">
       <Project>{8D7D1E85-EA6A-4CC0-96A9-931B43E1DEF5}</Project>
       <Name>DataEntity</Name>
@@ -235,10 +260,6 @@
     <ProjectReference Include="..\DataService\DataService.csproj">
       <Project>{A99EF0BF-3737-442F-BEBA-DC54A34B0C87}</Project>
       <Name>DataService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\xxxxxLibrary\xxxxxLibrary.csproj">
-      <Project>{cfe09c2b-680a-4cd5-80f8-6a0ca18a24d9}</Project>
-      <Name>xxxxxLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

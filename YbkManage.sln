@@ -1,7 +1,6 @@
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YbkManage", "YbkManage\YbkManage.csproj", "{30BF7E82-EF62-4187-AEE2-0D43951732D2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xxxxxLibrary", "xxxxxLibrary\xxxxxLibrary.csproj", "{CFE09C2B-680A-4CD5-80F8-6A0CA18A24D9}"
@@ -18,9 +17,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{30BF7E82-EF62-4187-AEE2-0D43951732D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{30BF7E82-EF62-4187-AEE2-0D43951732D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30BF7E82-EF62-4187-AEE2-0D43951732D2}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{30BF7E82-EF62-4187-AEE2-0D43951732D2}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{30BF7E82-EF62-4187-AEE2-0D43951732D2}.Release|Any CPU.Deploy.0 = Debug|Any CPU
+		{30BF7E82-EF62-4187-AEE2-0D43951732D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30BF7E82-EF62-4187-AEE2-0D43951732D2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CFE09C2B-680A-4CD5-80F8-6A0CA18A24D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CFE09C2B-680A-4CD5-80F8-6A0CA18A24D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFE09C2B-680A-4CD5-80F8-6A0CA18A24D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,8 +31,5 @@ Global
 		{A99EF0BF-3737-442F-BEBA-DC54A34B0C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A99EF0BF-3737-442F-BEBA-DC54A34B0C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A99EF0BF-3737-442F-BEBA-DC54A34B0C87}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
