@@ -1,4 +1,4 @@
-﻿﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -310,6 +310,7 @@ namespace YbkManage.Fragments
                     if (popWin2 == null)
                     {
                         View popViwe2 = layoutInflater.Inflate(Resource.Layout.popup_grade, null);
+						Button btnOk = popViwe2.FindViewById<Button>(Resource.Id.btn_ok);
 
                         var screenWidth = Resources.DisplayMetrics.WidthPixels;
                         var wrapperWidth = screenWidth - AppUtils.dip2px(CurrActivity, 24);
@@ -349,29 +350,46 @@ namespace YbkManage.Fragments
                             {
                                 if (!searchGradeList.Contains(itemGrade))
                                 {
+                                    searchGradeList.Add(itemGrade);  
+
                                     tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
                                     tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
 
-                                    if (gradeList.Count == searchGradeList.Count)
+									if (gradeList.Count == searchGradeList.Count)
                                     {
                                         tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
                                         tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
                                     }
-
-
-                                    searchGradeList.Add(itemGrade);
                                 }
                                 else
                                 {
+                                    searchGradeList.Remove(itemGrade); 
+
                                     tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
                                     tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
 
                                     tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
                                     tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
 
+									if (gradeList.Count == searchGradeList.Count)
+                                    {
+                                        tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+                                        tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+                                    }
+ 
+								}
 
-                                    searchGradeList.Remove(itemGrade);
-                                }
+								//控制确定按钮是否可用
+								if (searchGradeList.Count == 0)
+								{
+									btnOk.Enabled = false;
+									btnOk.SetBackgroundResource(Resource.Drawable.button_bg_disabled);
+								}
+								else
+								{
+									btnOk.Enabled = true;
+									btnOk.SetBackgroundResource(Resource.Drawable.button_bg);
+								}
                             };
                         }
 
@@ -403,9 +421,20 @@ namespace YbkManage.Fragments
                                 }
                                 searchGradeList = new List<string>(gradeList.ToArray());
                             }
+
+							//控制确定按钮是否可用
+							if (searchGradeList.Count == 0)
+							{
+								btnOk.Enabled = false;
+								btnOk.SetBackgroundResource(Resource.Drawable.button_bg_disabled);
+							}
+							else
+							{
+								btnOk.Enabled = true;
+								btnOk.SetBackgroundResource(Resource.Drawable.button_bg);
+							}
                         };
 
-                        Button btnOk = popViwe2.FindViewById<Button>(Resource.Id.btn_ok);
                         btnOk.Click += (sender, e) =>
                         {
                             popWin2.Dismiss();
@@ -435,12 +464,13 @@ namespace YbkManage.Fragments
                         };
 
                     }
-                    if (!popWin2.IsShowing)
-                    {
-                        tv_btn2.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-                        var arrowDownOn = CurrActivity.GetDrawable(Resource.Drawable.arrow_down_on);
-                        arrowDownOn.SetBounds(0, 0, arrowDownOn.MinimumWidth, arrowDownOn.MinimumHeight);
-                        tv_btn2.SetCompoundDrawables(null, null, arrowDownOn, null);
+					if (!popWin2.IsShowing)
+					{
+						tv_btn2.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+						var arrowDownOn = CurrActivity.GetDrawable(Resource.Drawable.arrow_down_on);
+						arrowDownOn.SetBounds(0, 0, arrowDownOn.MinimumWidth, arrowDownOn.MinimumHeight);
+						tv_btn2.SetCompoundDrawables(null, null, arrowDownOn, null);
+
 
 						if ((int)(Build.VERSION.SdkInt) >= 24)
 						{
