@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using Android.App;
 using Android.Content;
@@ -45,24 +45,24 @@ namespace YbkManage.Activities
             InitEvents();
         }
 
-        /// <summary>
-        /// 页面控件
-        /// </summary>
+		/// <summary>
+		/// 页面控件
+		/// </summary>
 		protected void InitViews()
-        {
-            etAccount = (EditText)FindViewById(Resource.Id.et_account);
-            etPassword = (EditText)FindViewById(Resource.Id.et_password);
-            ivAccountClear = (ImageView)FindViewById(Resource.Id.iv_account_clear);
-            ivPasswordClear = (ImageView)FindViewById(Resource.Id.iv_password_clear);
+		{
+			etAccount = (EditText)FindViewById(Resource.Id.et_account);
+			etPassword = (EditText)FindViewById(Resource.Id.et_password);
+			ivAccountClear = (ImageView)FindViewById(Resource.Id.iv_account_clear);
+			ivPasswordClear = (ImageView)FindViewById(Resource.Id.iv_password_clear);
 
-            btnLogin = (Button)FindViewById(Resource.Id.btn_login);
-            tvProblem = (TextView)FindViewById(Resource.Id.tv_problem);
+			btnLogin = (Button)FindViewById(Resource.Id.btn_login);
+			tvProblem = (TextView)FindViewById(Resource.Id.tv_problem);
 
-            AppUtils.HideKeyboard(this);
-	    
-	    var lastLoginAccount = SharedPreferencesUtil.GetParam(this, AppConfig.SP_LAST_LOGIN_ACCOUNT, "");
-	    etAccount.Text = lastLoginAccount != null ? (!string.IsNullOrWhiteSpace(lastLoginAccount.ToString()) ? lastLoginAccount.ToString() : "") : "";		
-        }
+			AppUtils.HideKeyboard(this);
+		
+			var lastLoginAccount = SharedPreferencesUtil.GetParam(this, AppConfig.SP_LAST_LOGIN_ACCOUNT, "");
+			etAccount.Text = lastLoginAccount != null ? (!string.IsNullOrWhiteSpace(lastLoginAccount.ToString()) ? lastLoginAccount.ToString() : "") : "";
+		}
 
         /// <summary>
         /// 页面事件

@@ -350,20 +350,21 @@ namespace YbkManage.Activities
             {
                 if (gradeList != null && gradeList.Any())
                 {
-                    if (popWin2 == null)
-                    {
-                        View popViwe2 = LayoutInflater.Inflate(Resource.Layout.popup_grade, null);
+					if (popWin2 == null)
+					{
+						View popViwe2 = LayoutInflater.Inflate(Resource.Layout.popup_grade, null);
+						Button btnOk = popViwe2.FindViewById<Button>(Resource.Id.btn_ok);
 
-                        var screenWidth = Resources.DisplayMetrics.WidthPixels;
-                        var wrapperWidth = screenWidth - AppUtils.dip2px(CurrActivity, 24);
-                        var itemWidth = (int)Math.Round((wrapperWidth / 4) * 0.8);
-                        var marginRight = (wrapperWidth - itemWidth * 4) / 3;
+						var screenWidth = Resources.DisplayMetrics.WidthPixels;
+						var wrapperWidth = screenWidth - AppUtils.dip2px(CurrActivity, 24);
+						var itemWidth = (int)Math.Round((wrapperWidth / 4) * 0.8);
+						var marginRight = (wrapperWidth - itemWidth * 4) / 3;
 
-                        var tvAll = popViwe2.FindViewById<TextView>(Resource.Id.tv_all);
-                        ViewGroup.LayoutParams tvallParams = tvAll.LayoutParameters;
-                        tvallParams.Width = itemWidth;
-						tvAll.LayoutParameters = tvallParams; 
-                        if (searchGradeList.Count == gradeList.Count)
+						var tvAll = popViwe2.FindViewById<TextView>(Resource.Id.tv_all);
+						ViewGroup.LayoutParams tvallParams = tvAll.LayoutParameters;
+						tvallParams.Width = itemWidth;
+						tvAll.LayoutParameters = tvallParams;
+						if (searchGradeList.Count == gradeList.Count)
 						{
 							tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
 							tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
@@ -374,25 +375,25 @@ namespace YbkManage.Activities
 							tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
 						}
 
-                        GridLayout gridlayout_1 = popViwe2.FindViewById<GridLayout>(Resource.Id.gridlayout_1);
-                        for (var i = 0; i < gradeList.Count; i++)
-                        {
-                            TextView tvGrade = new TextView(CurrActivity);
-                            var itemGrade = gradeList[i];
-                            GridLayout.LayoutParams gradeParams = new GridLayout.LayoutParams();
-                            gradeParams.Width = itemWidth;
-                            //parasBox.Height = 
-                            if (i % 4 != 3)
-                            {
-                                gradeParams.RightMargin = marginRight;
-                            }
-                            gradeParams.TopMargin = AppUtils.dip2px(CurrActivity, 5);
-                            gradeParams.BottomMargin = AppUtils.dip2px(CurrActivity, 5);
-                            tvGrade.LayoutParameters = gradeParams;
-                            tvGrade.Text = itemGrade;
-                            tvGrade.TextSize = 14;
-                            tvGrade.Gravity = GravityFlags.Center;
-                            tvGrade.SetPadding(0, AppUtils.dip2px(CurrActivity, 5), 0, AppUtils.dip2px(CurrActivity, 5));
+						GridLayout gridlayout_1 = popViwe2.FindViewById<GridLayout>(Resource.Id.gridlayout_1);
+						for (var i = 0; i < gradeList.Count; i++)
+						{
+							TextView tvGrade = new TextView(CurrActivity);
+							var itemGrade = gradeList[i];
+							GridLayout.LayoutParams gradeParams = new GridLayout.LayoutParams();
+							gradeParams.Width = itemWidth;
+							//parasBox.Height = 
+							if (i % 4 != 3)
+							{
+								gradeParams.RightMargin = marginRight;
+							}
+							gradeParams.TopMargin = AppUtils.dip2px(CurrActivity, 5);
+							gradeParams.BottomMargin = AppUtils.dip2px(CurrActivity, 5);
+							tvGrade.LayoutParameters = gradeParams;
+							tvGrade.Text = itemGrade;
+							tvGrade.TextSize = 14;
+							tvGrade.Gravity = GravityFlags.Center;
+							tvGrade.SetPadding(0, AppUtils.dip2px(CurrActivity, 5), 0, AppUtils.dip2px(CurrActivity, 5));
 							if (searchGradeList.Contains(itemGrade))
 							{
 								tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
@@ -404,70 +405,111 @@ namespace YbkManage.Activities
 								tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
 							}
 
-                            gridlayout_1.AddView(tvGrade);
+							gridlayout_1.AddView(tvGrade);
 
-                            tvGrade.Click += (sender, e) =>
-                            {
-                                if (!searchGradeList.Contains(itemGrade))
-                                {
-                                    tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-                                    tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+							#region tvGrade.Click
+							tvGrade.Click += (sender, e) =>
+							{
+								if (!searchGradeList.Contains(itemGrade))
+								{
+									searchGradeList.Add(itemGrade);
+									tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+									tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+								}
+								else
+								{
+									searchGradeList.Remove(itemGrade);
 
-                                    if (gradeList.Count == searchGradeList.Count)
-                                    {
-                                        tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-                                        tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
-                                    }
+									tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
+									tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
 
-
-                                    searchGradeList.Add(itemGrade);
-
-                                }
-                                else
-                                {
-                                    tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
-                                    tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
-
-                                    tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
-                                    tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+									tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
+									tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+								}
 
 
-                                    searchGradeList.Remove(itemGrade);
-                                }
-                            };
-                        }
+								//控制全部年级按钮颜色
+								if (gradeList.Count == searchGradeList.Count)
+								{
+									tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+									tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+								}
+								//控制确定按钮是否可用
+								if (searchGradeList.Count == 0)
+								{
+									btnOk.Enabled = false;
+									btnOk.SetBackgroundResource(Resource.Drawable.button_bg_disabled);
+								}
+								else
+								{
+									btnOk.Enabled = true;
+									btnOk.SetBackgroundResource(Resource.Drawable.button_bg);
+								}
+							};
+							#endregion
+						}
 
-                        tvAll.Click += (sender, e) =>
-                        {
-                            tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-                            tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+						#region tvAll.Click
+						tvAll.Click += (sender, e) =>
+						{
+							if (tvAll.CurrentTextColor == ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh))
+							{
+								tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
+								tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
 
-                            for (var i = 0; i < gridlayout_1.ChildCount; i++)
-                            {
-                                var tv = (TextView)gridlayout_1.GetChildAt(i);
-                                tv.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-                                tv.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
-                            }
+								for (var i = 0; i < gridlayout_1.ChildCount; i++)
+								{
+									var tv = (TextView)gridlayout_1.GetChildAt(i);
+									tv.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
+									tv.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+								}
+								searchGradeList = new List<string>();
+							}
+							else
+							{
+								tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+								tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
 
-                            searchGradeList = new List<string>(gradeList.ToArray());
-                        };
+								for (var i = 0; i < gridlayout_1.ChildCount; i++)
+								{
+									var tv = (TextView)gridlayout_1.GetChildAt(i);
+									tv.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+									tv.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+								}
+								searchGradeList = new List<string>(gradeList.ToArray());
+							}
 
-                        Button btnOk = popViwe2.FindViewById<Button>(Resource.Id.btn_ok);
-                        btnOk.Click += (sender, e) =>
-                        {
-                            popWin2.Dismiss();
-                            var selectedgrade = "全部年级";
-                            if (searchGradeList.Count != gradeList.Count)
-                            {
-                                selectedgrade = string.Join(",", searchGradeList.ToArray());
-                            }
+							//控制确定按钮是否可用
+							if (searchGradeList.Count == 0)
+							{
+								btnOk.Enabled = false;
+								btnOk.SetBackgroundResource(Resource.Drawable.button_bg_disabled);
+							}
+							else
+							{
+								btnOk.Enabled = true;
+								btnOk.SetBackgroundResource(Resource.Drawable.button_bg);
+							}
+						};
+						#endregion
 
-                            tv_btn2.Text = selectedgrade;
+						#region btnOK.Click   
+						btnOk.Click += (sender, e) =>
+						{
+							popWin2.Dismiss();
+							var selectedgrade = "全部年级";
+							if (searchGradeList.Count != gradeList.Count)
+							{
+								selectedgrade = string.Join(",", searchGradeList.ToArray());
+							}
 
-                            GetRenewInfoInClassByTeacher();
-                        };
+							tv_btn2.Text = selectedgrade;
 
-                        popWin2 = new PopupWindow(popViwe2, ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
+							GetRenewInfoInClassByTeacher();
+						};
+						#endregion
+
+						popWin2 = new PopupWindow(popViwe2, ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
                         popWin2.Touchable = true;
                         popWin2.Focusable = true;
                         popWin2.OutsideTouchable = true; ;
