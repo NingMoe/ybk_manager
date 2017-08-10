@@ -60,8 +60,9 @@ namespace YbkManage.Activities
 
             AppUtils.HideKeyboard(this);
 
-            etAccount.Text = SharedPreferencesUtil.GetParam(this, AppConfig.SP_LAST_LOGIN_ACCOUNT, "").ToString();
-        }
+			var lastLoginAccount = SharedPreferencesUtil.GetParam(this, AppConfig.SP_LAST_LOGIN_ACCOUNT, "");
+ 	    	etAccount.Text = lastLoginAccount != null ? (!string.IsNullOrWhiteSpace(lastLoginAccount.ToString()) ? lastLoginAccount.ToString() : "") : "";		
+         }
 
         /// <summary>
         /// 页面事件
