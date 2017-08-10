@@ -62,21 +62,27 @@ namespace YbkManage.Adapters
                 var rate = itemInfo.Item6;
                 var avgRate = this.teachReportList[this.teachReportList.Count - 1].Item6;
                 ((ItemViewHolder)holder).Tv_Rate.Text = (itemInfo.Item6 * 100).ToString("f1") + "%";
-                if (rate > avgRate)
+                if (rate >= avgRate)
                 {
                     ((ItemViewHolder)holder).Tv_Rate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorHigh)));
                 }
-                else if (rate < avgRate)
+                else
                 {
                     ((ItemViewHolder)holder).Tv_Rate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorRed)));
                 }
 
-                if(itemInfo == teachReportList[this.teachReportList.Count - 1])
-                {
+				if (position == this.teachReportList.Count - 1)
+				{
 					((ItemViewHolder)holder).Tv_Num1.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
 					((ItemViewHolder)holder).Tv_Num2.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
-                    ((ItemViewHolder)holder).Tv_Rate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
-                }
+					((ItemViewHolder)holder).Tv_Rate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
+				}
+				else 
+				{ 
+					((ItemViewHolder)holder).Tv_Num1.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
+					((ItemViewHolder)holder).Tv_Num2.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
+				
+				}
             }
         }
 

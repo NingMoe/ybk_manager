@@ -57,7 +57,9 @@ namespace YbkManage.Adapters
                 ((ItemViewHolder)holder).Tv_ClassCode.Text = itemInfo.ClassCode;
                 ((ItemViewHolder)holder).Tv_Teachers.Text = itemInfo.TeacherNames;
                 ((ItemViewHolder)holder).Tv_Address.Text = itemInfo.PrintAddress;
-                ((ItemViewHolder)holder).Tv_Date.Text = itemInfo.BeginDate + "--" + itemInfo.EndDate;
+				var beginDateStr = itemInfo.BeginDate.HasValue ? itemInfo.BeginDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "";
+				var endDateStr = itemInfo.EndDate.HasValue ? itemInfo.EndDate.Value.ToString("yyyy-MM-dd HH:mm:ss") : "";
+				((ItemViewHolder)holder).Tv_Date.Text = beginDateStr + "-" + endDateStr;
                 ((ItemViewHolder)holder).Tv_Time.Text = itemInfo.PrintTime;
 
                 ((ItemViewHolder)holder).Iv_Class_Type.SetImageResource(AppUtils.GetCourseIcon(itemInfo.ClassName));
