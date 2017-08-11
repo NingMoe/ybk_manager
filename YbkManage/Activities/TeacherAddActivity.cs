@@ -16,6 +16,7 @@ using xxxxxLibrary.Serializer;
 using xxxxxLibrary.Toast;
 using xxxxxLibrary.Utils;
 using YbkManage.App;
+using System.Linq;
 
 namespace YbkManage.Activities
 {
@@ -65,6 +66,11 @@ namespace YbkManage.Activities
                 if (!string.IsNullOrEmpty(teacherJsonStr))
                 {
                     currTeacher = JsonSerializer.ToObject<TeacherListModel>(teacherJsonStr);
+
+                    if (BaseApplication.GetInstance().teacherList != null)
+                    {
+                        currTeacher = BaseApplication.GetInstance().teacherList.FirstOrDefault(i => i.Code == currTeacher.Code);
+                    }
                 }
             }
         }
@@ -87,13 +93,15 @@ namespace YbkManage.Activities
             tvRoleLabel = FindViewById<TextView>(Resource.Id.tv_teacherrole);
             tvScoleLabel = FindViewById<TextView>(Resource.Id.tv_teacherscope);
 
-			// 添加教师情况
-			if (currTeacher == null || string.IsNullOrEmpty(currTeacher.Code))
-			{
-				tvTitle.Text = "添加教师";
-				btnAdd.Visibility = ViewStates.Visible;
-				btnDelete.Visibility = ViewStates.Gone;
-			}
+            // 添加教师情况
+            if (currTeacher == null || string.IsNullOrEmpty(currTeacher.Code))
+            {
+                tvTitle.Text = "添加教师";
+                btnAdd.Visibility = ViewStates.Visible;
+                btnDelete.Visibility = ViewStates.Gone;
+
+                currTeacher = new TeacherListModel();
+            }
             else
             {
                 isNewAdd = false;
@@ -102,14 +110,14 @@ namespace YbkManage.Activities
                 btnAdd.Visibility = ViewStates.Gone;
                 btnDelete.Visibility = ViewStates.Visible;
 
-				et_teachercode.Enabled = false;
-				et_teachername.Enabled = false;
-				et_teacheramount.Enabled = false;
+                et_teachercode.Enabled = false;
+                et_teachername.Enabled = false;
+                et_teacheramount.Enabled = false;
                 et_teachercode.Text = currTeacher.Code;
                 et_teacheramount.Text = currTeacher.Email;
                 et_teachername.Text = currTeacher.Name;
                 tvScoleLabel.Text = currTeacher.ScopeName;
-                tvRoleLabel.Text = AppUtils.GetRoleName(currTeacher.Type??0);
+                tvRoleLabel.Text = AppUtils.GetRoleName(currTeacher.Type ?? 0);
 
                 tvRoleLabel.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
                 tvScoleLabel.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
@@ -261,6 +269,20 @@ namespace YbkManage.Activities
                                     if (resultData.State == 1)
                                     {
                                         ToastUtil.ShowSuccessToast(this, "操作成功");
+
+                                        if (isNewAdd)
+                                        {
+                                            BaseApplication.GetInstance().teacherList.Add(currTeacher);
+                                        }
+                                        else
+                                        {
+                                            if (scopeName != currTeacher.ScopeName)
+                                            {
+                                                BaseApplication.GetInstance().teacherList.Remove(currTeacher);
+                                            }
+                                        }
+
+
                                         //保存并继续添加爱
                                         if (isContinueAdd)
                                         {
@@ -298,9 +320,6 @@ namespace YbkManage.Activities
             {
                 var msg = ex.Message.ToString();
                 ToastUtil.ShowErrorToast(this, "操作失败");
-            }
-            finally
-            {
                 LoadingDialogUtil.DismissLoadingDialog();
             }
         }
@@ -337,10 +356,10 @@ namespace YbkManage.Activities
                                     if (rd.State == 0)
                                     {
                                         ToastUtil.ShowErrorToast(this, (string.IsNullOrEmpty(rd.Error) ? "操作失败" : rd.Error));
-
                                     }
                                     else
                                     {
+                                        BaseApplication.GetInstance().teacherList.Remove(currTeacher);
                                         ToastUtil.ShowSuccessToast(this, "操作成功");
                                         new Handler().PostDelayed(() =>
                                             {

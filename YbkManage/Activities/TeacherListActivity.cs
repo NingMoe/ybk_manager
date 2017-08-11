@@ -20,6 +20,7 @@ using xxxxxLibrary.Network;
 using xxxxxLibrary.Serializer;
 using xxxxxLibrary.Toast;
 using YbkManage.Adapters;
+using YbkManage.App;
 
 namespace YbkManage.Activities
 {
@@ -60,6 +61,32 @@ namespace YbkManage.Activities
             LayoutReourceId = Resource.Layout.activity_teacher_list;
 
             base.OnCreate(savedInstanceState);
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            if (BaseApplication.GetInstance().teacherList != null)
+            {
+                if (teacherList.Count < BaseApplication.GetInstance().teacherList.Count)
+                {
+                    totalCount++;
+                }
+                else if (teacherList.Count > BaseApplication.GetInstance().teacherList.Count)
+                {
+                    totalCount--;
+                }
+                tvTeacherCount.Text = string.Format("所有教师（{0}人）", totalCount >= 0 ? totalCount : 0);
+                teacherList = BaseApplication.GetInstance().teacherList;
+                mAdapter.SetData(teacherList);
+                mAdapter.NotifyDataSetChanged();
+            }
+        }
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+            BaseApplication.GetInstance().teacherList = new List<TeacherListModel>(teacherList.ToArray());
         }
 
         protected override void InitVariables()
@@ -187,10 +214,10 @@ namespace YbkManage.Activities
 
                         tvTeacherCount.Text = string.Format("所有教师（{0}人）", totalCount);
 
-						if (pageIndex == 1)
-						{
-							teacherList.Clear();
-						}
+                        if (pageIndex == 1)
+                        {
+                            teacherList.Clear();
+                        }
                         teacherList.AddRange(pagerList);
                         pageIndex++;
                         mAdapter.HideFootere(teacherList.Count >= totalCount);
@@ -228,9 +255,9 @@ namespace YbkManage.Activities
         public class XamarinRecyclerViewOnScrollListener : RecyclerView.OnScrollListener
         {
             public delegate void LoadMoreEventHandler(object sender, EventArgs e);
-			public event LoadMoreEventHandler LoadMoreEvent;
+            public event LoadMoreEventHandler LoadMoreEvent;
 
-			private LinearLayoutManager LayoutManager;
+            private LinearLayoutManager LayoutManager;
 
             public XamarinRecyclerViewOnScrollListener(LinearLayoutManager layoutManager)
             {
@@ -247,7 +274,7 @@ namespace YbkManage.Activities
                 //var pastVisiblesItems = LayoutManager.FindFirstVisibleItemPosition();
                 Log.Debug("test", "totalItemCount =" + totalItemCount + "-----" + "lastVisibleItemPosition =" + lastVisibleItemPosition);
 
-                if (totalItemCount == (lastVisibleItemPosition + 1) && LoadMoreEvent!=null)
+                if (totalItemCount == (lastVisibleItemPosition + 1) && LoadMoreEvent != null)
                 {
                     LoadMoreEvent(this, null);
                 }
