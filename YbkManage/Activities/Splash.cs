@@ -15,16 +15,42 @@ using DataService;
 using System;
 using xxxxxLibrary.Network;
 
+using Com.Umeng.Analytics;
+
 namespace YbkManage.Activities
 {
-    /// <summary>
-    /// app 启动页面，处理一些启动前的初始化的工作
-    /// 可以将一些初始化的耗时的逻辑放到这儿
-    /// </summary>
-    [Activity( Label = "@string/app_name", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait, Icon = "@mipmap/icon", Theme = "@style/splashTheme")]
-    public class Splash : Activity
-    {
-        private LoginUserInfoEntity currUserInfo;
+	/// <summary>
+	/// app 启动页面，处理一些启动前的初始化的工作
+	/// 可以将一些初始化的耗时的逻辑放到这儿
+	/// </summary>
+	[Activity(Label = "@string/app_name", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait, Icon = "@mipmap/icon", Theme = "@style/splashTheme")]
+	public class Splash : Activity
+	{
+
+		#region 友盟统计
+		protected override void OnResume()
+		{
+			base.OnResume();
+			if (Config.UMengIsOpen)
+			{
+				MobclickAgent.OnPageStart(this.Title);
+				MobclickAgent.OnResume(this);
+			}
+		}
+
+		protected override void OnPause()
+		{
+			base.OnPause();
+			if (Config.UMengIsOpen)
+			{
+				MobclickAgent.OnPageEnd(this.Title);
+				MobclickAgent.OnPause(this);
+			}
+		}
+		#endregion
+
+
+		private LoginUserInfoEntity currUserInfo;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

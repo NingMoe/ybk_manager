@@ -17,29 +17,54 @@ using Android.Support.V4.Content;
 using System;
 using DataEntity;
 
+using Com.Umeng.Analytics;
+using DataService;
+
 namespace YbkManage.Activities
 {
-    [Activity(Label = "BaseActivity", ScreenOrientation = ScreenOrientation.Portrait)]
-    public class AppActivity : BaseActivity
-    {
-        protected Context CurrContext;
+	[Activity(Label = "BaseActivity", ScreenOrientation = ScreenOrientation.Portrait)]
+	public class AppActivity : BaseActivity
+	{
+		protected Context CurrContext;
 
-        /// <summary>
-        /// 当前activity
-        /// </summary>
-        protected Activity CurrActivity;
+		/// <summary>
+		/// 当前activity
+		/// </summary>
+		protected Activity CurrActivity;
 
-        /// <summary>
-        /// 当前登录信息
-        /// </summary>
-        protected LoginUserInfoEntity CurrUserInfo;
+		/// <summary>
+		/// 当前登录信息
+		/// </summary>
+		protected LoginUserInfoEntity CurrUserInfo;
 
-        /// <summary>
-        /// 是否全屏
-        /// </summary>
-        protected bool IsFullScreen = true;
+		/// <summary>
+		/// 是否全屏
+		/// </summary>
+		protected bool IsFullScreen = true;
 
-        protected int LayoutReourceId;
+		protected int LayoutReourceId;
+
+		#region 友盟统计
+		protected override void OnResume()
+		{
+			base.OnResume();
+			if (Config.UMengIsOpen)
+			{
+				MobclickAgent.OnPageStart(CurrActivity.Title);
+				MobclickAgent.OnResume(CurrActivity.BaseContext);
+			}
+		}
+
+		protected override void OnPause()
+		{
+			base.OnPause();
+			if (Config.UMengIsOpen)
+			{
+				MobclickAgent.OnPageEnd(CurrActivity.Title);
+				MobclickAgent.OnPause(CurrActivity.BaseContext);
+			}
+		}
+		#endregion
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
