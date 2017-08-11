@@ -152,10 +152,20 @@ namespace YbkManage.Activities
         }
 
         private void LoadStudents()
-        {
-            var screenWidth = Resources.DisplayMetrics.WidthPixels;
+		{
+			var screenWidth = Resources.DisplayMetrics.WidthPixels;
+            var screenHeight = Resources.DisplayMetrics.HeightPixels;
+
+            var view = FindViewById<RelativeLayout>(Resource.Id.ll_top);
+            view.Measure(0, 0);
+            var height = view.MeasuredHeight;
+            height = screenHeight - height - AppUtils.dip2px(CurrContext, 45 + 30 + 30);
+            // 计算头像的高度（容器高度-上下padding-姓名的view高度）*0.8
+            var avatarHeihgt = (int)(((height/2 - AppUtils.dip2px(CurrContext, (2*15+2*30))) / 2));
+
+
 			var wrapperWidth = screenWidth - AppUtils.dip2px(CurrContext, 24); 
-            var itemWidth = (int)Math.Round((wrapperWidth / avatarColumns) * 0.8);
+            var itemWidth = avatarHeihgt;//(int)Math.Round((wrapperWidth / avatarColumns) * 0.8);
 			var marginRight = (wrapperWidth - itemWidth * avatarColumns) / 3;
 
             // 设置scrollview高度（2行高度）
