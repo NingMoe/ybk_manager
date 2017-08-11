@@ -96,7 +96,10 @@ namespace YbkManage.Activities
             // 添加教师情况
             if (currTeacher == null || string.IsNullOrEmpty(currTeacher.Code))
             {
-                tvTitle.Text = "添加教师";
+                if (!string.IsNullOrEmpty(scopeName))
+                {
+                    tvTitle.Text = scopeName;
+                }
                 btnAdd.Visibility = ViewStates.Visible;
                 btnDelete.Visibility = ViewStates.Gone;
 

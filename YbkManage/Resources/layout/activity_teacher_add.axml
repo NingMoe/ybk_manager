@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center_vertical"
-            android:text="高中化学"
+            android:text="添加教师"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
     </RelativeLayout>
