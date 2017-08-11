@@ -43,7 +43,10 @@ namespace YbkManage.App
 
         // 报表的筛选条件
         public List<QuarterEntity> quarterList;
-        public List<GradeEntity> gradeList;
-        public List<DistrictEntity> districtList;
+		public List<GradeEntity> gradeList;
+		public List<DistrictEntity> districtList;
+
+        // 教师列表页数据
+		public List<TeacherListModel> teacherList;
     }
 }
