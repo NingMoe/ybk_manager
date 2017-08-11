@@ -18,6 +18,9 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:text="name"
-        android:textColor="@color/textColorSecond" />
+        android:textColor="@color/textColorSecond"
+        android:textSize="12sp" />
 </LinearLayout>
