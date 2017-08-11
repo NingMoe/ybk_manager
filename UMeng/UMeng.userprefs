@@ -1,0 +1,10 @@
+﻿<Properties StartupConfiguration="{8F1ECD9B-9626-4BEF-AF4E-8D750FAF5D36}|Default">
+  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.UMeng PreferredExecutionTarget="Android.192.168.56.102:5555" />
+</Properties>

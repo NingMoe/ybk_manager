@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>YbkManage</RootNamespace>
     <AssemblyName>YbkManage</AssemblyName>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -263,6 +263,10 @@
     <ProjectReference Include="..\DataService\DataService.csproj">
       <Project>{A99EF0BF-3737-442F-BEBA-DC54A34B0C87}</Project>
       <Name>DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UMeng\UMeng.csproj">
+      <Project>{8F1ECD9B-9626-4BEF-AF4E-8D750FAF5D36}</Project>
+      <Name>UMeng</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
