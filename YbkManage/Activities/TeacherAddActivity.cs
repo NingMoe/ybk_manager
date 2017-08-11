@@ -87,16 +87,13 @@ namespace YbkManage.Activities
             tvRoleLabel = FindViewById<TextView>(Resource.Id.tv_teacherrole);
             tvScoleLabel = FindViewById<TextView>(Resource.Id.tv_teacherscope);
 
-            // 添加教师情况
-            if (currTeacher == null || string.IsNullOrEmpty(currTeacher.Code))
-            {
-                if (!string.IsNullOrEmpty(scopeName))
-                {
-                    tvTitle.Text = scopeName;
-                }
-                btnAdd.Visibility = ViewStates.Visible;
-                btnDelete.Visibility = ViewStates.Gone;
-            }
+			// 添加教师情况
+			if (currTeacher == null || string.IsNullOrEmpty(currTeacher.Code))
+			{
+				tvTitle.Text = "添加教师";
+				btnAdd.Visibility = ViewStates.Visible;
+				btnDelete.Visibility = ViewStates.Gone;
+			}
             else
             {
                 isNewAdd = false;
