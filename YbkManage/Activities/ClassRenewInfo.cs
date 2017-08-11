@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 
 using Android.App;
@@ -16,6 +16,7 @@ using System.Threading;
 using DataService;
 using Android.Content.PM;
 using YbkManage.App;
+using Android.Graphics;
 
 namespace YbkManage.Activities
 {
@@ -31,10 +32,10 @@ namespace YbkManage.Activities
 
         private Statistics_ClassRenewSummary currRenewInfo;
 
-		// 已续班学生集合
-		private List<StudentRenewModel> renewStudentList = new List<StudentRenewModel>();
-		// 未续班学生集合
-		private List<StudentRenewModel> notRenewStudentList = new List<StudentRenewModel>();
+        // 已续班学生集合
+        private List<StudentRenewModel> renewStudentList = new List<StudentRenewModel>();
+        // 未续班学生集合
+        private List<StudentRenewModel> notRenewStudentList = new List<StudentRenewModel>();
 
         private Picasso picasso;
 
@@ -53,14 +54,14 @@ namespace YbkManage.Activities
         /// </summary>
 		protected override void InitVariables()
         {
-			Bundle bundle = Intent.Extras;
+            Bundle bundle = Intent.Extras;
             if (bundle != null)
             {
                 var renewJsonStr = bundle.GetString("renewJsonStr");
                 currRenewInfo = JsonSerializer.ToObject<Statistics_ClassRenewSummary>(renewJsonStr);
             }
 
-            picasso  = Picasso.With(CurrContext);
+            picasso = Picasso.With(CurrContext);
         }
 
         /// <summary>
@@ -82,10 +83,10 @@ namespace YbkManage.Activities
             gridlayout_2 = FindViewById<GridLayout>(Resource.Id.gridlayout_2);
 
             gridlayout_1.ColumnCount = avatarColumns;
-			gridlayout_2.ColumnCount = avatarColumns;
+            gridlayout_2.ColumnCount = avatarColumns;
 
             tv_title.Text = currRenewInfo.ClassCode;
-            tv_rate.Text = Math.Round((currRenewInfo.RenewRate * 100),1) + "%";
+            tv_rate.Text = Math.Round((currRenewInfo.RenewRate * 100), 1) + "%";
             tv_classCode.Text = currRenewInfo.ClassCode;
             tv_className.Text = currRenewInfo.ClassName;
             tv_area.Text = currRenewInfo.AreaName;
@@ -110,12 +111,12 @@ namespace YbkManage.Activities
         /// </summary>
         protected override void LoadData()
         {
-			if (!NetUtil.CheckNetWork(CurrActivity))
-			{
-				ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
-				return;
-			}
-			LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
+            if (!NetUtil.CheckNetWork(CurrActivity))
+            {
+                ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
+                return;
+            }
+            LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
             GetStudentRenewInfoListByClassCode();
         }
 
@@ -125,14 +126,14 @@ namespace YbkManage.Activities
         /// </summary>
         private void GetStudentRenewInfoListByClassCode()
         {
-			try
-			{
-				new Thread(new ThreadStart(() =>
-				{
-                    var result = RenewService.GetStudentRenewInfoListByClassCode(CurrUserInfo.SchoolId,currRenewInfo.ClassCode );
-					RunOnUiThread(() =>
-					{
-						LoadingDialogUtil.DismissLoadingDialog();
+            try
+            {
+                new Thread(new ThreadStart(() =>
+                {
+                    var result = RenewService.GetStudentRenewInfoListByClassCode(CurrUserInfo.SchoolId, currRenewInfo.ClassCode);
+                    RunOnUiThread(() =>
+                    {
+                        LoadingDialogUtil.DismissLoadingDialog();
 
                         if (result != null)
                         {
@@ -141,124 +142,139 @@ namespace YbkManage.Activities
 
                             LoadStudents();
                         }
-					});
-				})).Start();
-			}
-			catch (Exception ex)
-			{
-				var msg = ex.Message.ToString();
-				LoadingDialogUtil.DismissLoadingDialog();
-			}
+                    });
+                })).Start();
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message.ToString();
+                LoadingDialogUtil.DismissLoadingDialog();
+            }
         }
 
         private void LoadStudents()
-		{
-			var screenWidth = Resources.DisplayMetrics.WidthPixels;
+        {
+            var screenWidth = Resources.DisplayMetrics.WidthPixels;
             var screenHeight = Resources.DisplayMetrics.HeightPixels;
 
             var view = FindViewById<RelativeLayout>(Resource.Id.ll_top);
             view.Measure(0, 0);
             var height = view.MeasuredHeight;
             height = screenHeight - height - AppUtils.dip2px(CurrContext, 45 + 30 + 30);
+
+            if ((int)(Build.VERSION.SdkInt) < 21)
+            {
+                {
+                    Rect frame = new Rect();
+                    Window.DecorView.GetWindowVisibleDisplayFrame(frame);
+                    var statusBarHeight = frame.Top;
+                    height = height - statusBarHeight;
+                }
+            }
+
             // 计算头像的高度（容器高度-上下padding-姓名的view高度）*0.8
-            var avatarHeihgt = (int)(((height/2 - AppUtils.dip2px(CurrContext, (2*15+2*30))) / 2));
+            var avatarHeihgt = (int)(((height / 2 - AppUtils.dip2px(CurrContext, (2 * 15 + 2 * 30))) / 2));
 
 
-			var wrapperWidth = screenWidth - AppUtils.dip2px(CurrContext, 24); 
+            var wrapperWidth = screenWidth - AppUtils.dip2px(CurrContext, 24);
             var itemWidth = avatarHeihgt;//(int)Math.Round((wrapperWidth / avatarColumns) * 0.8);
-			var marginRight = (wrapperWidth - itemWidth * avatarColumns) / 3;
+            var marginRight = (wrapperWidth - itemWidth * avatarColumns) / 3;
 
             // 设置scrollview高度（2行高度）
             var scrollviewHeight = (itemWidth + AppUtils.dip2px(CurrContext, 30)) * 2;
-            LinearLayout.LayoutParams scrollParas = new LinearLayout.LayoutParams(wrapperWidth,scrollviewHeight);
-			scrolllview_1.LayoutParameters = scrollParas;
-			scrolllview_2.LayoutParameters = scrollParas;
+            LinearLayout.LayoutParams scrollParas = new LinearLayout.LayoutParams(wrapperWidth, scrollviewHeight);
+            scrolllview_1.LayoutParameters = scrollParas;
+            scrolllview_2.LayoutParameters = scrollParas;
 
             tv_renewNum.Text = string.Format("已续班（{0}人）", renewStudentList.Count);
-            for (var i = 0; i < renewStudentList.Count ;i++)
+            for (var i = 0; i < renewStudentList.Count; i++)
             {
                 var student = renewStudentList[i];
 
                 var itemBox = LayoutInflater.From(CurrContext).Inflate(Resource.Layout.item_renew_avatar, gridlayout_1, false);
 
-				ImageView ivAvatar = itemBox.FindViewById<ImageView>(Resource.Id.iv_avatar);
+                ImageView ivAvatar = itemBox.FindViewById<ImageView>(Resource.Id.iv_avatar);
                 // 设置照片宽度和高度
                 var avatarWidth = itemWidth;
                 var avatarHeight = avatarWidth;
                 LinearLayout.LayoutParams parasAvatar = new LinearLayout.LayoutParams(avatarWidth, avatarHeight);
                 parasAvatar.Gravity = GravityFlags.Center;
                 ivAvatar.LayoutParameters = parasAvatar;
-                if(!string.IsNullOrEmpty(student.avatar))
-				{
+                if (!string.IsNullOrEmpty(student.avatar))
+                {
                     picasso.Load(student.avatar).Placeholder(Resource.Drawable.avatar_student).Error(Resource.Drawable.avatar_student)
-						.Transform(new CircleImageTransformation(picasso))
-						   .Into(ivAvatar);     
+                        .Transform(new CircleImageTransformation(picasso))
+                           .Into(ivAvatar);
                 }
-                
+
                 TextView tvName = itemBox.FindViewById<TextView>(Resource.Id.tv_name);
                 tvName.Text = student.name;
+                if(avatarHeihgt<60)
+                {
+                    tvName.SetTextSize(Android.Util.ComplexUnitType.Sp, 11);
+                }
 
                 GridLayout.LayoutParams parasBox = new GridLayout.LayoutParams();
-				parasBox.Width = itemWidth;
-				if (i % avatarColumns != 3)
-				{
-					parasBox.RightMargin = marginRight;      
+                parasBox.Width = itemWidth;
+                if (i % avatarColumns != 3)
+                {
+                    parasBox.RightMargin = marginRight;
                 }
-				itemBox.LayoutParameters = parasBox;
+                itemBox.LayoutParameters = parasBox;
                 gridlayout_1.AddView(itemBox);
 
                 // 添加点击事件
-                itemBox.Click += (sender, e) => 
+                itemBox.Click += (sender, e) =>
                 {
-					Intent intent = new Intent(CurrActivity, typeof(StuentClassActivity));
-					intent.PutExtra("studentJsonStr", JsonSerializer.ToJsonString(student));
-					StartActivity(intent);
-					CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+                    Intent intent = new Intent(CurrActivity, typeof(StuentClassActivity));
+                    intent.PutExtra("studentJsonStr", JsonSerializer.ToJsonString(student));
+                    StartActivity(intent);
+                    CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
                 };
             }
 
             tv_noRenewNum.Text = string.Format("未续班（{0}人）", notRenewStudentList.Count);
             for (var i = 0; i < notRenewStudentList.Count; i++)
-			{
+            {
                 var student = notRenewStudentList[i];
 
-				var itemBox = LayoutInflater.From(CurrContext).Inflate(Resource.Layout.item_renew_avatar, gridlayout_2, false);
+                var itemBox = LayoutInflater.From(CurrContext).Inflate(Resource.Layout.item_renew_avatar, gridlayout_2, false);
 
-				ImageView ivAvatar = itemBox.FindViewById<ImageView>(Resource.Id.iv_avatar);
-				// 设置照片宽度和高度
-				var avatarWidth = itemWidth;
-				var avatarHeight = avatarWidth;
-				LinearLayout.LayoutParams parasAvatar = new LinearLayout.LayoutParams(avatarWidth, avatarHeight);
-				parasAvatar.Gravity = GravityFlags.Center;
-				ivAvatar.LayoutParameters = parasAvatar;
-				if (!string.IsNullOrEmpty(student.avatar))
-				{
-					picasso.Load(student.avatar).Placeholder(Resource.Drawable.avatar_student).Error(Resource.Drawable.avatar_student)
-						.Transform(new CircleImageTransformation(picasso))
-						   .Into(ivAvatar);
-				}
+                ImageView ivAvatar = itemBox.FindViewById<ImageView>(Resource.Id.iv_avatar);
+                // 设置照片宽度和高度
+                var avatarWidth = itemWidth;
+                var avatarHeight = avatarWidth;
+                LinearLayout.LayoutParams parasAvatar = new LinearLayout.LayoutParams(avatarWidth, avatarHeight);
+                parasAvatar.Gravity = GravityFlags.Center;
+                ivAvatar.LayoutParameters = parasAvatar;
+                if (!string.IsNullOrEmpty(student.avatar))
+                {
+                    picasso.Load(student.avatar).Placeholder(Resource.Drawable.avatar_student).Error(Resource.Drawable.avatar_student)
+                        .Transform(new CircleImageTransformation(picasso))
+                           .Into(ivAvatar);
+                }
 
-				TextView tvName = itemBox.FindViewById<TextView>(Resource.Id.tv_name);
-				tvName.Text = student.name;
+                TextView tvName = itemBox.FindViewById<TextView>(Resource.Id.tv_name);
+                tvName.Text = student.name;
 
-				GridLayout.LayoutParams parasBox = new GridLayout.LayoutParams();
-				parasBox.Width = itemWidth;
-				if (i % avatarColumns != 3)
-				{
-					parasBox.RightMargin = marginRight;
-				}
-				itemBox.LayoutParameters = parasBox;
-				gridlayout_2.AddView(itemBox);
+                GridLayout.LayoutParams parasBox = new GridLayout.LayoutParams();
+                parasBox.Width = itemWidth;
+                if (i % avatarColumns != 3)
+                {
+                    parasBox.RightMargin = marginRight;
+                }
+                itemBox.LayoutParameters = parasBox;
+                gridlayout_2.AddView(itemBox);
 
-				// 添加点击事件
-				itemBox.Click += (sender, e) =>
-				{
-					Intent intent = new Intent(CurrActivity, typeof(StuentClassActivity));
-					intent.PutExtra("studentJsonStr", JsonSerializer.ToJsonString(student));
-					StartActivity(intent);
-					CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
-				};
-			}
+                // 添加点击事件
+                itemBox.Click += (sender, e) =>
+                {
+                    Intent intent = new Intent(CurrActivity, typeof(StuentClassActivity));
+                    intent.PutExtra("studentJsonStr", JsonSerializer.ToJsonString(student));
+                    StartActivity(intent);
+                    CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+                };
+            }
         }
     }
 }
