@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Android.App;
 using Android.Content;
+using Android.Graphics.Drawables;
+using Android.OS;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
@@ -106,6 +108,24 @@ namespace YbkManage.App
                 return roleObj.RoleName;
             }
             return "教师";
+        }
+
+        /// <summary>
+        /// Gets the drawable.
+        /// </summary>
+        /// <returns>The drawable.</returns>
+        /// <param name="context">Context.</param>
+        /// <param name="resourceId">Resource identifier.</param>
+        public static Drawable GetDrawable(Context context, int resourceId)
+        {
+			if ((int)(Build.VERSION.SdkInt) >= 21)
+			{
+                return context.GetDrawable(resourceId);
+			}
+			else
+			{
+                return context.Resources.GetDrawable(resourceId);
+			}
         }
 
         /*
