@@ -58,6 +58,7 @@ namespace YbkManage.Activities
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            BaseApplication.GetInstance().teacherList = null;
             LayoutReourceId = Resource.Layout.activity_teacher_list;
 
             base.OnCreate(savedInstanceState);
