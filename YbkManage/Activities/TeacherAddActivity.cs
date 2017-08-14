@@ -44,13 +44,16 @@ namespace YbkManage.Activities
 
         private bool isNewAdd = true;
 
-        private string scopeName = "";
+       
         private TeacherListModel currTeacher = new TeacherListModel();
 
         private MeService _meService = new MeService();
 
 		// pageFromType=1 教师列表页过来 pageFromType=2教学主管
 		private int pageFromType = 1;
+
+        private int tScopeCode = 0, tType = 0;
+		private string scopeName = "";
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -75,6 +78,9 @@ namespace YbkManage.Activities
                     {
                         currTeacher = BaseApplication.GetInstance().teacherList.FirstOrDefault(i => i.Code == currTeacher.Code);
                     }
+
+                    tScopeCode = currTeacher.ScopeCode ?? 0;
+                    tType = currTeacher.Type ?? 0;
                 }
             }
         }
@@ -124,7 +130,7 @@ namespace YbkManage.Activities
                 et_teacheramount.Text = currTeacher.Email;
                 et_teachername.Text = currTeacher.Name;
                 tvScoleLabel.Text = currTeacher.ScopeName;
-                tvRoleLabel.Text = AppUtils.GetRoleName(currTeacher.Type ?? 0);
+                tvRoleLabel.Text = AppUtils.GetRoleName(tType);
 
                 tvRoleLabel.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
                 tvScoleLabel.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
@@ -144,7 +150,7 @@ namespace YbkManage.Activities
             rlGroup.Click += (sender, e) =>
             {
                 Intent intent = new Intent(CurrActivity, typeof(TeacherScopeSelectActivity));
-                intent.PutExtra("scopeId", currTeacher.ScopeCode ?? 0);
+                intent.PutExtra("scopeId", tScopeCode);
                 StartActivityForResult(intent, 1);
                 CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
 
@@ -154,7 +160,7 @@ namespace YbkManage.Activities
             rlRole.Click += (sender, e) =>
             {
                 Intent intent = new Intent(CurrActivity, typeof(TeacherRoleSelectActivity));
-                intent.PutExtra("roleId", currTeacher.Type ?? 0);
+                intent.PutExtra("roleId", tType);
                 StartActivityForResult(intent, 0);
                 CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
             };
@@ -197,39 +203,39 @@ namespace YbkManage.Activities
             }
             try
             {
-                currTeacher.Code = et_teachercode.Text.Trim();
-                currTeacher.Name = et_teachername.Text.Trim();
-                currTeacher.Email = et_teacheramount.Text.Trim();
-                if (string.IsNullOrEmpty(currTeacher.Code))
+                var tcode = et_teachercode.Text.Trim();
+                var tname = et_teachername.Text.Trim();
+                var temail = et_teacheramount.Text.Trim();
+                if (string.IsNullOrEmpty(tcode))
                 {
                     ToastUtil.ShowWarningToast(this, "请输入教师编码");
                     et_teachercode.RequestFocus();
                     return;
                 }
-                if (string.IsNullOrEmpty(currTeacher.Email))
+                if (string.IsNullOrEmpty(temail))
                 {
                     ToastUtil.ShowWarningToast(this, "请输入登录账号");
                     et_teacheramount.RequestFocus();
                     return;
                 }
-                if (!CheckUtil.IsValidEmail(currTeacher.Email))
+                if (!CheckUtil.IsValidEmail(temail))
                 {
                     ToastUtil.ShowWarningToast(this, "登录账号应为邮箱");
                     et_teacheramount.RequestFocus();
                     return;
                 }
-                if (string.IsNullOrEmpty(currTeacher.Name))
+                if (string.IsNullOrEmpty(tname))
                 {
                     ToastUtil.ShowWarningToast(this, "请输入姓名");
                     et_teachername.RequestFocus();
                     return;
                 }
-                if (currTeacher.ScopeCode == null || currTeacher.ScopeCode == 0)
+                if (tScopeCode == 0)
                 {
                     ToastUtil.ShowWarningToast(this, "请选择教研组");
                     return;
                 }
-                if (currTeacher.Type == null || currTeacher.Type == 0)
+                if (tType == 0)
                 {
                     ToastUtil.ShowWarningToast(this, "请选择角色");
                     return;
@@ -242,10 +248,10 @@ namespace YbkManage.Activities
                             {
                                 //新增操作
                                 var model = new ManagerUserInfo();
-                                model.Code = et_teachercode.Text;
-                                model.Email = et_teacheramount.Text;
-                                model.Name = et_teachername.Text;
-                                model.UserType = currTeacher.Type ?? 0;
+                                model.Code = tcode;
+                                model.Email = temail;
+                                model.Name = tname;
+                                model.UserType = tType;
                                 if (model.UserType == (int)UserType.TeacherDirector || model.UserType == (int)UserType.TeacherArea)
                                 {
                                     model.IsCanLogin = true;
@@ -262,12 +268,12 @@ namespace YbkManage.Activities
 
                                 if (isNewAdd)
                                 {
-                                    resultData = _meService.AddManagerUser(model, "", "", currTeacher.ScopeCode ?? 0);
+                                    resultData = _meService.AddManagerUser(model, "", "", tScopeCode);
 
                                 }
                                 else
                                 {
-                                    resultData = _meService.UpdateManagerUser(model, "", "", currTeacher.ScopeCode ?? 0);
+                                    resultData = _meService.UpdateManagerUser(model, "", "", tScopeCode);
                                 }
 
                                 RunOnUiThread(() =>
@@ -277,6 +283,11 @@ namespace YbkManage.Activities
                                     {
                                         ToastUtil.ShowSuccessToast(this, "操作成功");
 
+                                        currTeacher.Name = tname;
+                                        currTeacher.Email = temail;
+                                        currTeacher.Code = tcode;
+                                        currTeacher.ScopeCode = tScopeCode;
+                                        currTeacher.Type = tType;
                                         if (BaseApplication.GetInstance().teacherList != null)
                                         {
                                             if (isNewAdd)
@@ -408,14 +419,14 @@ namespace YbkManage.Activities
                 if (requestCode == 0)
                 {
                     tvRoleLabel.Text = data.GetStringExtra("roleName");
-                    currTeacher.Type = int.Parse(data.GetStringExtra("roleId"));
+                    tType = int.Parse(data.GetStringExtra("roleId"));
 
                     tvRoleLabel.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
                 }
                 else if (requestCode == 1)
                 {
                     tvScoleLabel.Text = data.GetStringExtra("scopeName");
-                    currTeacher.ScopeCode = int.Parse(data.GetStringExtra("scopeId"));
+                    tScopeCode = int.Parse(data.GetStringExtra("scopeId"));
                     currTeacher.ScopeName = data.GetStringExtra("scopeName");
 
                     tvScoleLabel.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
