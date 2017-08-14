@@ -12,6 +12,7 @@ using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using Android.Content.PM;
 using DataEntity;
 using DataService;
 using xxxxxLibrary.LoadingDialog;
@@ -26,7 +27,7 @@ namespace YbkManage.Activities
     /// <summary>
     /// 报表列表页
     /// </summary>
-    [Activity(Label = "ReportListByGroup")]
+	[Activity(Label = "ReportListByGroup", ScreenOrientation = ScreenOrientation.Portrait)]
     public class ReportListByGroup : AppActivity, SwipeRefreshLayout.IOnRefreshListener, IRecyclerViewItemClickListener, View.IOnClickListener
     {
         // 季度、年级、区域 筛选按钮
