@@ -49,6 +49,9 @@ namespace YbkManage.Activities
 
         private MeService _meService = new MeService();
 
+		// pageFromType=1 教师列表页过来 pageFromType=2教学主管
+		private int pageFromType = 1;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             LayoutReourceId = Resource.Layout.activity_teacher_add;
@@ -62,12 +65,13 @@ namespace YbkManage.Activities
             if (bundle != null)
             {
                 scopeName = bundle.GetString("scopeName");
+                pageFromType = bundle.GetInt("pageFromType",1);
                 var teacherJsonStr = bundle.GetString("teacherJsonStr");
                 if (!string.IsNullOrEmpty(teacherJsonStr))
                 {
                     currTeacher = JsonSerializer.ToObject<TeacherListModel>(teacherJsonStr);
 
-                    if (BaseApplication.GetInstance().teacherList != null)
+                    if (pageFromType==1 && BaseApplication.GetInstance().teacherList != null)
                     {
                         currTeacher = BaseApplication.GetInstance().teacherList.FirstOrDefault(i => i.Code == currTeacher.Code);
                     }
@@ -273,15 +277,18 @@ namespace YbkManage.Activities
                                     {
                                         ToastUtil.ShowSuccessToast(this, "操作成功");
 
-                                        if (isNewAdd)
+                                        if (BaseApplication.GetInstance().teacherList != null)
                                         {
-                                            BaseApplication.GetInstance().teacherList.Add(currTeacher);
-                                        }
-                                        else
-                                        {
-                                            if (scopeName != currTeacher.ScopeName)
+                                            if (isNewAdd)
                                             {
-                                                BaseApplication.GetInstance().teacherList.Remove(currTeacher);
+                                                BaseApplication.GetInstance().teacherList.Add(currTeacher);
+                                            }
+                                            else
+                                            {
+                                                if (scopeName != currTeacher.ScopeName)
+                                                {
+                                                    BaseApplication.GetInstance().teacherList.Remove(currTeacher);
+                                                }
                                             }
                                         }
 
@@ -362,7 +369,10 @@ namespace YbkManage.Activities
                                     }
                                     else
                                     {
-                                        BaseApplication.GetInstance().teacherList.Remove(currTeacher);
+                                        if (BaseApplication.GetInstance().teacherList != null)
+                                        {
+                                            BaseApplication.GetInstance().teacherList.Remove(currTeacher);
+                                        }
                                         ToastUtil.ShowSuccessToast(this, "操作成功");
                                         new Handler().PostDelayed(() =>
                                             {

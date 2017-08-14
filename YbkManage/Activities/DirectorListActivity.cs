@@ -153,6 +153,7 @@ namespace YbkManage.Activities
 			var teacherItem = teacherList[position];
 			Intent intent = new Intent(CurrActivity, typeof(TeacherAddActivity));
 			intent.PutExtra("teacherJsonStr", JsonSerializer.ToJsonString(teacherItem));
+            intent.PutExtra("pageFromType",2);
 			StartActivity(intent);
 			CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
 		}

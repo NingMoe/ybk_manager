@@ -60,7 +60,8 @@ namespace YbkManage.Activities
             // 返回
             ((ImageButton)FindViewById(Resource.Id.imgBtn_back)).Click += (sender, e) =>
             {
-                CurrActivity.Finish();
+				CurrActivity.Finish();
+				OverridePendingTransition(Resource.Animation.left_in, Resource.Animation.right_out);
             };
 
             llBox.RemoveAllViews();
