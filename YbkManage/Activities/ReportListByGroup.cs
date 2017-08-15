@@ -40,7 +40,7 @@ namespace YbkManage.Activities
 
         private QuarterEntity searchQuarter = new QuarterEntity { QuarterName = "2018财年Q1", Year = 2018, Quarter = 2 };
         private List<string> searchGradeList = new List<string>();
-        private string searchDistrict = "";
+        private string searchDistrict = "全部区域";
 
         // 列表页用控件
         private SwipeRefreshLayout mSwipeRefreshLayout;
