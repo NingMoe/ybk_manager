@@ -131,8 +131,6 @@ namespace YbkManage.Fragments
 				BaseApplication.GetInstance().districtList = RenewService.GetDistrictList(CurrUserInfo.SchoolId);
 			}
 
-            GetRenewInfoInGroup();
-
             if (BaseApplication.GetInstance().quarterList != null && BaseApplication.GetInstance().quarterList.Any())
 			{
                 quarterList = BaseApplication.GetInstance().quarterList;
@@ -149,6 +147,9 @@ namespace YbkManage.Fragments
 			{
                 districtList = new List<string>(BaseApplication.GetInstance().districtList.Select(i => i.DistrictName).ToArray());
 			}
+
+
+			GetRenewInfoInGroup();
         }
 
         public void OnRefresh()
