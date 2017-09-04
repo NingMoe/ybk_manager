@@ -8,6 +8,7 @@ using Android.OS;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
+using Android.Widget;
 using DataEntity;
 using DataService;
 using xxxxxLibrary.LoadingDialog;
@@ -32,6 +33,7 @@ namespace YbkManage.Fragments
         // 列表页用控件
         private SwipeRefreshLayout mSwipeRefreshLayout;
         private RecyclerView mRecyclerView;
+        private LinearLayout ll_none;
 
         // 列表显示方式
         private LinearLayoutManager linearLayoutManager;
@@ -66,7 +68,7 @@ namespace YbkManage.Fragments
         {
             mSwipeRefreshLayout = (SwipeRefreshLayout)view.FindViewById(Resource.Id.refresher);
             mRecyclerView = (RecyclerView)view.FindViewById(Resource.Id.recycler_view);
-
+            ll_none = (LinearLayout)view.FindViewById(Resource.Id.ll_none);
             mSwipeRefreshLayout.SetColorSchemeColors(Color.ParseColor("#db0000"));
             //mSwipeRefreshLayout.SetColorScheme(Resource.Color.xam_dark_blue,
             //Resource.Color.xam_purple,
@@ -126,11 +128,16 @@ namespace YbkManage.Fragments
 						LoadingDialogUtil.DismissLoadingDialog();
                         mSwipeRefreshLayout.Refreshing = false;
 
-						if (classList != null)
+                        if (classList != null && classList.Count>0)
 						{
                             mAdapter.SetData(classList);
 							mAdapter.NotifyDataSetChanged();
 						}
+                        else
+                        {
+                            mSwipeRefreshLayout.Visibility = ViewStates.Gone;
+                            ll_none.Visibility = ViewStates.Visible;
+                        }
 					});
 				})).Start();
 			}

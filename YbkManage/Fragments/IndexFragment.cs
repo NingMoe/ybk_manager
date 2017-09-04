@@ -121,6 +121,7 @@ namespace YbkManage.Fragments
                 {
                     new Thread(new ThreadStart(() =>
                     {
+
                         var renewList = RenewService.GetIndexRenewInfoByDepartment(CurrUserInfo.SchoolId, year, quarter);
 
                         CurrActivity.RunOnUiThread(() =>
@@ -211,21 +212,22 @@ namespace YbkManage.Fragments
                         itemView.FindViewById<TextView>(Resource.Id.tv_value_l_1).SetTextColor(Color.ParseColor("#f46d5f"));
                     }
                     itemWrap.AddView(itemView);
+				}
 
-                    if (sortType == 5)
-                    {
-                        LoadedRenewInfoInGroup5 = true;
-                    }
-                    else
-                    {
-                        LoadedRenewInfoInGroup6 = true;
-                    }
-                    IsDissDialog();
-                }
+				if (sortType == 5)
+				{
+					LoadedRenewInfoInGroup5 = true;
+				}
+				else
+				{
+					LoadedRenewInfoInGroup6 = true;
+				}
+				IsDissDialog();
             }
             catch (Exception ex)
             {
-                var msg = ex.Message.ToString();
+				var msg = ex.Message.ToString();
+				IsDissDialog();
             }
         }
 

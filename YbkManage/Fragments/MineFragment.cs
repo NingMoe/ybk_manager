@@ -137,6 +137,7 @@ namespace YbkManage.Fragments
 
             Intent intent = new Intent(CurrActivity, typeof(Login));
             StartActivity(intent);
+            CurrActivity.Finish();
             CurrActivity.OverridePendingTransition(Android.Resource.Animation.FadeIn, Android.Resource.Animation.FadeOut);
         }
 
