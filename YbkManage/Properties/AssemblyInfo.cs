@@ -25,3 +25,6 @@ using Android.App;
 
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
+
+[assembly: MetaData("UMENG_APPKEY", Value = "5951c6fb2ae85b5b96001bb9")]
+[assembly: MetaData("UMENG_CHANNEL", Value = "Umeng")]

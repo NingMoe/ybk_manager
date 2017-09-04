@@ -8,15 +8,9 @@ using Android.Widget;
 using xxxxxLibrary.Toast;
 using xxxxxLibrary.LoadingDialog;
 using YbkManage.App;
-using System.Net;
-using System.IO;
 using xxxxxLibrary.Utils;
-using xxxxxLibrary.Serializer;
-using YbkManage.Models;
 using Android.Content.PM;
-using System.Collections.Generic;
 using xxxxxLibrary.Network;
-using System.Json;
 using DataService;
 using System.Threading;
 
@@ -61,7 +55,11 @@ namespace YbkManage.Activities
             AppUtils.HideKeyboard(this);
 
 			var lastLoginAccount = SharedPreferencesUtil.GetParam(this, AppConfig.SP_LAST_LOGIN_ACCOUNT, "");
- 	    	etAccount.Text = lastLoginAccount != null ? (!string.IsNullOrWhiteSpace(lastLoginAccount.ToString()) ? lastLoginAccount.ToString() : "") : "";		
+            if(lastLoginAccount != null && !(string.IsNullOrWhiteSpace(lastLoginAccount.ToString())))
+            {
+				etAccount.Text = lastLoginAccount.ToString();
+				ivAccountClear.Visibility = ViewStates.Visible;
+			}
          }
 
         /// <summary>

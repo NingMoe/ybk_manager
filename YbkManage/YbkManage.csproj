@@ -236,6 +236,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_zhengzhi.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_zhuanxiang.png" />
     <AndroidResource Include="Resources\drawable\textview_circle_green.axml" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\noclass.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

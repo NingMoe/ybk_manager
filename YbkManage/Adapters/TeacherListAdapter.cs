@@ -4,6 +4,7 @@ using Android.Content;
 using Android.Content.Res;
 using Android.Graphics;
 using Android.Support.V7.Widget;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using DataEntity;
@@ -19,8 +20,9 @@ namespace YbkManage.Adapters
     /// </summary>
 	public class TeacherListAdapter : RecyclerView.Adapter, IOnClickListener, IOnLongClickListener
     {
-        private static int TYPE_ITEM_ITEM = 1;
-        private static int TYPE_ITEM_FOOTER = 2;
+        private static int TYPE_ITEM = 0;
+        private static int TYPE_FOOTER = 1;
+
         private RecyclerView m_RecyclerView;
 
         private Context mContext;
@@ -51,11 +53,11 @@ namespace YbkManage.Adapters
         {
             m_RecyclerView = parent as RecyclerView;
             var vi = LayoutInflater.From(parent.Context);
-            if (viewType == TYPE_ITEM_FOOTER)
+            if (viewType == TYPE_FOOTER)
             {
                 return new FootViewHolder(vi.Inflate(Resource.Layout.listview_footer, parent, false));
             }
-            else if (viewType == TYPE_ITEM_ITEM)
+            else if (viewType == TYPE_ITEM)
             {
                 var itemView = vi.Inflate(Resource.Layout.item_teacher, parent, false);
                 return new ItemViewHolder(itemView);
@@ -80,9 +82,9 @@ namespace YbkManage.Adapters
 
                 if (pageType == 1)
                 {
-					((ItemViewHolder)holder).Tv_Job.SetBackgroundResource(Resource.Drawable.button_bg);
-					((ItemViewHolder)holder).Tv_Job.SetTextColor(ColorStateList.ValueOf(Color.Rgb(255,255,255)));
-					
+                    ((ItemViewHolder)holder).Tv_Job.SetBackgroundResource(Resource.Drawable.button_bg);
+                    ((ItemViewHolder)holder).Tv_Job.SetTextColor(ColorStateList.ValueOf(Color.Rgb(255, 255, 255)));
+
                     ((ItemViewHolder)holder).Tv_Job.Visibility = ViewStates.Gone;
                     if (itemInfo.Type == 22)
                     {
@@ -97,8 +99,8 @@ namespace YbkManage.Adapters
                 }
                 else
                 {
-					((ItemViewHolder)holder).Tv_Job.SetBackgroundResource(Resource.Drawable.textview_circle_green);
-					((ItemViewHolder)holder).Tv_Job.SetTextColor(ColorStateList.ValueOf(Color.Rgb(23,191,160)));
+                    ((ItemViewHolder)holder).Tv_Job.SetBackgroundResource(Resource.Drawable.textview_circle_green);
+                    ((ItemViewHolder)holder).Tv_Job.SetTextColor(ColorStateList.ValueOf(Color.Rgb(23, 191, 160)));
 
                     ((ItemViewHolder)holder).Tv_Job.Visibility = ViewStates.Visible;
                     ((ItemViewHolder)holder).Tv_Job.Text = itemInfo.ScopeName;
@@ -111,19 +113,27 @@ namespace YbkManage.Adapters
                     .Transform(new CircleImageTransformation(picasso))
                        .Into(((ItemViewHolder)holder).Iv_Avatar);
                 }
+                else
+                {
+					picasso.Load(Resource.Drawable.avatar).Placeholder(Resource.Drawable.avatar).Error(Resource.Drawable.avatar)
+					.Transform(new CircleImageTransformation(picasso))
+					   .Into(((ItemViewHolder)holder).Iv_Avatar);
+                }
             }
         }
 
         public override int GetItemViewType(int position)
         {
-            if (teacherList != null && ItemCount == (position + 1) && !this.hideFooter)
+            Log.Info("========","position:" + position);
+            if (ItemCount == (position+1))
             {
-                return TYPE_ITEM_FOOTER;
+                if (!this.hideFooter)
+                {
+                    return TYPE_FOOTER;
+                }
             }
-            else
-            {
-                return TYPE_ITEM_ITEM;
-            }
+            return TYPE_ITEM;
+
         }
 
         public override int ItemCount

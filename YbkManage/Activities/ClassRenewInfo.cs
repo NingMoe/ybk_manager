@@ -206,6 +206,12 @@ namespace YbkManage.Activities
                         .Transform(new CircleImageTransformation(picasso))
                            .Into(ivAvatar);
                 }
+                else
+				{
+					picasso.Load(Resource.Drawable.avatar_student).Placeholder(Resource.Drawable.avatar_student).Error(Resource.Drawable.avatar_student)
+						.Transform(new CircleImageTransformation(picasso))
+						   .Into(ivAvatar);
+                }
 
                 TextView tvName = itemBox.FindViewById<TextView>(Resource.Id.tv_name);
                 tvName.Text = student.name;

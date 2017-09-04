@@ -147,7 +147,8 @@ namespace YbkManage.Activities
                 if (totalCount > teacherList.Count)
                 {
                     if (!loadingData)
-                    {
+					{
+						loadingData = true;
                         GetTeacherListByScope();
                     }
                 }
@@ -203,13 +204,10 @@ namespace YbkManage.Activities
             {
                 new Thread(new ThreadStart(() =>
                 {
-                    loadingData = true;
                     var schoolId = CurrUserInfo.SchoolId;
                     var pagerList = _meService.GetTeacherListByScope(schoolId, scopeId, pageIndex, pageSize, out totalCount);
                     RunOnUiThread(() =>
                     {
-                        loadingData = false;
-
                         LoadingDialogUtil.DismissLoadingDialog();
                         mSwipeRefreshLayout.Refreshing = false;
 
@@ -224,7 +222,9 @@ namespace YbkManage.Activities
                         mAdapter.HideFootere(teacherList.Count >= totalCount);
 
                         mAdapter.SetData(teacherList);
-                        mAdapter.NotifyDataSetChanged();
+						mAdapter.NotifyDataSetChanged();
+
+						loadingData = false;
                     });
                 })).Start();
             }
