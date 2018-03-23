@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace DataEntity
 {
+
 	#region 续班率 （适用于首页初中、高中续班率统计）
 	[Serializable]
 	public class ResultData_DepartmentRenewInfo
@@ -157,6 +158,9 @@ namespace DataEntity
 
 		public DateTime ModifyTime { get; set; }
 
+		public string Memo { get; set; }
+
+
 	}
 	#endregion
 	#endregion
@@ -283,6 +287,7 @@ namespace DataEntity
 	[Serializable]
 	public class DistrictEntity
 	{
+		public string DistrictCode { get; set; }
 		public string DistrictName { get; set; }
 	}
 	#endregion

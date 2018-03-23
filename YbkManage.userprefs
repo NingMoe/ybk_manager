@@ -1,23 +1,19 @@
 ﻿<Properties StartupConfiguration="{30BF7E82-EF62-4187-AEE2-0D43951732D2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="YbkManage/Activities/Splash.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ybk_manager.git Status">
     <Files>
-      <File FileName="YbkManage/Properties/AndroidManifest.xml" Line="1" Column="1" />
-      <File FileName="YbkManage/Properties/AssemblyInfo.cs" Line="1" Column="1" />
-      <File FileName="YbkManage/Fragments/BaseFragment.cs" Line="46" Column="12" />
-      <File FileName="YbkManage/Activities/AppActivity.cs" Line="65" Column="5" />
-      <File FileName="YbkManage/Activities/Splash.cs" Line="44" Column="14" />
+      <File FileName="ybk_manager.git Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager.git/YbkManage/Adapters/ReportByTeacherAdapter.cs" relfile="YbkManage/Adapters/ReportByTeacherAdapter.cs" line="106" column="81" />
-      <Breakpoint file="/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager.git/YbkManage/Adapters/ReportByTeacherAdapter.cs" relfile="YbkManage/Adapters/ReportByTeacherAdapter.cs" line="103" column="1" />
-      <Breakpoint file="/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager.git/YbkManage/Fragments/BaseFragment.cs" relfile="YbkManage/Fragments/BaseFragment.cs" line="44" column="1" />
-      <Breakpoint file="/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager.git/YbkManage/Activities/AppActivity.cs" relfile="YbkManage/Activities/AppActivity.cs" line="49" column="1" />
+      <Breakpoint file="/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager.git/YbkManage/Activities/Login.cs" relfile="YbkManage/Activities/Login.cs" line="61" column="1" />
+      <Breakpoint file="/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager.git/YbkManage/Adapters/DistrictSelectAdapter.cs" relfile="YbkManage/Adapters/DistrictSelectAdapter.cs" line="39" column="1" />
+      <Breakpoint file="/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager.git/YbkManage/Fragments/TeachFragment.cs" relfile="YbkManage/Fragments/TeachFragment.cs" line="489" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.YbkManage AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.192.168.56.102:5555" AndroidDesignerPreferredTheme="appbasetheme" />
+  <MonoDevelop.Ide.ItemProperties.YbkManage AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.Test" AndroidDesignerPreferredTheme="appbasetheme" />
+  <MonoDevelop.Ide.ItemProperties.xxxxxLibrary AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.192.168.56.102:5555" />
   <MultiItemStartupConfigurations />
 </Properties>

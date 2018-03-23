@@ -26,9 +26,8 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidLinkMode>None</AndroidLinkMode>
-<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-<AndroidSupportedAbis>armeabi-v7a;armeabi;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
+<EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
+<AndroidSupportedAbis>arm64-v8a;armeabi;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -153,7 +152,6 @@
     <AndroidResource Include="Resources\layout\fragment_mine.axml" />
     <AndroidResource Include="Resources\layout\activity_login.axml" />
     <AndroidResource Include="Resources\drawable-xhdpi\login_logo.png" />
-    <AndroidResource Include="Resources\drawable\edittext_bg.axml" />
     <AndroidResource Include="Resources\drawable\button_bg.axml" />
     <AndroidResource Include="Resources\drawable-hdpi\login_logo.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\login_logo.png" />
@@ -237,6 +235,9 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_zhuanxiang.png" />
     <AndroidResource Include="Resources\drawable\textview_circle_green.axml" />
     <AndroidResource Include="Resources\drawable-xxhdpi\noclass.png" />
+    <AndroidResource Include="Resources\drawable\edittext_bg.axml" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\lesson_all.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\lesson_ing.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

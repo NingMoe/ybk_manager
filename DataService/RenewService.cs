@@ -8,7 +8,6 @@ namespace DataService
 	//报表-续班相关
 	public class RenewService
 	{
-
 		#region 获取首页-续班率统计（初中、高中两组） Type值：1-初中；2-高中，需页面调整。
 		/// <summary>
 		/// 
@@ -127,17 +126,28 @@ namespace DataService
 		/// <param name="district">区域，例如：东南区</param>
 		/// <param name="needTotal">是否需要总计行，0-否；1-是</param>
 		/// <param name="sortType">排序列：原班人数倒序（默认）；1-原班人数升序；2-原班人数倒序；3-续班人数升序；4-续班人数倒序；5-平均续班率升序；6-平均续班率倒序。</param>
+		/// <param name="classStatus">班级开课状态：0-开课中（默认），3-全部</param>
 		/// <param name="pageIndex">页码</param>
 		/// <param name="pageSize">条数</param>
 		/// <returns></returns>
 		public static ResultData_RenewInfoInGroup GetRenewInfoInGroup(int schoolId, int year, int quarter,
 																	  string grade, string district, int needTotal = 1,
-																	  int sortType = 6, int pageIndex = 1, int pageSize = 30)
+																	  int sortType = 6, int pageIndex = 1, int pageSize = 30,
+																	  int? classStatus = 0)
 		{
 			if (sortType == 0) sortType = 6;
 			if (pageIndex == 0) pageIndex = 1;
 			if (pageSize == 0) pageSize = 30;
 			if (district == "全部区域") district = "";
+
+			var beginDate = "";
+			var endDate = "";
+			if (classStatus == 1)
+			{
+				var tupleDate = GetSeasonDateSpan(year, quarter);
+				beginDate = tupleDate.Item1;
+				endDate = tupleDate.Item2;
+			}
 
 			var tuple = GetYearSeason(year, quarter);
 			year = tuple.Item1;
@@ -159,6 +169,8 @@ namespace DataService
 				dict.Add("SortType", sortType.ToString());
 				dict.Add("PageIndex", pageIndex.ToString());
 				dict.Add("PageSize", pageSize.ToString());
+				dict.Add("BeginDate", beginDate);
+				dict.Add("EndDate", endDate);
 				var sign = Helper.GetSign(dict);
 				dict.Add("sign", sign);
 				var result = Helper.DoPost(apiUrl, dict); //提交post请求
@@ -205,13 +217,24 @@ namespace DataService
 		/// <param name="needTotal">是否需要总计行，0-否；1-是</param>
 		/// <param name="groupCode">教研组编号，例如：132</param>
 		/// <param name="sortType">排序列：原班人数倒序（默认）；1-原班人数升序；2-原班人数倒序；3-续班人数升序；4-续班人数倒序；5-平均续班率升序；6-平均续班率倒序。</param>
+		/// <param name="classStatus">班级开课状态：0-开课中（默认），3-全部</param>
 		/// <returns></returns>
 		public static ResultData_RenewInfoInGroup GetRenewInfoInTeacherByGroupCode(int schoolId, int year, int quarter,
 																				   string grade, string district, string groupCode,
-																				   int needTotal = 1, int sortType = 6)
+																				   int needTotal = 1, int sortType = 6,
+																					 int? classStatus = 0)
 		{
 			if (sortType == 0) sortType = 6;
 			if (district == "全部区域") district = "";
+
+			var beginDate = "";
+			var endDate = "";
+			if (classStatus == 1)
+			{
+				var tupleDate = GetSeasonDateSpan(year, quarter);
+				beginDate = tupleDate.Item1;
+				endDate = tupleDate.Item2;
+			}
 
 			var tuple = GetYearSeason(year, quarter);
 			year = tuple.Item1;
@@ -232,6 +255,8 @@ namespace DataService
 				dict.Add("GroupCode", groupCode);
 				dict.Add("NeedTotal", needTotal.ToString());
 				dict.Add("SortType", sortType.ToString());
+				dict.Add("BeginDate", beginDate);
+				dict.Add("EndDate", endDate);
 				var sign = Helper.GetSign(dict);
 				dict.Add("sign", sign);
 				var result = Helper.DoPost(apiUrl, dict); //提交post请求
@@ -278,13 +303,24 @@ namespace DataService
 		/// <param name="teacherCode">教师编号</param>
 		/// <param name="needTotal">是否需要总计行，0-否；1-是</param>
 		/// <param name="sortType">排序列：原班人数倒序（默认）；1-原班人数升序；2-原班人数倒序；3-续班人数升序；4-续班人数倒序；5-平均续班率升序；6-平均续班率倒序。</param>
+		/// <param name="classStatus">班级开课状态：0-开课中（默认），3-全部</param>
 		/// <returns></returns>
 		public static ResultData_RenewInfoInClass GetRenewInfoInClassByTeacher(int schoolId, int year, int quarter,
 																			   string grade, string district, string teacherCode,
-																			   int needTotal = 1, int sortType = 6)
+																			   int needTotal = 1, int sortType = 6,
+																				 int? classStatus = 0)
 		{
 			if (sortType == 0) sortType = 6;
 			if (district == "全部区域") district = "";
+
+			var beginDate = "";
+			var endDate = "";
+			if (classStatus == 1)
+			{
+				var tupleDate = GetSeasonDateSpan(year, quarter);
+				beginDate = tupleDate.Item1;
+				endDate = tupleDate.Item2;
+			}
 
 			var tuple = GetYearSeason(year, quarter);
 			year = tuple.Item1;
@@ -306,6 +342,8 @@ namespace DataService
 				dict.Add("TeacherCode", teacherCode);
 				dict.Add("NeedTotal", needTotal.ToString());
 				dict.Add("SortType", sortType.ToString());
+				dict.Add("BeginDate", beginDate);
+				dict.Add("EndDate", endDate);
 				var sign = Helper.GetSign(dict);
 				dict.Add("sign", sign);
 				var result = Helper.DoPost(apiUrl, dict); //提交post请求
@@ -420,7 +458,7 @@ namespace DataService
 		#endregion
 
 		#region 获取学员的报班记录列表
-		/// <summa ry>
+		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="schoolId"></param>
@@ -492,6 +530,41 @@ namespace DataService
 			return new Tuple<int, int>(year, season);
 		}
 
+		#endregion
+
+		#region  财年Q转时间段 即2018财年Q1转换为2017.6.1-2017.8.31，为接口数据容易计算结束值为2017.9.1
+		public static Tuple<string, string> GetSeasonDateSpan(int fiscalYear, int quarter)
+		{
+			var beginDate = new DateTime();
+			var endDate = new DateTime();
+
+			if (quarter < 1 || quarter > 4)
+			{
+				return new Tuple<string, string>("", "");
+			}
+
+			if (quarter == 1)
+			{
+				beginDate = new DateTime(fiscalYear - 1, 6, 1);
+				endDate = new DateTime(fiscalYear - 1, 9, 1);
+			}
+			else if (quarter == 2)
+			{
+				beginDate = new DateTime(fiscalYear - 1, 9, 1);
+				endDate = new DateTime(fiscalYear - 1, 12, 1);
+			}
+			else if (quarter == 3)
+			{
+				beginDate = new DateTime(fiscalYear - 1, 12, 1);
+				endDate = new DateTime(fiscalYear, 3, 1);
+			}
+			else
+			{
+				beginDate = new DateTime(fiscalYear, 3, 1);
+				endDate = new DateTime(fiscalYear, 6, 1);
+			}
+			return new Tuple<string, string>(beginDate.ToString("yyyy-MM-dd"), endDate.ToString("yyyy-MM-dd"));
+		}
 		#endregion
 
 		/*报表顶部筛选框数据源*/
@@ -581,6 +654,7 @@ namespace DataService
 				if (resultData.State == 1 && resultData.Data != null)
 				{
 					list = resultData.Data;
+					list.ForEach(t => t.DistrictCode = t.DistrictCode.ToLower());
 					var defaultEntity = new DistrictEntity();
 					defaultEntity.DistrictName = "全部区域";
 					list.Insert(0, defaultEntity);

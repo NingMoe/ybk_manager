@@ -132,6 +132,12 @@ namespace DataEntity
 		/// 助教主管-大区域
 		/// </summary>
 		public string DistrictCode { get; set; }
+		public string DistrictName { get; set; }
+		/// <summary>
+		/// 所负责校区
+		///ummary>
+		/// <value>The area codes.</value>
+		public string AreaCodes { get; set; }
 		/// <summary>
 		/// 教研组编号
 		/// </summary>
