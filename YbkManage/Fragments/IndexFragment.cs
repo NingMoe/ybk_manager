@@ -135,8 +135,7 @@ namespace YbkManage.Fragments
 				tvBudgetTitle.Text = string.Format("{0}财年{1}预算完成率", year, quarter);
 				try
 				{
-					year = 2018;
-					quarter = 1;
+					
 					#region 教学模块
 					new Thread(new ThreadStart(() =>
 					{
