@@ -52,6 +52,10 @@
     <Compile Include="Helper.cs" />
     <Compile Include="RenewService.cs" />
     <Compile Include="UserService.cs" />
+    <Compile Include="District\BudgetService.cs" />
+    <Compile Include="District\DistrictService.cs" />
+    <Compile Include="District\NewService.cs" />
+    <Compile Include="District\SumService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

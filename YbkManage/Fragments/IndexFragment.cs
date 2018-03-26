@@ -21,12 +21,19 @@ namespace YbkManage.Fragments
     /// </summary>
     public class IndexFragment : BaseFragment
     {
-        // 标题1
-        private TextView tvTitle1, tvTitle2;
-        // 初中续班率、高中续班率
-        private TextView tvRate1, tvRate2;
-        // 续班率前三名、后三名容器
-        private LinearLayout llAscWrap, llDescWrap;
+		#region UIFields
+		// 标题1
+		private TextView tvTitle1, tvTitle2;
+		// 初中续班率、高中续班率
+		private TextView tvRate1, tvRate2;
+		// 续班率前三名、后三名容器
+		private LinearLayout llAscWrap, llDescWrap;
+
+
+		//区域模块
+		private TextView tvBudgetTitle,tvBudget,tvBudgetRate;
+		private LinearLayout llBudgetBefore, llBudgetAfter;
+		#endregion
 
         // 查询年份和季度
         private int year = DateTime.Now.Year, quarter = 1;
@@ -68,10 +75,18 @@ namespace YbkManage.Fragments
             tvRate2 = view.FindViewById<TextView>(Resource.Id.tv_rate_2);
             llAscWrap = view.FindViewById<LinearLayout>(Resource.Id.ll_asc_wrap);
             llDescWrap = view.FindViewById<LinearLayout>(Resource.Id.ll_desc_wrap);
+
+			//区域模块
+			tvBudgetTitle = view.FindViewById<TextView>(Resource.Id.tv_area_title);
+			tvBudget = view.FindViewById<TextView>(Resource.Id.tv_area_budget);
+			tvBudgetRate = view.FindViewById<TextView>(Resource.Id.tv_area_rate);
+			llBudgetBefore = view.FindViewById<LinearLayout>(Resource.Id.ll_area_before);
+			llBudgetAfter = view.FindViewById<LinearLayout>(Resource.Id.ll_area_after);
         }
 
 
         private bool LoadedRenewInfoInGroup5 = false, LoadedRenewInfoInGroup6 = false;
+		private bool LoadedBudgetInfoBefore = false, LoadedBudgetInfoAfter = false;
 
         /// <summary>
         /// 页面数据
@@ -106,6 +121,7 @@ namespace YbkManage.Fragments
         /// </summary>
         private void GetRenewData()
         {
+			var schoolId = CurrUserInfo.SchoolId;
             try
             {
                 var currQuarter = BaseApplication.GetInstance().quarterList.FirstOrDefault(p => p.IsCurrent);
@@ -116,61 +132,126 @@ namespace YbkManage.Fragments
                 }
                 tvTitle1.Text = string.Format("{0}财年Q{1}续班率", year, quarter);
                 tvTitle2.Text = string.Format("{0}财年Q{1}续班率排名", year, quarter);
+				tvBudgetTitle.Text = string.Format("{0}财年{1}预算完成率", year, quarter);
+				try
+				{
+					year = 2018;
+					quarter = 1;
+					#region 教学模块
+					new Thread(new ThreadStart(() =>
+					{
 
-                try
-                {
-                    new Thread(new ThreadStart(() =>
-                    {
+						var renewList = RenewService.GetIndexRenewInfoByDepartment(schoolId, year, quarter);
 
-                        var renewList = RenewService.GetIndexRenewInfoByDepartment(CurrUserInfo.SchoolId, year, quarter);
+						CurrActivity.RunOnUiThread(() =>
+						{
+							//初中续班率
+							var middleInfo = renewList.FirstOrDefault(p => p.Type == 1);
+							if (middleInfo != null)
+							{
+								tvRate1.Text = (middleInfo.RenewRate * 100).ToString("f1") + "%";
+							}
 
-                        CurrActivity.RunOnUiThread(() =>
-                        {
-                            //初中续班率
-                            var middleInfo = renewList.FirstOrDefault(p => p.Type == 1);
-                            if (middleInfo != null)
-                            {
-                                tvRate1.Text = (middleInfo.RenewRate * 100).ToString("f1") + "%";
-                            }
-
-                            //高中续班率
-                            var hightInfo = renewList.FirstOrDefault(p => p.Type == 2);
-                            if (hightInfo != null)
-                            {
-                                tvRate2.Text = (hightInfo.RenewRate * 100).ToString("f1") + "%";
-                            }
-                        });
-                    })).Start();
+							//高中续班率
+							var hightInfo = renewList.FirstOrDefault(p => p.Type == 2);
+							if (hightInfo != null)
+							{
+								tvRate2.Text = (hightInfo.RenewRate * 100).ToString("f1") + "%";
+							}
+						});
+					})).Start();
 
 
-                    var grade = "";
-                    if (BaseApplication.GetInstance().gradeList != null)
-                    {
-                        grade = string.Join(",", BaseApplication.GetInstance().gradeList.Select(t => t.GradeName).ToArray());
-                    }
-                    // 前三名
-                    new Thread(new ThreadStart(() =>
-                    {
-                        var beforeList = RenewService.GetIndexRenewInfoInGroup(CurrUserInfo.SchoolId, year, quarter, grade, "", 0, 6, 1, 3);
+					var grade = "";
+					if (BaseApplication.GetInstance().gradeList != null)
+					{
+						grade = string.Join(",", BaseApplication.GetInstance().gradeList.Select(t => t.GradeName).ToArray());
+					}
+					// 前三名
+					new Thread(new ThreadStart(() =>
+					{
+						var beforeList = RenewService.GetIndexRenewInfoInGroup(schoolId, year, quarter, grade, "", 0, 6, 1, 3);
 
-                        CurrActivity.RunOnUiThread(() =>
-                        {
-                            InitRenewViews(beforeList, 6);
-                        });
-                    })).Start();
+						CurrActivity.RunOnUiThread(() =>
+						{
+							InitRenewViews(beforeList, 6);
+						});
+					})).Start();
 
-                    // 后三名
-                    new Thread(new ThreadStart(() =>
-                    {
-                        var lastList = RenewService.GetIndexRenewInfoInGroup(CurrUserInfo.SchoolId, year, quarter, grade, "", 0, 5, 1, 3);
+					// 后三名
+					new Thread(new ThreadStart(() =>
+					{
+						var lastList = RenewService.GetIndexRenewInfoInGroup(schoolId, year, quarter, grade, "", 0, 5, 1, 3);
 
-                        CurrActivity.RunOnUiThread(() =>
-                        {
-                            InitRenewViews(lastList, 5);
-                        });
-                    })).Start();
-                }
-                catch (Exception ex)
+						CurrActivity.RunOnUiThread(() =>
+						{
+							InitRenewViews(lastList, 5);
+						});
+					})).Start();
+					#endregion
+
+					#region 区域模块
+					new Thread(new ThreadStart(() =>
+					{
+						//query
+						//6-按预算完成率倒序排
+						int sortType = 6;
+						//1-预收款
+						int dataType = 1;
+						var allBudgetlist = BudgetService.GetAreaPaymentList(schoolId, year, quarter, "", sortType, dataType);
+						//预收款与完成率 取总计行
+						var budget = "0";
+						var completionRate = "0.0%";
+						var totalModel = allBudgetlist.FirstOrDefault(p => p.AreaName == "总计");
+						if (totalModel != null)
+						{
+							budget = (totalModel.Budget / 10000).ToString("f1");
+							completionRate = (totalModel.CompletionRate * 100).ToString("f1") + "%";
+						}
+
+
+						PaymentEntity[] budgetBefore = new PaymentEntity[3];
+						PaymentEntity[] budgetAfter = new PaymentEntity[3];
+						if (allBudgetlist.Count > 0)
+						{
+							//移除总计行后，取前三名&后三名	
+							allBudgetlist.RemoveAt(allBudgetlist.Count - 1);
+							//移除营收目标=0的行
+							allBudgetlist.RemoveAll(p => p.Budget == 0);
+						}
+						var budgetCount = allBudgetlist.Count;
+						if (allBudgetlist.Count > 3) budgetCount = 3;
+						if (budgetCount > 0)
+						{
+							allBudgetlist.CopyTo(0, budgetBefore, 0, budgetCount);
+							allBudgetlist.CopyTo(allBudgetlist.Count - budgetCount, budgetAfter, 0, budgetCount);
+
+							budgetBefore = budgetBefore.Where(t => t != null).ToArray();
+							budgetAfter = budgetAfter.Where(t => t != null).ToArray();
+						}
+
+						CurrActivity.RunOnUiThread(() =>
+						{
+                           
+							//预收款
+							tvBudget.Text = budget;
+							//预收款完成率
+							tvBudgetRate.Text = completionRate;
+
+							//前三名
+							InitBudgetViews(budgetBefore.ToList(), true);
+							//后三名
+							InitBudgetViews(budgetAfter.Reverse().ToList(), false);
+
+						});
+
+
+
+					})).Start();
+
+					#endregion
+				}
+				catch (Exception ex)
                 {
                     var msg = ex.Message.ToString();
                 }
@@ -231,12 +312,60 @@ namespace YbkManage.Fragments
             }
         }
 
-        private void IsDissDialog()
-        {
-            if (LoadedRenewInfoInGroup5 && LoadedRenewInfoInGroup6)
-            {
-                LoadingDialogUtil.DismissLoadingDialog();
-            }
+		private void InitBudgetViews(List<PaymentEntity> budgetList, bool isBefore)
+		{
+			try
+			{
+				var itemWrap = llBudgetBefore;
+				if (!isBefore)
+				{
+					itemWrap = llBudgetAfter;
+				}
+				itemWrap.RemoveAllViews();
+				itemWrap.Visibility = ViewStates.Visible;
+
+				foreach (var b in budgetList)
+				{
+					var rate = Math.Round(b.CompletionRate * 100, 2).ToString("f1") + "%";
+					var itemView = LayoutInflater.From(CurrActivity).Inflate(Resource.Layout.item_index_renewrate, null);
+					itemView.FindViewById<TextView>(Resource.Id.tv_label_l_1).Text = b.AreaName;
+					itemView.FindViewById<TextView>(Resource.Id.tv_value_l_1).Text = rate;
+
+					if (!isBefore)
+					{
+						itemView.FindViewById<TextView>(Resource.Id.tv_value_l_1).SetTextColor(Color.ParseColor("#f46d5f"));
+					}
+					itemWrap.AddView(itemView);
+				}
+
+				if (isBefore)
+				{
+					LoadedBudgetInfoBefore = true;
+				}
+				else
+				{
+					LoadedBudgetInfoAfter = true;
+				}
+				IsDissDialog();
+			}
+			catch (Exception ex)
+			{
+				var msg = ex.Message;
+				IsDissDialog();
+			}
+		}
+
+		private void IsDissDialog()
+		{
+			if (LoadedRenewInfoInGroup5 && LoadedRenewInfoInGroup6)
+			{
+				LoadingDialogUtil.DismissLoadingDialog();
+			}
+
+			if (LoadedBudgetInfoBefore && LoadedBudgetInfoAfter)
+			{
+				LoadingDialogUtil.DismissLoadingDialog();
+			}
         }
     }
 }

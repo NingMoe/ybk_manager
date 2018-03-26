@@ -1717,8 +1717,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f0700a8
 			public const int SCROLLER_ID = 2131165352;
 			
-			// aapt resource value: 0x7f0700e5
-			public const int action0 = 2131165413;
+			// aapt resource value: 0x7f0700ea
+			public const int action0 = 2131165418;
 			
 			// aapt resource value: 0x7f070042
 			public const int action_bar = 2131165250;
@@ -1744,8 +1744,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f070043
 			public const int action_context_bar = 2131165251;
 			
-			// aapt resource value: 0x7f0700e9
-			public const int action_divider = 2131165417;
+			// aapt resource value: 0x7f0700ee
+			public const int action_divider = 2131165422;
 			
 			// aapt resource value: 0x7f070003
 			public const int action_menu_divider = 2131165187;
@@ -1804,20 +1804,20 @@ namespace YbkManage
 			// aapt resource value: 0x7f07007e
 			public const int btn_login = 2131165310;
 			
-			// aapt resource value: 0x7f0700f3
-			public const int btn_ok = 2131165427;
+			// aapt resource value: 0x7f0700f8
+			public const int btn_ok = 2131165432;
 			
 			// aapt resource value: 0x7f07002c
 			public const int buttonPanel = 2131165228;
 			
-			// aapt resource value: 0x7f0700e6
-			public const int cancel_action = 2131165414;
+			// aapt resource value: 0x7f0700eb
+			public const int cancel_action = 2131165419;
 			
 			// aapt resource value: 0x7f07003a
 			public const int checkbox = 2131165242;
 			
-			// aapt resource value: 0x7f0700ec
-			public const int chronometer = 2131165420;
+			// aapt resource value: 0x7f0700f1
+			public const int chronometer = 2131165425;
 			
 			// aapt resource value: 0x7f07001e
 			public const int collapseActionView = 2131165214;
@@ -1846,8 +1846,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f07001b
 			public const int end = 2131165211;
 			
-			// aapt resource value: 0x7f0700f1
-			public const int end_padder = 2131165425;
+			// aapt resource value: 0x7f0700f6
+			public const int end_padder = 2131165430;
 			
 			// aapt resource value: 0x7f07007a
 			public const int et_account = 2131165306;
@@ -1906,14 +1906,14 @@ namespace YbkManage
 			// aapt resource value: 0x7f070052
 			public const int imgBtn_back = 2131165266;
 			
-			// aapt resource value: 0x7f0700f0
-			public const int info = 2131165424;
+			// aapt resource value: 0x7f0700f5
+			public const int info = 2131165429;
 			
 			// aapt resource value: 0x7f070000
 			public const int item_touch_helper_previous_elevation = 2131165184;
 			
-			// aapt resource value: 0x7f0700cc
-			public const int iv_about = 2131165388;
+			// aapt resource value: 0x7f0700d1
+			public const int iv_about = 2131165393;
 			
 			// aapt resource value: 0x7f070078
 			public const int iv_account = 2131165304;
@@ -1924,17 +1924,17 @@ namespace YbkManage
 			// aapt resource value: 0x7f07005e
 			public const int iv_area = 2131165278;
 			
-			// aapt resource value: 0x7f0700d2
-			public const int iv_arrow = 2131165394;
-			
-			// aapt resource value: 0x7f0700c1
-			public const int iv_avatar = 2131165377;
-			
 			// aapt resource value: 0x7f0700d7
-			public const int iv_classtype = 2131165399;
+			public const int iv_arrow = 2131165399;
 			
-			// aapt resource value: 0x7f0700f5
-			public const int iv_icon = 2131165429;
+			// aapt resource value: 0x7f0700c6
+			public const int iv_avatar = 2131165382;
+			
+			// aapt resource value: 0x7f0700dc
+			public const int iv_classtype = 2131165404;
+			
+			// aapt resource value: 0x7f0700fa
+			public const int iv_icon = 2131165434;
 			
 			// aapt resource value: 0x7f07008b
 			public const int iv_logo = 2131165323;
@@ -1954,11 +1954,11 @@ namespace YbkManage
 			// aapt resource value: 0x7f0700a6
 			public const int iv_role_3 = 2131165350;
 			
-			// aapt resource value: 0x7f0700d6
-			public const int iv_role_icon = 2131165398;
+			// aapt resource value: 0x7f0700db
+			public const int iv_role_icon = 2131165403;
 			
-			// aapt resource value: 0x7f0700d5
-			public const int iv_role_label = 2131165397;
+			// aapt resource value: 0x7f0700da
+			public const int iv_role_label = 2131165402;
 			
 			// aapt resource value: 0x7f0700a0
 			public const int iv_teacherrole = 2131165344;
@@ -1966,11 +1966,11 @@ namespace YbkManage
 			// aapt resource value: 0x7f07009c
 			public const int iv_techaerscope = 2131165340;
 			
-			// aapt resource value: 0x7f0700ea
-			public const int line1 = 2131165418;
+			// aapt resource value: 0x7f0700ef
+			public const int line1 = 2131165423;
 			
-			// aapt resource value: 0x7f0700ee
-			public const int line3 = 2131165422;
+			// aapt resource value: 0x7f0700f3
+			public const int line3 = 2131165427;
 			
 			// aapt resource value: 0x7f0700ab
 			public const int line_hori_center = 2131165355;
@@ -1983,6 +1983,12 @@ namespace YbkManage
 			
 			// aapt resource value: 0x7f0700a2
 			public const int ll_add = 2131165346;
+			
+			// aapt resource value: 0x7f0700c5
+			public const int ll_area_after = 2131165381;
+			
+			// aapt resource value: 0x7f0700c4
+			public const int ll_area_before = 2131165380;
 			
 			// aapt resource value: 0x7f0700b3
 			public const int ll_asc_wrap = 2131165363;
@@ -1999,8 +2005,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f0700ba
 			public const int ll_desc_wrap = 2131165370;
 			
-			// aapt resource value: 0x7f0700cf
-			public const int ll_none = 2131165391;
+			// aapt resource value: 0x7f0700d4
+			public const int ll_none = 2131165396;
 			
 			// aapt resource value: 0x7f070081
 			public const int ll_tab_container = 2131165313;
@@ -2011,11 +2017,11 @@ namespace YbkManage
 			// aapt resource value: 0x7f070086
 			public const int ll_wrapper = 2131165318;
 			
-			// aapt resource value: 0x7f0700f4
-			public const int lv = 2131165428;
+			// aapt resource value: 0x7f0700f9
+			public const int lv = 2131165433;
 			
-			// aapt resource value: 0x7f0700e8
-			public const int media_actions = 2131165416;
+			// aapt resource value: 0x7f0700ed
+			public const int media_actions = 2131165421;
 			
 			// aapt resource value: 0x7f07001c
 			public const int middle = 2131165212;
@@ -2035,8 +2041,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f07002e
 			public const int parentPanel = 2131165230;
 			
-			// aapt resource value: 0x7f0700e3
-			public const int pb_loadinig = 2131165411;
+			// aapt resource value: 0x7f0700e8
+			public const int pb_loadinig = 2131165416;
 			
 			// aapt resource value: 0x7f070006
 			public const int progress_circular = 2131165190;
@@ -2044,8 +2050,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f070007
 			public const int progress_horizontal = 2131165191;
 			
-			// aapt resource value: 0x7f0700e2
-			public const int progressbar_loding = 2131165410;
+			// aapt resource value: 0x7f0700e7
+			public const int progressbar_loding = 2131165415;
 			
 			// aapt resource value: 0x7f07003c
 			public const int radio = 2131165244;
@@ -2056,8 +2062,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f070076
 			public const int refresher = 2131165302;
 			
-			// aapt resource value: 0x7f0700cb
-			public const int rl_about = 2131165387;
+			// aapt resource value: 0x7f0700d0
+			public const int rl_about = 2131165392;
 			
 			// aapt resource value: 0x7f070051
 			public const int rl_actionbar = 2131165265;
@@ -2065,14 +2071,14 @@ namespace YbkManage
 			// aapt resource value: 0x7f07005c
 			public const int rl_area = 2131165276;
 			
-			// aapt resource value: 0x7f0700c8
-			public const int rl_assistant_leader = 2131165384;
+			// aapt resource value: 0x7f0700cd
+			public const int rl_assistant_leader = 2131165389;
 			
-			// aapt resource value: 0x7f0700c6
-			public const int rl_director = 2131165382;
+			// aapt resource value: 0x7f0700cb
+			public const int rl_director = 2131165387;
 			
-			// aapt resource value: 0x7f0700ca
-			public const int rl_feedback = 2131165386;
+			// aapt resource value: 0x7f0700cf
+			public const int rl_feedback = 2131165391;
 			
 			// aapt resource value: 0x7f07009a
 			public const int rl_group = 2131165338;
@@ -2080,17 +2086,17 @@ namespace YbkManage
 			// aapt resource value: 0x7f07007f
 			public const int rl_input_wrap = 2131165311;
 			
-			// aapt resource value: 0x7f0700df
-			public const int rl_item = 2131165407;
+			// aapt resource value: 0x7f0700e4
+			public const int rl_item = 2131165412;
 			
-			// aapt resource value: 0x7f0700ce
-			public const int rl_logout = 2131165390;
+			// aapt resource value: 0x7f0700d3
+			public const int rl_logout = 2131165395;
 			
 			// aapt resource value: 0x7f07009e
 			public const int rl_role = 2131165342;
 			
-			// aapt resource value: 0x7f0700c4
-			public const int rl_teacher = 2131165380;
+			// aapt resource value: 0x7f0700c9
+			public const int rl_teacher = 2131165385;
 			
 			// aapt resource value: 0x7f070016
 			public const int screen = 2131165206;
@@ -2179,8 +2185,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f070019
 			public const int src_over = 2131165209;
 			
-			// aapt resource value: 0x7f0700e7
-			public const int status_bar_latest_event_content = 2131165415;
+			// aapt resource value: 0x7f0700ec
+			public const int status_bar_latest_event_content = 2131165420;
 			
 			// aapt resource value: 0x7f07004d
 			public const int submit_area = 2131165261;
@@ -2188,17 +2194,17 @@ namespace YbkManage
 			// aapt resource value: 0x7f07000c
 			public const int tabMode = 2131165196;
 			
-			// aapt resource value: 0x7f0700ef
-			public const int text = 2131165423;
+			// aapt resource value: 0x7f0700f4
+			public const int text = 2131165428;
 			
-			// aapt resource value: 0x7f0700ed
-			public const int text2 = 2131165421;
+			// aapt resource value: 0x7f0700f2
+			public const int text2 = 2131165426;
 			
 			// aapt resource value: 0x7f070035
 			public const int textSpacerNoButtons = 2131165237;
 			
-			// aapt resource value: 0x7f0700eb
-			public const int time = 2131165419;
+			// aapt resource value: 0x7f0700f0
+			public const int time = 2131165424;
 			
 			// aapt resource value: 0x7f07002b
 			public const int title = 2131165227;
@@ -2209,11 +2215,11 @@ namespace YbkManage
 			// aapt resource value: 0x7f07002f
 			public const int topPanel = 2131165231;
 			
-			// aapt resource value: 0x7f0700da
-			public const int tv_address = 2131165402;
+			// aapt resource value: 0x7f0700df
+			public const int tv_address = 2131165407;
 			
-			// aapt resource value: 0x7f0700f2
-			public const int tv_all = 2131165426;
+			// aapt resource value: 0x7f0700f7
+			public const int tv_all = 2131165431;
 			
 			// aapt resource value: 0x7f07005a
 			public const int tv_amount_label = 2131165274;
@@ -2224,8 +2230,17 @@ namespace YbkManage
 			// aapt resource value: 0x7f07005f
 			public const int tv_area = 2131165279;
 			
+			// aapt resource value: 0x7f0700c2
+			public const int tv_area_budget = 2131165378;
+			
 			// aapt resource value: 0x7f07005d
 			public const int tv_area_label = 2131165277;
+			
+			// aapt resource value: 0x7f0700c3
+			public const int tv_area_rate = 2131165379;
+			
+			// aapt resource value: 0x7f0700c1
+			public const int tv_area_title = 2131165377;
 			
 			// aapt resource value: 0x7f070087
 			public const int tv_btn1 = 2131165319;
@@ -2245,14 +2260,14 @@ namespace YbkManage
 			// aapt resource value: 0x7f07006b
 			public const int tv_className = 2131165291;
 			
-			// aapt resource value: 0x7f0700d8
-			public const int tv_classcode = 2131165400;
-			
 			// aapt resource value: 0x7f0700dd
-			public const int tv_code = 2131165405;
+			public const int tv_classcode = 2131165405;
 			
-			// aapt resource value: 0x7f0700db
-			public const int tv_date = 2131165403;
+			// aapt resource value: 0x7f0700e2
+			public const int tv_code = 2131165410;
+			
+			// aapt resource value: 0x7f0700e0
+			public const int tv_date = 2131165408;
 			
 			// aapt resource value: 0x7f070054
 			public const int tv_district = 2131165268;
@@ -2266,8 +2281,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f07008d
 			public const int tv_ing = 2131165325;
 			
-			// aapt resource value: 0x7f0700de
-			public const int tv_job = 2131165406;
+			// aapt resource value: 0x7f0700e3
+			public const int tv_job = 2131165411;
 			
 			// aapt resource value: 0x7f0700ae
 			public const int tv_label_l = 2131165358;
@@ -2293,17 +2308,17 @@ namespace YbkManage
 			// aapt resource value: 0x7f0700bf
 			public const int tv_label_r_3 = 2131165375;
 			
-			// aapt resource value: 0x7f0700e4
-			public const int tv_loading_msg = 2131165412;
+			// aapt resource value: 0x7f0700e9
+			public const int tv_loading_msg = 2131165417;
 			
 			// aapt resource value: 0x7f070084
 			public const int tv_mine = 2131165316;
 			
-			// aapt resource value: 0x7f0700f6
-			public const int tv_msg = 2131165430;
+			// aapt resource value: 0x7f0700fb
+			public const int tv_msg = 2131165435;
 			
-			// aapt resource value: 0x7f0700c2
-			public const int tv_name = 2131165378;
+			// aapt resource value: 0x7f0700c7
+			public const int tv_name = 2131165383;
 			
 			// aapt resource value: 0x7f070058
 			public const int tv_name_label = 2131165272;
@@ -2314,11 +2329,11 @@ namespace YbkManage
 			// aapt resource value: 0x7f0700a3
 			public const int tv_num = 2131165347;
 			
-			// aapt resource value: 0x7f0700d3
-			public const int tv_num1 = 2131165395;
+			// aapt resource value: 0x7f0700d8
+			public const int tv_num1 = 2131165400;
 			
-			// aapt resource value: 0x7f0700d4
-			public const int tv_num2 = 2131165396;
+			// aapt resource value: 0x7f0700d9
+			public const int tv_num2 = 2131165401;
 			
 			// aapt resource value: 0x7f070080
 			public const int tv_problem = 2131165312;
@@ -2338,11 +2353,11 @@ namespace YbkManage
 			// aapt resource value: 0x7f070057
 			public const int tv_save = 2131165271;
 			
-			// aapt resource value: 0x7f0700c3
-			public const int tv_school = 2131165379;
+			// aapt resource value: 0x7f0700c8
+			public const int tv_school = 2131165384;
 			
-			// aapt resource value: 0x7f0700e0
-			public const int tv_scopename = 2131165408;
+			// aapt resource value: 0x7f0700e5
+			public const int tv_scopename = 2131165413;
 			
 			// aapt resource value: 0x7f070083
 			public const int tv_teach = 2131165315;
@@ -2362,8 +2377,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f070098
 			public const int tv_teachername_label = 2131165336;
 			
-			// aapt resource value: 0x7f0700e1
-			public const int tv_teachernum = 2131165409;
+			// aapt resource value: 0x7f0700e6
+			public const int tv_teachernum = 2131165414;
 			
 			// aapt resource value: 0x7f0700a1
 			public const int tv_teacherrole = 2131165345;
@@ -2371,8 +2386,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f07009f
 			public const int tv_teacherrole_label = 2131165343;
 			
-			// aapt resource value: 0x7f0700d9
-			public const int tv_teachers = 2131165401;
+			// aapt resource value: 0x7f0700de
+			public const int tv_teachers = 2131165406;
 			
 			// aapt resource value: 0x7f07009d
 			public const int tv_teacherscope = 2131165341;
@@ -2380,8 +2395,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f07009b
 			public const int tv_teacherscope_label = 2131165339;
 			
-			// aapt resource value: 0x7f0700dc
-			public const int tv_time = 2131165404;
+			// aapt resource value: 0x7f0700e1
+			public const int tv_time = 2131165409;
 			
 			// aapt resource value: 0x7f070053
 			public const int tv_title = 2131165267;
@@ -2392,8 +2407,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f0700b2
 			public const int tv_title_2 = 2131165362;
 			
-			// aapt resource value: 0x7f0700d0
-			public const int tv_value_l = 2131165392;
+			// aapt resource value: 0x7f0700d5
+			public const int tv_value_l = 2131165397;
 			
 			// aapt resource value: 0x7f0700b5
 			public const int tv_value_l_1 = 2131165365;
@@ -2404,8 +2419,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f0700b9
 			public const int tv_value_l_3 = 2131165369;
 			
-			// aapt resource value: 0x7f0700d1
-			public const int tv_value_r = 2131165393;
+			// aapt resource value: 0x7f0700d6
+			public const int tv_value_r = 2131165398;
 			
 			// aapt resource value: 0x7f0700bc
 			public const int tv_value_r_1 = 2131165372;
@@ -2416,8 +2431,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f0700c0
 			public const int tv_value_r_3 = 2131165376;
 			
-			// aapt resource value: 0x7f0700cd
-			public const int tv_version = 2131165389;
+			// aapt resource value: 0x7f0700d2
+			public const int tv_version = 2131165394;
 			
 			// aapt resource value: 0x7f07008f
 			public const int tv_will = 2131165327;
@@ -2428,14 +2443,14 @@ namespace YbkManage
 			// aapt resource value: 0x7f070013
 			public const int useLogo = 2131165203;
 			
-			// aapt resource value: 0x7f0700c9
-			public const int v_assistant_line = 2131165385;
+			// aapt resource value: 0x7f0700ce
+			public const int v_assistant_line = 2131165390;
 			
-			// aapt resource value: 0x7f0700c7
-			public const int v_director_line = 2131165383;
+			// aapt resource value: 0x7f0700cc
+			public const int v_director_line = 2131165388;
 			
-			// aapt resource value: 0x7f0700c5
-			public const int v_teacher_line = 2131165381;
+			// aapt resource value: 0x7f0700ca
+			public const int v_teacher_line = 2131165386;
 			
 			// aapt resource value: 0x7f070092
 			public const int view_end = 2131165330;
