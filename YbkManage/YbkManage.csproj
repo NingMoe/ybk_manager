@@ -8,14 +8,14 @@
     <OutputType>Library</OutputType>
     <RootNamespace>YbkManage</RootNamespace>
     <AssemblyName>YbkManage</AssemblyName>
-    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <AndroidSupportedAbis>armeabi-v7a</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -86,7 +86,6 @@
     <Compile Include="Activities\Main.cs" />
     <Compile Include="Activities\AppActivity.cs" />
     <Compile Include="Fragments\BaseFragment.cs" />
-    <Compile Include="Fragments\IndexFragment.cs" />
     <Compile Include="Fragments\MineFragment.cs" />
     <Compile Include="Fragments\TeachFragment.cs" />
     <Compile Include="Activities\Login.cs" />
@@ -123,12 +122,16 @@
     <Compile Include="Activities\TeacherScopeSelectActivity.cs" />
     <Compile Include="Adapters\RenewReportAdapter.cs" />
     <Compile Include="Views\CustomScrollView.cs" />
+    <Compile Include="Fragments\IndexFragment.cs" />
+    <Compile Include="Activities\District\ShopManagerListActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="packages.config" />
+    <None Include="Resources\layout\District\activity_shopmanager_list.axml" />
+    <None Include="Resources\layout\District\activity_shopmanager_add.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml" />
@@ -253,6 +256,7 @@
     <Folder Include="Adapters\" />
     <Folder Include="Views\" />
     <Folder Include="Resources\anim\" />
+    <Folder Include="Activities\District\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\xxxxxLibrary\xxxxxLibrary.csproj">

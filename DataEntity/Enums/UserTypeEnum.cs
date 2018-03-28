@@ -17,6 +17,9 @@ namespace DataEntity
 		[Description("家长")]
 		Parent = 9,
 
+		[Description("教学一级管理者")]
+		Manager = 200,
+
 		[Description("教学经理")]
 		TeacherManager = 24,
 
@@ -35,8 +38,18 @@ namespace DataEntity
 		[Description("助教")]
 		Staff = 120,
 
-		[Description("一级管理者")]
-		Manager = 200
+		[Description("店长")]
+		ShopManager = 30,
+
+		[Description("区域经理")]
+		AreaManager=31,
+
+		[Description("区域一级管理者")]
+		AreaSuperManager=32,
+
+		[Description("数据管理者")]  //暂留给区域用户使用
+        DataManager = 201
+
 	}
 
 }

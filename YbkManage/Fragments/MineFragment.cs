@@ -16,14 +16,16 @@ namespace YbkManage.Fragments
     /// </summary>
     public class MineFragment : BaseFragment
     {
+		#region UIFields
         // 头像
         private ImageView ivAvatar;
 
         // 姓名、学校
         private TextView tvName, tvSchool;
 
-        private RelativeLayout rlTeacherManage,rlDirector,rlAssistantLeader, rlLogout;
-        private View viewLineTeacher, viewLineDirector, viewLineAssistant;
+        private RelativeLayout rlTeacherManage,rlDirector,rlAssistantLeader,rlShopManager, rlLogout;
+        private View viewLineTeacher, viewLineDirector, viewLineAssistant,viewLineShopManager;
+		#endregion
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -52,9 +54,13 @@ namespace YbkManage.Fragments
             rlTeacherManage = (RelativeLayout)view.FindViewById(Resource.Id.rl_teacher);
             rlDirector = (RelativeLayout)view.FindViewById(Resource.Id.rl_director);
 			rlAssistantLeader = (RelativeLayout)view.FindViewById(Resource.Id.rl_assistant_leader);
+			rlShopManager = (RelativeLayout)view.FindViewById(Resource.Id.rl_shopmanager);
+
 			viewLineTeacher = view.FindViewById<View>(Resource.Id.v_teacher_line);
             viewLineDirector = view.FindViewById<View>(Resource.Id.v_director_line);
             viewLineAssistant = view.FindViewById<View>(Resource.Id.v_assistant_line);
+			viewLineShopManager = view.FindViewById<View>(Resource.Id.v_shopmanager_line);
+
 
             view.FindViewById<TextView>(Resource.Id.tv_version).Text = this.Activity.PackageManager.GetPackageInfo(this.Activity.PackageName, PackageInfoFlags.MatchAll).VersionName;
 
@@ -89,6 +95,12 @@ namespace YbkManage.Fragments
                 rlAssistantLeader.Visibility = ViewStates.Visible;
                 viewLineAssistant.Visibility = ViewStates.Visible;
 			}
+			// 区域经理--店长管理
+			else if (CurrUserInfo.Type == (int)UserType.AreaManager)
+			{
+				rlShopManager.Visibility = ViewStates.Visible;
+				viewLineShopManager.Visibility = ViewStates.Visible;
+			}
         }
         
 
@@ -118,7 +130,13 @@ namespace YbkManage.Fragments
                  StartActivity(intent);
                  CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
              };
-
+			// 店长管理
+			rlShopManager.Click += (sender, e) =>
+			  {
+				  Intent intent = new Intent(CurrActivity, typeof(AssistantLeaderList));
+				  StartActivity(intent);
+				  CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+			  };
             // 退出操作
             rlLogout.Click += (sender, e) =>
             {
