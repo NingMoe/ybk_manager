@@ -130,8 +130,6 @@
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="packages.config" />
-    <None Include="Resources\layout\District\activity_shopmanager_list.axml" />
-    <None Include="Resources\layout\District\activity_shopmanager_add.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml" />
@@ -241,6 +239,8 @@
     <AndroidResource Include="Resources\drawable\edittext_bg.axml" />
     <AndroidResource Include="Resources\drawable-xxhdpi\lesson_all.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\lesson_ing.png" />
+    <AndroidResource Include="Resources\layout\activity_shopmanager_add.axml" />
+    <AndroidResource Include="Resources\layout\activity_shopmanager_list.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

@@ -22,11 +22,11 @@ namespace YbkManage
 	[Activity(Label = "ShopManagerListActivity", ScreenOrientation = ScreenOrientation.Portrait)]
 	public class ShopManagerListActivity : AppActivity, SwipeRefreshLayout.IOnRefreshListener, IRecyclerViewItemClickListener
 	{
-
+		
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
-			//LayoutReourceId = Resource.Layout.dis;
+			LayoutReourceId = Resource.Layout.activity_shopmanager_list;
 
 			base.OnCreate(savedInstanceState);
 		}
@@ -62,4 +62,7 @@ namespace YbkManage
 		{
 			//throw new NotImplementedException(   );
 		}
+
+
 	}
+}
