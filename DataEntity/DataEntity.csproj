@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>DataEntity</RootNamespace>
     <AssemblyName>DataEntity</AssemblyName>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
@@ -52,6 +52,7 @@
     <Compile Include="District\DistrictModel.cs" />
     <Compile Include="District\NewEntity.cs" />
     <Compile Include="District\SumEntity.cs" />
+    <Compile Include="Personal\ShopManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

@@ -1,19 +1,21 @@
 ﻿<Properties StartupConfiguration="{30BF7E82-EF62-4187-AEE2-0D43951732D2}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="ybk_manager.git Status">
     <Files>
+      <File FileName="YbkManage/Activities/District/ShopManagerAddActivity.cs" Line="387" Column="5" />
+      <File FileName="YbkManage/Activities/District/ShopManagerListActivity.cs" Line="122" Column="16" />
       <File FileName="ybk_manager.git Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager.git/YbkManage/Activities/Login.cs" relfile="YbkManage/Activities/Login.cs" line="61" column="1" />
-      <Breakpoint file="/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager.git/YbkManage/Adapters/DistrictSelectAdapter.cs" relfile="YbkManage/Adapters/DistrictSelectAdapter.cs" line="39" column="1" />
-      <Breakpoint file="/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager.git/YbkManage/Fragments/TeachFragment.cs" relfile="YbkManage/Fragments/TeachFragment.cs" line="489" column="1" />
+      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Activities/Login.cs" relfile="YbkManage/Activities/Login.cs" line="32" column="1" />
+      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Adapters/ReportByTeacherAdapter.cs" relfile="YbkManage/Adapters/ReportByTeacherAdapter.cs" line="106" column="1" />
+      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Adapters/ReportByTeacherAdapter.cs" relfile="YbkManage/Adapters/ReportByTeacherAdapter.cs" line="114" column="1" />
+      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Adapters/ReportByTeacherAdapter.cs" relfile="YbkManage/Adapters/ReportByTeacherAdapter.cs" line="143" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.YbkManage AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.Test" AndroidDesignerPreferredTheme="appbasetheme" />
-  <MonoDevelop.Ide.ItemProperties.xxxxxLibrary AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.192.168.56.102:5555" />
+  <MonoDevelop.Ide.ItemProperties.YbkManage AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.192.168.56.101:5555" AndroidDesignerPreferredTheme="appbasetheme" />
   <MultiItemStartupConfigurations />
 </Properties>

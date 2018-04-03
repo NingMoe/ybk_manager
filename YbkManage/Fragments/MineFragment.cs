@@ -133,7 +133,7 @@ namespace YbkManage.Fragments
 			// 店长管理
 			rlShopManager.Click += (sender, e) =>
 			  {
-				  Intent intent = new Intent(CurrActivity, typeof(AssistantLeaderList));
+				Intent intent = new Intent(CurrActivity, typeof(ShopManagerListActivity));
 				  StartActivity(intent);
 				  CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
 			  };

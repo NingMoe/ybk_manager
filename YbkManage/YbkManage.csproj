@@ -17,6 +17,7 @@
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <AndroidSupportedAbis>armeabi-v7a</AndroidSupportedAbis>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -124,6 +125,9 @@
     <Compile Include="Views\CustomScrollView.cs" />
     <Compile Include="Fragments\IndexFragment.cs" />
     <Compile Include="Activities\District\ShopManagerListActivity.cs" />
+    <Compile Include="Adapters\District\ShopManagerAdapter.cs" />
+    <Compile Include="Activities\District\ShopManagerAddActivity.cs" />
+    <Compile Include="Activities\District\AreaSelectMultiActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -241,6 +245,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\lesson_ing.png" />
     <AndroidResource Include="Resources\layout\activity_shopmanager_add.axml" />
     <AndroidResource Include="Resources\layout\activity_shopmanager_list.axml" />
+    <AndroidResource Include="Resources\layout\item_shopmanager.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -257,6 +262,7 @@
     <Folder Include="Views\" />
     <Folder Include="Resources\anim\" />
     <Folder Include="Activities\District\" />
+    <Folder Include="Adapters\District\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\xxxxxLibrary\xxxxxLibrary.csproj">

@@ -13,6 +13,7 @@ namespace DataEntity
 		public string Creator { get; set; }
 		public bool? IsCanLogin { get; set; }
 		public string Modifier { get; set; }
+		public string DistrictCode { get; set; }
 	}
 
 
@@ -62,6 +63,7 @@ namespace DataEntity
 		public string DistrictName { get; set; }
 		public string sCode { get; set; }
 		public string sName { get; set; }
+		public bool IsSelect { get; set; }
 	}
 	/// <summary>
 	/// 助教组长管理列表
@@ -85,6 +87,8 @@ namespace DataEntity
 		public string AssistantMobile { get; set; }
 		public string Creator { get; set; }
 		public string Modifier { get; set; }
+		public int UserType { get; set; }
+		public string Email { get; set; }
 	}
 	#endregion
 

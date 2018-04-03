@@ -197,6 +197,7 @@ namespace DataService
 					relation.AreaCode = areaCode;
 					relation.AreaName = areaName;
 					relation.AssistantMobile = model.Mobile;
+					relation.UserType = (int)UserType.AssistantLeader;
 					relation.Creator = model.Creator;
 					relation.Modifier = model.Modifier;
 					relation.SchoolId = model.SchoolId;
@@ -260,6 +261,7 @@ namespace DataService
 					relation.AreaCode = areaCode;
 					relation.AreaName = areaName;
 					relation.AssistantMobile = model.Mobile;
+					relation.UserType = (int)UserType.AssistantLeader;
 					relation.Creator = model.Creator;
 					relation.Modifier = model.Modifier;
 					relation.SchoolId = model.SchoolId;
@@ -330,6 +332,13 @@ namespace DataService
 				}
 				#endregion
 
+				#region 删除店长&校区
+				if (type == "3")
+				{
+					rd = DeleteShopManagerArea(Convert.ToInt32(schoolId), keyword);
+				}
+
+				#endregion
 				if (rd.State == 1)
 				{
 
@@ -356,6 +365,7 @@ namespace DataService
 			}
 		}
 		#endregion
+
 
 		#region 教师条线
 		/// <summary>
@@ -567,6 +577,137 @@ namespace DataService
 				return list;
 			}
 
+		}
+		#endregion
+
+		#region 区域条线
+		/// <summary>
+		/// 获取店长列表
+		/// </summary>
+		/// <returns>The shop manager list.</returns>
+		/// <param name="schoolId">School identifier.</param>
+		/// <param name="districtCode">District code.</param>
+		public List<ShopManagerList> GetShopManagerList(int schoolId, string districtCode)
+		{
+			try
+			{
+				var apiUrl = Config.UpocManagerUserUrl + "Assistant/Index";
+				var dic = new Dictionary<string, string>();
+				var method = "GetShopManagerList"; //方法名称，固定值
+
+				dic.Add("appId", Config.AppId);
+				dic.Add("method", method);
+				dic.Add("schoolId", schoolId.ToString());
+				dic.Add("districtCode", districtCode);
+				var sign = Helper.GetSign(dic);
+				dic.Add("sign", sign);
+				var resultStr = Helper.DoPost(apiUrl, dic); //提交post请求
+				resultStr = resultStr.Replace("\r\n", "").Replace("\\", "");
+				var resultData = Helper.FromJsonTo<Result<List<ShopManagerList>>>(resultStr);
+				if (resultData.State == 1 && resultData.Data != null)
+				{
+					var list = resultData.Data;
+					#region 遍历头像
+
+					var keys = "";
+					list.ForEach(p =>
+					{
+						keys += p.UserId + ",";
+					});
+					keys = keys.TrimEnd(',');
+					var avatarList = UserService.GetUserAvatar(keys);
+					list.ForEach(p =>
+					{
+						var key = p.UserId;
+						var avatar = avatarList.FirstOrDefault(a => a.UserId == key);
+						p.Avatar = avatar == null ? "" : avatar.Avatar;
+					});
+					#endregion
+
+					return list;
+				}
+				return new List<ShopManagerList>();
+
+			}
+			catch (Exception)
+			{
+				return new List<ShopManagerList>();
+			}
+		}
+
+		public Result AddShopManager(ManagerUserInfo userInfo, string areaCodes, string areaNames)
+		{
+			try
+			{
+
+				//先保存校区关系
+				var codeArr = areaCodes.Split(',');
+				var nameArr = areaNames.Split(',');
+				var list = new List<UserAreaRelationModel>();
+				for (int i = 0; i < codeArr.Length; i++)
+				{
+					var relation = new UserAreaRelationModel();
+					relation.AreaCode = codeArr[i];
+					relation.AreaName = nameArr[i];
+					relation.Email = userInfo.Email;
+					relation.UserType = (int)UserType.ShopManager;
+					relation.Creator = userInfo.Creator;
+					relation.Modifier = userInfo.Modifier;
+					relation.SchoolId = userInfo.SchoolId;
+					list.Add(relation);
+				}
+				var rd = SaveUserArea(list);
+
+				//保存用户信息
+				if (rd.State == 1)
+				{
+					var data = Helper.ToJsonItem(userInfo);
+					var apiUrl = Config.UpocManagerUserUrl + "User/Index";
+					Dictionary<string, string> param = new Dictionary<string, string>();
+					param.Add("appid", Config.AppId);
+					param.Add("method", "AddManagerUser");
+					param.Add("data", data);
+					string sign = Helper.GetSign(param);
+					param.Add("sign", sign);
+					var resultStr = Helper.DoPost(apiUrl, param);
+					resultStr = resultStr.Replace("\r\n", "").Replace("\\", "");
+					rd = Helper.FromJsonTo<Result>(resultStr);
+					return rd;
+				}
+				return rd;
+			}
+			catch (Exception ex)
+			{
+				return new Result() { State = 0, Error = ex.Message };
+			}
+		}
+		/// <summary>
+		/// 删除店长
+		/// </summary>
+		/// <returns>The shop manager area.</returns>
+		/// <param name="schoolId">School identifier.</param>
+		/// <param name="email">Email.</param>
+		public Result DeleteShopManagerArea(int schoolId, string email)
+		{
+			try
+			{
+				var apiUrl = Config.UpocManagerUserUrl + "Assistant/Index";
+				Dictionary<string, string> param = new Dictionary<string, string>();
+				param.Add("appid", Config.AppId);
+				param.Add("method", "DeleteShopManagerArea");
+				param.Add("schoolId", schoolId.ToString());
+				param.Add("email", email);
+				string sign = Helper.GetSign(param);
+				param.Add("sign", sign);
+				var resultStr = Helper.DoPost(apiUrl, param);
+				resultStr = resultStr.Replace("\r\n", "").Replace("\\", "");
+				var resultData = Helper.FromJsonTo<Result>(resultStr);
+				return resultData;
+			}
+			catch (Exception ex)
+			{
+				return new Result() { State = 0, Error = ex.Message };
+			}
 		}
 		#endregion
 
