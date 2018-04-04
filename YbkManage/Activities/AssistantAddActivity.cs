@@ -271,6 +271,7 @@ namespace YbkManage.Activities
                                 relation.AreaCode = currAssistant.AreaCode;
                                 relation.AreaName = currAssistant.AreaName;
                                 relation.AssistantMobile = currAssistant.Mobile;
+								relation.UserType = (int)UserType.AssistantLeader;
                                 relation.Creator = CurrUserInfo.Name;
                                 relation.Modifier = CurrUserInfo.Name;
                                 relation.SchoolId = CurrUserInfo.SchoolId;
