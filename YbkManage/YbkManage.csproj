@@ -38,7 +38,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
-    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -128,6 +127,12 @@
     <Compile Include="Adapters\District\ShopManagerAdapter.cs" />
     <Compile Include="Activities\District\ShopManagerAddActivity.cs" />
     <Compile Include="Activities\District\AreaSelectMultiActivity.cs" />
+    <Compile Include="Activities\District\BudgeFragment.cs" />
+    <Compile Include="Activities\District\DistrictMainFragment.cs" />
+    <Compile Include="Activities\District\SumAccountFragment.cs" />
+    <Compile Include="Activities\District\SumByTeacherFragment.cs" />
+    <Compile Include="Activities\District\IncreaseFragment.cs" />
+    <Compile Include="Activities\District\NewStudentFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -246,6 +251,16 @@
     <AndroidResource Include="Resources\layout\activity_shopmanager_add.axml" />
     <AndroidResource Include="Resources\layout\activity_shopmanager_list.axml" />
     <AndroidResource Include="Resources\layout\item_shopmanager.axml" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\menu_district_on.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\menu_district.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\district_top_center.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\district_top_left.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\district_top_right.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\district_topbg.png" />
+    <AndroidResource Include="Resources\layout\fragment_district.axml" />
+    <AndroidResource Include="Resources\layout\fragment_budge.axml" />
+    <AndroidResource Include="Resources\layout\fragment_sumaccount.axml" />
+    <AndroidResource Include="Resources\layout\fragment_increase.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

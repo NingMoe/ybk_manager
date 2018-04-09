@@ -9,6 +9,7 @@ using YbkManage.Models;
 
 using Com.Umeng.Analytics;
 using DataService;
+using Android.Content;
 
 namespace YbkManage.Fragments
 {
@@ -17,6 +18,7 @@ namespace YbkManage.Fragments
 	/// </summary>
 	public class BaseFragment : Fragment
 	{
+		protected Context CurrContext;
 		/// <summary>
 		/// 当前所在的Activity
 		/// </summary>
@@ -32,6 +34,7 @@ namespace YbkManage.Fragments
 			base.OnCreate(savedInstanceState);
 
 			CurrActivity = (AppActivity)this.Activity;
+			CurrContext = CurrActivity.ApplicationContext;
 			string userinfoStr = (string)SharedPreferencesUtil.GetParam(CurrActivity, AppConfig.SP_USERINFO, "");
 			if (!string.IsNullOrEmpty(userinfoStr))
 			{

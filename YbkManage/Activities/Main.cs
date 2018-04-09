@@ -25,7 +25,7 @@ namespace YbkManage.Activities
         private Hashtable fragmentHashtable = new Hashtable();
         private static Android.Support.V4.App.Fragment lastFragment;
 
-        private TextView tv_index, tv_teach, tv_mine;
+        private TextView tv_index, tv_teach, tv_mine,tv_district;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -40,28 +40,36 @@ namespace YbkManage.Activities
             tv_index = (TextView)FindViewById(Resource.Id.tv_index);
             tv_teach = (TextView)FindViewById(Resource.Id.tv_teach);
             tv_mine = (TextView)FindViewById(Resource.Id.tv_mine);
+			tv_district = (TextView)FindViewById(Resource.Id.tv_district);
 
             Android.Support.V4.App.FragmentTransaction transaction = SupportFragmentManager.BeginTransaction();
 
 			int p_index = Intent.GetIntExtra("p_index", 0);
-            if (p_index == 1)
-            {
-                TeachFragment fragment = new TeachFragment();
-                lastFragment = fragment;
-                transaction.Replace(Resource.Id.fl_content, fragment);
-                fragmentHashtable.Add(Resource.Id.tv_teach, fragment);
+			if (p_index == 1)
+			{
+				TeachFragment fragment = new TeachFragment();
+				lastFragment = fragment;
+				transaction.Replace(Resource.Id.fl_content, fragment);
+				fragmentHashtable.Add(Resource.Id.tv_teach, fragment);
 
-            }
-            else if (p_index == 2)
-            {
-                MineFragment fragment = new MineFragment();
-                lastFragment = fragment;
-                transaction.Replace(Resource.Id.fl_content, fragment);
-                fragmentHashtable.Add(Resource.Id.tv_mine, fragment);
-            }
-            else
-            {
-                IndexFragment fragment = new IndexFragment();
+			}
+			else if (p_index == 2)
+			{
+				MineFragment fragment = new MineFragment();
+				lastFragment = fragment;
+				transaction.Replace(Resource.Id.fl_content, fragment);
+				fragmentHashtable.Add(Resource.Id.tv_mine, fragment);
+			}
+			else if (p_index == 3)
+			{
+				DistrictMainFragment fragment = new DistrictMainFragment();
+				lastFragment = fragment;
+				transaction.Replace(Resource.Id.fl_content, fragment);
+				fragmentHashtable.Add(Resource.Id.tv_district, fragment);
+			}
+			else
+			{
+				IndexFragment fragment = new IndexFragment();
                 lastFragment = fragment;
                 transaction.Replace(Resource.Id.fl_content, fragment);
                 fragmentHashtable.Add(Resource.Id.tv_index, fragment);
@@ -80,6 +88,10 @@ namespace YbkManage.Activities
             {
                 switchFragment(tv_teach);
             };
+			tv_district.Click+=delegate 
+			{
+				switchFragment(tv_district);
+			};
             tv_mine.Click += delegate
             {
                 switchFragment(tv_mine);
@@ -111,6 +123,14 @@ namespace YbkManage.Activities
                     {
                         fragment = new MineFragment();
                         fragmentHashtable.Add(viewId, fragment);
+                    }
+                    break;
+				case Resource.Id.tv_district:
+					fragment = (Android.Support.V4.App.Fragment)fragmentHashtable[viewId];
+                    if (fragment == null)
+                    {
+						fragment = new DistrictMainFragment();
+						fragmentHashtable.Add(viewId, fragment);
                     }
                     break;
                 default:
@@ -151,10 +171,13 @@ namespace YbkManage.Activities
             tv_index.SetTextColor(Color.ParseColor("#333333"));
             tv_teach.SetTextColor(Color.ParseColor("#333333"));
             tv_mine.SetTextColor(Color.ParseColor("#333333"));
+			tv_district.SetTextColor(Color.ParseColor("#333333"));
 
             tv_index.SetCompoundDrawablesWithIntrinsicBounds(0, Resource.Drawable.menu_index, 0, 0);
             tv_teach.SetCompoundDrawablesWithIntrinsicBounds(0, Resource.Drawable.menu_teach, 0, 0);
             tv_mine.SetCompoundDrawablesWithIntrinsicBounds(0, Resource.Drawable.menu_mine, 0, 0);
+			tv_district.SetCompoundDrawablesWithIntrinsicBounds(0, Resource.Drawable.menu_district, 0, 0);
+
             switch (viewId)
             {
                 case Resource.Id.tv_teach:
@@ -168,6 +191,10 @@ namespace YbkManage.Activities
                 case Resource.Id.tv_index:
                     tv_index.SetTextColor(new Color(ContextCompat.GetColor(CurrContext, Resource.Color.menu_txt_color)));
                     tv_index.SetCompoundDrawablesWithIntrinsicBounds(0, Resource.Drawable.menu_index_on, 0, 0);
+                    break;
+				case Resource.Id.tv_district:
+					tv_district.SetTextColor(new Color(ContextCompat.GetColor(CurrContext, Resource.Color.menu_txt_color)));
+					tv_district.SetCompoundDrawablesWithIntrinsicBounds(0, Resource.Drawable.menu_district_on, 0, 0);
                     break;
                 default:
                     break;
