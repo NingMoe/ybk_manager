@@ -59,6 +59,9 @@ namespace YbkManage.Activities
         // 所在项目组的平均续班率
         private decimal avgRenewRateScope = 1;
 
+		//班级开课状态：0-开课中（默认），3-全部
+		private int classStatus;
+
 		// 筛选器时上下小箭头图标
 		Drawable arrowDown, arrowDownOn;
 
@@ -87,7 +90,14 @@ namespace YbkManage.Activities
                     searchGradeList = searchGradeListStr.Split(',').ToList();
                 }
                 searchDistrict = bundle.GetString("searchDistrict");
+
+				classStatus = bundle.GetInt("classStatus");
+
+
+				Android.Util.Log.Verbose("classStatus-1", classStatus.ToString());
             }
+
+				Android.Util.Log.Verbose("classStatus-2", classStatus.ToString());
         }
 
         protected override void InitViews()
@@ -118,6 +128,8 @@ namespace YbkManage.Activities
 
             arrowDown = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.arrow_down);
 			arrowDownOn = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.arrow_down_on);
+
+			SetClassStatusImg(FindViewById<ImageButton>(Resource.Id.imgBtn_lessonIng), "init");
         }
 
         protected override void InitEvents()
@@ -132,7 +144,63 @@ namespace YbkManage.Activities
             tv_btn1.SetOnClickListener(this);
             tv_btn2.SetOnClickListener(this);
             tv_btn3.SetOnClickListener(this);
+
+
+			//开课中／全部切换事件
+			FindViewById<ImageButton>(Resource.Id.imgBtn_lessonIng).Click += (sender, e) =>
+			{
+				var imgButton = (sender as ImageButton);
+				SetClassStatusImg(imgButton, "clickButton");
+			};
         }
+
+
+		#region 设置班级开课状态图片（初始化or点击按钮）
+		protected void SetClassStatusImg(ImageButton imgButton, string operateType)
+		{
+			//开课中图片
+			var imgButtonDrawable = Resource.Drawable.lesson_ing;
+			if (operateType == "clickButton")
+			{
+				if (classStatus == 0) //当前开课中，点击切换为全部
+				{
+					classStatus = 3;
+					imgButtonDrawable = Resource.Drawable.lesson_all;
+				}
+				else
+				{
+					classStatus = 0;
+				}
+			}
+			else
+			{
+				//全部
+				if (classStatus == 3)
+				{
+					imgButtonDrawable = Resource.Drawable.lesson_all;
+				}
+			}
+
+			if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop) //> Android 5.0
+			{
+				var image = ContextCompat.GetDrawable(CurrActivity.ApplicationContext, imgButtonDrawable);
+				imgButton.SetImageDrawable(image);
+			}
+			else
+			{
+				var image = Android.Support.Graphics.Drawable.VectorDrawableCompat.Create(this.Resources, imgButtonDrawable, null);
+				imgButton.SetImageDrawable(image);
+			}
+
+			//切换按钮状态（默认页面初始化）
+			if (operateType == "clickButton")
+			{
+				LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
+				GetRenewInfoInTeacherByGroupCode();
+			}
+
+		}
+		#endregion
 
         /// <summary>
         /// 获取数据
@@ -229,38 +297,38 @@ namespace YbkManage.Activities
         /// </summary>
         private void GetRenewInfoInTeacherByGroupCode()
         {
-            try
-            {
-                new Thread(new ThreadStart(() =>
-                {
-                    var gradeStr = "";
-                    if (searchGradeList.Any())
-                    {
-                        gradeStr = string.Join(",", searchGradeList.ToArray());
-                    }
-                    var districtStr = "";
-                    if (!string.IsNullOrEmpty(searchDistrict) && !searchDistrict.Equals("全部区域"))
-                    {
-                        districtStr = searchDistrict;
-                    }
+			try
+			{
+				new Thread(new ThreadStart(() =>
+				{
+					var gradeStr = "";
+					if (searchGradeList.Any())
+					{
+						gradeStr = string.Join(",", searchGradeList.ToArray());
+					}
+					var districtStr = "";
+					if (!string.IsNullOrEmpty(searchDistrict) && !searchDistrict.Equals("全部区域"))
+					{
+						districtStr = searchDistrict;
+					}
 
-                    var result = RenewService.GetRenewInfoInTeacherByGroupCode(CurrUserInfo.SchoolId, searchQuarter.Year, searchQuarter.Quarter, gradeStr, districtStr, currReportInfo.Item2.ToString(), 1, 6);
+					var result = RenewService.GetRenewInfoInTeacherByGroupCode(CurrUserInfo.SchoolId, searchQuarter.Year, searchQuarter.Quarter, gradeStr, districtStr, currReportInfo.Item2.ToString(), 1, 6, classStatus);
 
-                    RunOnUiThread(() =>
-                    {
+					RunOnUiThread(() =>
+					{
 
-                        LoadingDialogUtil.DismissLoadingDialog();
-                        mSwipeRefreshLayout.Refreshing = false;
+						LoadingDialogUtil.DismissLoadingDialog();
+						mSwipeRefreshLayout.Refreshing = false;
 
-                        if (result != null)
-                        {
-                            teachReportList = result.RenewInfo;
-                            mAdapter.SetData(teachReportList);
-                            mAdapter.NotifyDataSetChanged();
-                        }
-                    });
-                })).Start();
-            }
+						if (result != null)
+						{
+							teachReportList = result.RenewInfo;
+							mAdapter.SetData(teachReportList);
+							mAdapter.NotifyDataSetChanged();
+						}
+					});
+				})).Start();
+			}
             catch (Exception ex)
             {
                 var msg = ex.Message.ToString();
@@ -287,6 +355,11 @@ namespace YbkManage.Activities
 				}
 				intent.PutExtra("searchGradeList", selectedgrade);
 				intent.PutExtra("searchDistrict", searchDistrict);
+
+				intent.PutExtra("classStatus", classStatus);
+
+				Android.Util.Log.Verbose("classStatus", classStatus.ToString());
+
 				StartActivity(intent);
                 CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
             }

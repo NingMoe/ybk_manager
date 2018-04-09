@@ -56,6 +56,9 @@ namespace YbkManage.Fragments
         private string searchDistrict = "全部区域";
 
 
+		//班级开课状态：0-开课中（默认），3-全部
+		private int classStatus = 0;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -67,6 +70,14 @@ namespace YbkManage.Fragments
             View view = layoutInflater.Inflate(Resource.Layout.fragment_teach, container, false);
 
             InitViews(view);
+
+			//开课中／全部切换事件
+			view.FindViewById<ImageButton>(Resource.Id.imgBtn_lessonIng).Click += (sender, e) =>
+			{
+				var imgButton = (sender as ImageButton);
+				SetClassStatusImg(imgButton, "clickButton");
+			};
+
             LoadData();
 
             return view;
@@ -105,6 +116,54 @@ namespace YbkManage.Fragments
             RecyclerViewItemOnGestureListener viewOnGestureListener = new RecyclerViewItemOnGestureListener(mRecyclerView, this);
             mRecyclerView.AddOnItemTouchListener(new RecyclerViewItemOnItemTouchListener(mRecyclerView, viewOnGestureListener));
         }
+
+		#region 设置班级开课状态图片（初始化or点击按钮）
+		protected void SetClassStatusImg(ImageButton imgButton, string operateType)
+		{
+			//开课中图片
+			var imgButtonDrawable = Resource.Drawable.lesson_ing;
+			if (operateType == "clickButton")
+			{
+				if (classStatus == 0) //当前开课中，点击切换为全部
+				{
+					classStatus = 3;
+					imgButtonDrawable = Resource.Drawable.lesson_all;
+				}
+				else
+				{
+					classStatus = 0;
+				}
+			}
+			else
+			{
+				//全部
+				if (classStatus == 3)
+				{
+					imgButtonDrawable = Resource.Drawable.lesson_all;
+				}
+			}
+
+			if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop) //> Android 5.0
+			{
+				var image = ContextCompat.GetDrawable(CurrActivity.ApplicationContext, imgButtonDrawable);
+				imgButton.SetImageDrawable(image);
+			}
+			else
+			{
+				var image = Android.Support.Graphics.Drawable.VectorDrawableCompat.Create(this.Resources, imgButtonDrawable, null);
+				imgButton.SetImageDrawable(image);
+			}
+
+			//切换按钮状态（默认页面初始化）
+			if (operateType == "clickButton")
+			{
+				LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
+				GetRenewInfoInGroup();
+			}
+
+		}
+		#endregion
+		                          
 
         /// <summary>
         /// 页面数据
@@ -184,7 +243,7 @@ namespace YbkManage.Fragments
                         districtStr = searchDistrict;
 					}
 
-                    var result = RenewService.GetRenewInfoInGroup(CurrUserInfo.SchoolId, searchQuarter.Year, searchQuarter.Quarter, gradeStr, districtStr, 1, 6, 1, 30);
+					var result = RenewService.GetRenewInfoInGroup(CurrUserInfo.SchoolId, searchQuarter.Year, searchQuarter.Quarter, gradeStr, districtStr, 1, 6, 1, 30, classStatus);
 
                     CurrActivity.RunOnUiThread(() =>
 					{
@@ -227,6 +286,9 @@ namespace YbkManage.Fragments
 				intent.PutExtra("searchGradeList", selectedgrade);
 				intent.PutExtra("searchDistrict", searchDistrict);
                 intent.PutExtra("avgRenewRate", reportItem.Item6.ToString());
+
+				intent.PutExtra("classStatus", classStatus);
+
                 StartActivity(intent);
                 CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
             }
