@@ -25,6 +25,16 @@
             android:text="优播课管理报表"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="财年"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:visibility="gone" />
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"

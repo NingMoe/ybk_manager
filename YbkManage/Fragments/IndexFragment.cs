@@ -13,6 +13,7 @@ using Android.Graphics;
 using System.Threading;
 using DataService;
 using DataEntity;
+using YbkManage.Views;
 
 namespace YbkManage.Fragments
 {
@@ -29,10 +30,12 @@ namespace YbkManage.Fragments
 		// 续班率前三名、后三名容器
 		private LinearLayout llAscWrap, llDescWrap;
 
-
 		//区域模块
 		private TextView tvBudgetTitle,tvBudget,tvBudgetRate;
 		private LinearLayout llBudgetBefore, llBudgetAfter;
+
+        // 财年
+        private TextView tv_year;
 		#endregion
 
         // 查询年份和季度
@@ -64,6 +67,7 @@ namespace YbkManage.Fragments
             return view;
         }
 
+
         /// <summary>
         /// 页面控件
         /// </summary>
@@ -82,8 +86,10 @@ namespace YbkManage.Fragments
 			tvBudgetRate = view.FindViewById<TextView>(Resource.Id.tv_area_rate);
 			llBudgetBefore = view.FindViewById<LinearLayout>(Resource.Id.ll_area_before);
 			llBudgetAfter = view.FindViewById<LinearLayout>(Resource.Id.ll_area_after);
-        }
 
+            // 财年
+            tv_year = view.FindViewById<TextView>(Resource.Id.tv_year);                     
+        }
 
         private bool LoadedRenewInfoInGroup5 = false, LoadedRenewInfoInGroup6 = false;
 		private bool LoadedBudgetInfoBefore = false, LoadedBudgetInfoAfter = false;
@@ -112,6 +118,64 @@ namespace YbkManage.Fragments
                     BaseApplication.GetInstance().gradeList = RenewService.GetGradeList(CurrUserInfo.SchoolId);
                 }
 
+                GetRenewData();
+
+                // 财年选择
+                #region
+                if (BaseApplication.GetInstance().quarterList != null && BaseApplication.GetInstance().quarterList.Any())
+                {
+                    tv_year.Visibility = ViewStates.Visible;
+                    tv_year.Click += (sender, e) =>
+                    {
+                        if (financialYearPopWin == null)
+                        {
+                            financialYearPopWin = new PopWin_IndexFinancialYear(CurrActivity,BaseApplication.GetInstance().quarterList);
+                            financialYearPopWin.clickItem += new PopWin_IndexFinancialYear.ClickItem(clickFinancialYear);
+                        }
+
+                        financialYearPopWin.OutsideTouchable = true;
+                        if (financialYearPopWin.IsShowing)
+                        {
+                            financialYearPopWin.Dismiss();
+                        }
+                        else
+                        {
+                            financialYearPopWin.ShowAsDropDown(tv_year, 0, -15);
+                        }
+                    };
+                }
+                #endregion
+            }
+        }
+
+
+        private PopWin_IndexFinancialYear financialYearPopWin;
+        public void clickFinancialYear(QuarterEntity quarter)
+        {
+            if (financialYearPopWin.IsShowing)
+            {
+                financialYearPopWin.Dismiss();
+            }
+
+            if (BaseApplication.GetInstance().quarterList != null && BaseApplication.GetInstance().quarterList.Any())
+            {
+                var selected = BaseApplication.GetInstance().quarterList.FirstOrDefault(i => i.IsCurrent);
+                if(quarter.QuarterName == selected.QuarterName)
+                {
+                    return;
+                }
+                foreach(var item in BaseApplication.GetInstance().quarterList)
+                {
+                    if(quarter.QuarterName == item.QuarterName)
+                    {
+                        item.IsCurrent = true;
+                    }
+                    else
+                    {
+                        item.IsCurrent = false;
+                    }
+                }
+                financialYearPopWin.SetSelectedColor();
                 GetRenewData();
             }
         }

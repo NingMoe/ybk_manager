@@ -54,4 +54,9 @@
         <item name="android:windowIsTranslucent">true</item>
         <!-- 背景是否半透明 -->
     </style>
+    <!-- popwindow的显示隐藏动画 -->
+    <style name="popwindow_topin">
+        <item name="android:windowEnterAnimation">@anim/top_in</item>
+        <item name="android:windowExitAnimation">@anim/top_out</item>
+    </style>
 </resources>
