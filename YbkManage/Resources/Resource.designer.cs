@@ -100,6 +100,12 @@ namespace YbkManage
 			// aapt resource value: 0x7f05000d
 			public const int right_out = 2131034125;
 			
+			// aapt resource value: 0x7f05000e
+			public const int top_in = 2131034126;
+			
+			// aapt resource value: 0x7f05000f
+			public const int top_out = 2131034127;
+			
 			static Animation()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -1701,29 +1707,35 @@ namespace YbkManage
 			// aapt resource value: 0x7f02007e
 			public const int noclass = 2130837630;
 			
-			// aapt resource value: 0x7f020086
-			public const int notification_template_icon_bg = 2130837638;
+			// aapt resource value: 0x7f020088
+			public const int notification_template_icon_bg = 2130837640;
 			
 			// aapt resource value: 0x7f02007f
-			public const int ripple_bg = 2130837631;
+			public const int popwin_arrow = 2130837631;
 			
 			// aapt resource value: 0x7f020080
-			public const int splash_logo = 2130837632;
+			public const int popwin_bg = 2130837632;
 			
 			// aapt resource value: 0x7f020081
-			public const int textview_bg = 2130837633;
+			public const int ripple_bg = 2130837633;
 			
 			// aapt resource value: 0x7f020082
-			public const int textview_bg_on = 2130837634;
+			public const int splash_logo = 2130837634;
 			
 			// aapt resource value: 0x7f020083
-			public const int textview_circle_bg = 2130837635;
+			public const int textview_bg = 2130837635;
 			
 			// aapt resource value: 0x7f020084
-			public const int textview_circle_green = 2130837636;
+			public const int textview_bg_on = 2130837636;
 			
 			// aapt resource value: 0x7f020085
-			public const int toast_bg = 2130837637;
+			public const int textview_circle_bg = 2130837637;
+			
+			// aapt resource value: 0x7f020086
+			public const int textview_circle_green = 2130837638;
+			
+			// aapt resource value: 0x7f020087
+			public const int toast_bg = 2130837639;
 			
 			static Drawable()
 			{
@@ -1794,6 +1806,9 @@ namespace YbkManage
 			
 			// aapt resource value: 0x7f07001d
 			public const int always = 2131165213;
+			
+			// aapt resource value: 0x7f07010d
+			public const int arrow = 2131165453;
 			
 			// aapt resource value: 0x7f070063
 			public const int ast_imgBtn_back = 2131165283;
@@ -1972,8 +1987,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f0700ed
 			public const int iv_edit = 2131165421;
 			
-			// aapt resource value: 0x7f07010d
-			public const int iv_icon = 2131165453;
+			// aapt resource value: 0x7f07010e
+			public const int iv_icon = 2131165454;
 			
 			// aapt resource value: 0x7f070095
 			public const int iv_logo = 2131165333;
@@ -2383,8 +2398,8 @@ namespace YbkManage
 			// aapt resource value: 0x7f070084
 			public const int tv_mine = 2131165316;
 			
-			// aapt resource value: 0x7f07010e
-			public const int tv_msg = 2131165454;
+			// aapt resource value: 0x7f07010f
+			public const int tv_msg = 2131165455;
 			
 			// aapt resource value: 0x7f0700d6
 			public const int tv_name = 2131165398;
@@ -2761,79 +2776,85 @@ namespace YbkManage
 			public const int item_popupselect1 = 2130968631;
 			
 			// aapt resource value: 0x7f040038
-			public const int item_renew_avatar = 2130968632;
+			public const int item_popwin_financialyear = 2130968632;
 			
 			// aapt resource value: 0x7f040039
-			public const int item_report = 2130968633;
+			public const int item_renew_avatar = 2130968633;
 			
 			// aapt resource value: 0x7f04003a
-			public const int item_report_byteacher = 2130968634;
+			public const int item_report = 2130968634;
 			
 			// aapt resource value: 0x7f04003b
-			public const int item_role_select = 2130968635;
+			public const int item_report_byteacher = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int item_shopmanager = 2130968636;
+			public const int item_role_select = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int item_student_class = 2130968637;
+			public const int item_shopmanager = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
-			public const int item_teacher = 2130968638;
+			public const int item_student_class = 2130968638;
 			
 			// aapt resource value: 0x7f04003f
-			public const int item_teacher_scope = 2130968639;
+			public const int item_teacher = 2130968639;
 			
 			// aapt resource value: 0x7f040040
-			public const int listview_footer = 2130968640;
+			public const int item_teacher_scope = 2130968640;
 			
 			// aapt resource value: 0x7f040041
-			public const int loadingdialog_bg = 2130968641;
+			public const int listview_footer = 2130968641;
 			
 			// aapt resource value: 0x7f040042
-			public const int notification_media_action = 2130968642;
+			public const int loadingdialog_bg = 2130968642;
 			
 			// aapt resource value: 0x7f040043
-			public const int notification_media_cancel_action = 2130968643;
+			public const int notification_media_action = 2130968643;
 			
 			// aapt resource value: 0x7f040044
-			public const int notification_template_big_media = 2130968644;
+			public const int notification_media_cancel_action = 2130968644;
 			
 			// aapt resource value: 0x7f040045
-			public const int notification_template_big_media_narrow = 2130968645;
+			public const int notification_template_big_media = 2130968645;
 			
 			// aapt resource value: 0x7f040046
-			public const int notification_template_lines = 2130968646;
+			public const int notification_template_big_media_narrow = 2130968646;
 			
 			// aapt resource value: 0x7f040047
-			public const int notification_template_media = 2130968647;
+			public const int notification_template_lines = 2130968647;
 			
 			// aapt resource value: 0x7f040048
-			public const int notification_template_part_chronometer = 2130968648;
+			public const int notification_template_media = 2130968648;
 			
 			// aapt resource value: 0x7f040049
-			public const int notification_template_part_time = 2130968649;
+			public const int notification_template_part_chronometer = 2130968649;
 			
 			// aapt resource value: 0x7f04004a
-			public const int popup_grade = 2130968650;
+			public const int notification_template_part_time = 2130968650;
 			
 			// aapt resource value: 0x7f04004b
-			public const int popup_select1 = 2130968651;
+			public const int popup_grade = 2130968651;
 			
 			// aapt resource value: 0x7f04004c
-			public const int select_dialog_item_material = 2130968652;
+			public const int popup_select1 = 2130968652;
 			
 			// aapt resource value: 0x7f04004d
-			public const int select_dialog_multichoice_material = 2130968653;
+			public const int popwin_financialyear = 2130968653;
 			
 			// aapt resource value: 0x7f04004e
-			public const int select_dialog_singlechoice_material = 2130968654;
+			public const int select_dialog_item_material = 2130968654;
 			
 			// aapt resource value: 0x7f04004f
-			public const int support_simple_spinner_dropdown_item = 2130968655;
+			public const int select_dialog_multichoice_material = 2130968655;
 			
 			// aapt resource value: 0x7f040050
-			public const int toast_bg = 2130968656;
+			public const int select_dialog_singlechoice_material = 2130968656;
+			
+			// aapt resource value: 0x7f040051
+			public const int support_simple_spinner_dropdown_item = 2130968657;
+			
+			// aapt resource value: 0x7f040052
+			public const int toast_bg = 2130968658;
 			
 			static Layout()
 			{
@@ -3911,6 +3932,9 @@ namespace YbkManage
 			
 			// aapt resource value: 0x7f0a013e
 			public const int myDialog = 2131362110;
+			
+			// aapt resource value: 0x7f0a0144
+			public const int popwindow_topin = 2131362116;
 			
 			// aapt resource value: 0x7f0a0140
 			public const int splashTheme = 2131362112;
