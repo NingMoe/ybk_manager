@@ -7,6 +7,7 @@ using Android.Views;
 using System.Linq;
 using Android.Widget;
 using DataEntity;
+using Android.Support.V4.Content;
 
 namespace YbkManage.Views
 {
@@ -28,7 +29,7 @@ namespace YbkManage.Views
 
             this.Height = ViewGroup.LayoutParams.WrapContent;
             this.Width = ViewGroup.LayoutParams.WrapContent;
-            this.AnimationStyle = Resource.Style.popwindow_topin;
+            //this.AnimationStyle = Resource.Style.popwindow_topin;
             this.SetBackgroundDrawable(new BitmapDrawable());
         }
 
@@ -44,7 +45,8 @@ namespace YbkManage.Views
 
                 if (quarter.IsCurrent)
                 {
-                    tvTitle.SetTextColor(this.mContent.Resources.GetColor(Resource.Color.textColorHigh, null));
+                    
+                    tvTitle.SetTextColor(new Color(ContextCompat.GetColor(this.mContent, Resource.Color.textColorHigh)));
                 }
 
                 tvTitle.Click += (sender, e) =>
@@ -66,11 +68,11 @@ namespace YbkManage.Views
                 TextView tvTitle = ll_box.GetChildAt(i).FindViewById<TextView>(Resource.Id.tv_year);
                 if(tvTitle.Text == selected.QuarterName)
                 {
-                    tvTitle.SetTextColor(this.mContent.Resources.GetColor(Resource.Color.textColorHigh, null)); 
+                    tvTitle.SetTextColor(new Color(ContextCompat.GetColor(this.mContent, Resource.Color.textColorHigh))); 
                 }
                 else
                 {
-                    tvTitle.SetTextColor(this.mContent.Resources.GetColor(Resource.Color.textColorPrimary, null));
+                    tvTitle.SetTextColor(new Color(ContextCompat.GetColor(this.mContent, Resource.Color.textColorPrimary)));
                 }
             }
         }
