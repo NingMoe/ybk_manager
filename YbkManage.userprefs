@@ -1,21 +1,22 @@
-﻿<Properties StartupConfiguration="{30BF7E82-EF62-4187-AEE2-0D43951732D2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ybk_manager.git Status">
+﻿<Properties StartupConfiguration="{30BF7E82-EF62-4187-AEE2-0D43951732D2}|Default" GitUserInfo="UsingMD">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ybk_manager_android-master 状态">
     <Files>
-      <File FileName="YbkManage/Activities/District/ShopManagerAddActivity.cs" Line="387" Column="5" />
-      <File FileName="YbkManage/Activities/District/ShopManagerListActivity.cs" Line="122" Column="16" />
-      <File FileName="ybk_manager.git Status" />
+      <File FileName="YbkManage/Fragments/IndexFragment.cs" Line="192" Column="16" />
+      <File FileName="YbkManage/Views/PopWin_IndexFinancialYear.cs" Line="54" Column="12" />
+      <File FileName="ybk_manager_android-master 状态" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Activities/Login.cs" relfile="YbkManage/Activities/Login.cs" line="32" column="1" />
-      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Adapters/ReportByTeacherAdapter.cs" relfile="YbkManage/Adapters/ReportByTeacherAdapter.cs" line="106" column="1" />
-      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Adapters/ReportByTeacherAdapter.cs" relfile="YbkManage/Adapters/ReportByTeacherAdapter.cs" line="114" column="1" />
-      <Breakpoint file="/Volumes/Project/UPOC/ybk_manager.git/YbkManage/Adapters/ReportByTeacherAdapter.cs" relfile="YbkManage/Adapters/ReportByTeacherAdapter.cs" line="143" column="1" />
+      <Breakpoint file="/Users/dongxiangtao/Desktop/xdf/ybk_manager_android-master/YbkManage/Activities/Login.cs" relfile="YbkManage/Activities/Login.cs" line="32" column="1" />
+      <Breakpoint file="/Users/dongxiangtao/Desktop/xdf/ybk_manager_android-master/YbkManage/Adapters/ReportByTeacherAdapter.cs" relfile="YbkManage/Adapters/ReportByTeacherAdapter.cs" line="106" column="1" />
+      <Breakpoint file="/Users/dongxiangtao/Desktop/xdf/ybk_manager_android-master/YbkManage/Adapters/ReportByTeacherAdapter.cs" relfile="YbkManage/Adapters/ReportByTeacherAdapter.cs" line="114" column="1" />
+      <Breakpoint file="/Users/dongxiangtao/Desktop/xdf/ybk_manager_android-master/YbkManage/Adapters/ReportByTeacherAdapter.cs" relfile="YbkManage/Adapters/ReportByTeacherAdapter.cs" line="143" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.YbkManage AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.192.168.56.101:5555" AndroidDesignerPreferredTheme="appbasetheme" />
+  <MonoDevelop.Ide.ItemProperties.YbkManage AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.Pixel_XL_API_23" AndroidDesignerPreferredTheme="appbasetheme" />
+  <MonoDevelop.Ide.ItemProperties.xxxxxLibrary AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.Pixel_XL_API_23" />
   <MultiItemStartupConfigurations />
 </Properties>

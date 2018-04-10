@@ -128,21 +128,14 @@
     <Compile Include="Adapters\District\ShopManagerAdapter.cs" />
     <Compile Include="Activities\District\ShopManagerAddActivity.cs" />
     <Compile Include="Activities\District\AreaSelectMultiActivity.cs" />
-    <Compile Include="Views\PopWin_IndexFinancialYear.cs" />
     <Compile Include="Activities\District\BudgeFragment.cs" />
     <Compile Include="Activities\District\DistrictMainFragment.cs" />
     <Compile Include="Activities\District\IncreaseFragment.cs" />
     <Compile Include="Activities\District\NewStudentFragment.cs" />
-<<<<<<< HEAD
     <Compile Include="Adapters\District\BudgeAdapter.cs" />
-<<<<<<< HEAD
-    <Compile Include="Views\PopWin_IndexFinancialYear.cs" />
-=======
-=======
-    <Compile Include="Activities\District\SumAccountFragment.cs" />
     <Compile Include="Activities\District\SumByTeacherFragment.cs" />
->>>>>>> d51b66e... 首页财年
->>>>>>> 2bb032a... 首页财年
+    <Compile Include="Activities\District\SumAccountFragment.cs" />
+    <Compile Include="Views\PopWin_IndexFinancialYear.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -272,19 +265,13 @@
     <AndroidResource Include="Resources\layout\fragment_budge.axml" />
     <AndroidResource Include="Resources\layout\fragment_district.axml" />
     <AndroidResource Include="Resources\layout\fragment_increase.axml" />
-<<<<<<< HEAD
-=======
     <AndroidResource Include="Resources\layout\fragment_sumaccount.axml" />
->>>>>>> 2bb032a... 首页财年
     <AndroidResource Include="Resources\layout\item_popwin_financialyear.axml" />
     <AndroidResource Include="Resources\layout\popwin_financialyear.axml" />
     <AndroidResource Include="Resources\drawable\popwin_arrow.axml" />
     <AndroidResource Include="Resources\drawable\popwin_bg.axml" />
-<<<<<<< HEAD
     <AndroidResource Include="Resources\anim\top_in.xml" />
     <AndroidResource Include="Resources\anim\top_out.xml" />
-=======
->>>>>>> 2bb032a... 首页财年
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
