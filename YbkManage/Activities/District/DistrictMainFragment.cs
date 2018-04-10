@@ -44,7 +44,8 @@ public class DistrictMainFragment : BaseFragment, SwipeRefreshLayout.IOnRefreshL
 
 			InitViews(view);
 			InitEvents();
-
+			//默认预算选中
+			changeTextStatus(Resource.Id.tv_budge);
 			return view;
 		}
 

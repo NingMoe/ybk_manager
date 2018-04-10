@@ -385,7 +385,7 @@ namespace YbkManage.Activities
                         View popViwe1 = LayoutInflater.Inflate(Resource.Layout.popup_select1, null);
                         ListView listview1 = popViwe1.FindViewById<ListView>(Resource.Id.lv);
                         QuarterSelectAdapter adaptera = new QuarterSelectAdapter(CurrActivity, quarterList);
-                        adaptera.SetSelectedValue(quarterList[0].QuarterName);
+                        adaptera.SetSelectedValue(searchQuarter.QuarterName);
                         listview1.Adapter = adaptera;
 
                         popWin1 = new PopupWindow(popViwe1, ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
@@ -408,7 +408,7 @@ namespace YbkManage.Activities
 
                             popWin1.Dismiss();
 
-                            adaptera.SetSelectedValue(quarterList[0].QuarterName);
+                            adaptera.SetSelectedValue(searchQuarter.QuarterName);
                             adaptera.NotifyDataSetChanged();
 
                             //Toast.MakeText(CurrActivity, searchQuarter.QuarterName, ToastLength.Short).Show();

@@ -48,10 +48,14 @@ namespace YbkManage.Adapters
                 v = mActivity.LayoutInflater.Inflate(Resource.Layout.item_popupselect1, null);
             }
             var tvName = v.FindViewById<TextView>(Resource.Id.tv_name);
-            if(this.selectedValue.Equals(items[position].QuarterName))
-            {
-                tvName.SetTextColor(new Color(ContextCompat.GetColor(mActivity, Resource.Color.textColorHigh)));
-            }
+			if (this.selectedValue.Equals(items[position].QuarterName))
+			{
+				tvName.SetTextColor(new Color(ContextCompat.GetColor(mActivity, Resource.Color.textColorHigh)));
+			}
+			else
+			{
+				tvName.SetTextColor(new Color(ContextCompat.GetColor(mActivity, Resource.Color.textColorPrimary)));
+			}
             tvName.Text = items[position].QuarterName;
 
             return v;
