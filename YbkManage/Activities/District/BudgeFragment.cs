@@ -55,9 +55,9 @@ namespace YbkManage
 		private string searchDistrict = "全部区域";
 
 		//预算／行课
-		int dataType = 1;
+		public int dataType = 1;
 		//标题排序  1-营收目标升序；2-营收目标倒序；3-预收款升序；4-预收款倒序；5-完成率升序；6-完成率倒序。
-		int sortType = 6;
+		private int sortType = 6;
 
 		#endregion
 
@@ -116,13 +116,6 @@ namespace YbkManage
 		/// </summary>
 		protected void LoadData()
 		{
-			if (!NetUtil.CheckNetWork(CurrActivity))
-			{
-				ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
-				return;
-			}
-			LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
-
 			//财年数据
 			if (BaseApplication.GetInstance().quarterList == null)
 			{
@@ -160,10 +153,17 @@ namespace YbkManage
 		/// <summary>
 		/// 获取报表数据
 		/// </summary>
-		private void BindData()
+		public void BindData()
 		{
 			try
 			{
+				if (!NetUtil.CheckNetWork(CurrActivity))
+				{
+					ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
+					return;
+				}
+				LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
+
 				var schoolId = CurrUserInfo.SchoolId;
 				var year = searchQuarter.Year;
 				var quarter = searchQuarter.Quarter;
@@ -173,10 +173,10 @@ namespace YbkManage
 				var areaCodes = "";
 				if (CurrUserInfo.Type == (int)UserType.ShopManager)
 					areaCodes = CurrUserInfo.AreaCodes;
-				
+
 				new Thread(new ThreadStart(() =>
 				{
-					var list = BudgetService.GetAreaPaymentList(schoolId, year, quarter, district, sortType,dataType,areaCodes);
+					var list = BudgetService.GetAreaPaymentList(schoolId, year, quarter, district, sortType, dataType, areaCodes);
 					CurrActivity.RunOnUiThread(() =>
 					{
 
@@ -335,25 +335,18 @@ namespace YbkManage
 
 		public void OnItemClick(View itemView, int position)
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public void OnItemLongClick(View itemView, int position)
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		#region 页面刷新
 		public void OnRefresh()
 		{
-			if (!NetUtil.CheckNetWork(CurrActivity))
-			{
-				ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
-			}
-			else
-			{
-				BindData();
-			}
+			BindData();
 		}
 		#endregion
 
