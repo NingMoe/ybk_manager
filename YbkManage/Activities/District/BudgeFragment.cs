@@ -338,7 +338,12 @@ namespace YbkManage
 		#region 行点击事件
 		public void OnItemClick(View itemView, int position)
 		{
-			Intent intent = new Intent(CurrActivity, typeof(SumByTeacherFragment));
+			var data = paymentList[position];
+			Intent intent = new Intent(CurrActivity, typeof(SumByTeacherActivity));
+			intent.PutExtra("areaCode",data.AreaCode);
+			intent.PutExtra("areaName",data.AreaName);
+			intent.PutExtra("course", "语文");
+			intent.PutExtra("gradeList","初一,初二");
 			StartActivity(intent);
 			CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
 		}
