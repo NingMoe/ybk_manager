@@ -17,7 +17,7 @@ public class MineFragment
 	}
 
 
-	public MineFragment ()
+	public MineFragment () throws java.lang.Throwable
 	{
 		super ();
 		if (getClass () == MineFragment.class)

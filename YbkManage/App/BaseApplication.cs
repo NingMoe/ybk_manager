@@ -45,6 +45,7 @@ namespace YbkManage.App
         public List<QuarterEntity> quarterList;
 		public List<GradeEntity> gradeList;
 		public List<DistrictEntity> districtList;
+		public List<CourseEntity> courseList;
 
         // 教师列表页数据
 		public List<TeacherListModel> teacherList;

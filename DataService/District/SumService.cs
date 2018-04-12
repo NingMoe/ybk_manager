@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace DataService
 {
-	public class TotalService
+	public class SumService
 	{
 		#region 区域端-累计-人次／收入 根据条件获取校区累计收入列表（包含二级表格-年级列表）
 		public static PaymentSumData GetSumPaymentListByArea(int schoolId, int year, int quarter,

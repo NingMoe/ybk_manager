@@ -136,6 +136,9 @@
     <Compile Include="Activities\District\NewStudentFragment.cs" />
     <Compile Include="Adapters\District\BudgeAdapter.cs" />
     <Compile Include="Views\PopWin_IndexFinancialYear.cs" />
+    <Compile Include="Adapters\District\SumAccountAdapter.cs" />
+    <Compile Include="Adapters\District\ExpandableListAdapter.cs" />
+    <Compile Include="Adapters\CourseSelectAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -270,6 +273,7 @@
     <AndroidResource Include="Resources\drawable\popwin_bg.axml" />
     <AndroidResource Include="Resources\anim\top_in.xml" />
     <AndroidResource Include="Resources\anim\top_out.xml" />
+    <AndroidResource Include="Resources\layout\item_sumaccount.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
