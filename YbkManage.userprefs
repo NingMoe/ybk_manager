@@ -9,6 +9,32 @@
       <File FileName="YbkManage/Adapters/RecyclerViewItemOnItemTouchListener.cs" Line="26" Column="1" />
       <File FileName="ybk_manager Status" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="YbkManage" expanded="True">
+            <Node name="DataEntity" expanded="True">
+              <Node name="District" expanded="True" />
+            </Node>
+            <Node name="DataService" expanded="True">
+              <Node name="District" expanded="True" />
+            </Node>
+            <Node name="YbkManage" expanded="True">
+              <Node name="Activities" expanded="True">
+                <Node name="District" expanded="True" />
+              </Node>
+              <Node name="Adapters" expanded="True">
+                <Node name="District" expanded="True" />
+              </Node>
+              <Node name="Fragments" expanded="True" />
+              <Node name="Resources" expanded="True">
+                <Node name="Resource.designer.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

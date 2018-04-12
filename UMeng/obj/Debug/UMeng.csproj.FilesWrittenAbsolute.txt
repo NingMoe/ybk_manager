@@ -1,7 +1,0 @@
-/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/UMeng/obj/Debug/MonoAndroid,Version=v6.0.AssemblyAttribute.cs
-/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/UMeng/obj/Debug/UMeng.Jars.umeng-analytics-v6.1.2.jar
-/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/UMeng/obj/Debug/UMeng.Jars.utdid4all-1.0.4.jar
-/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/UMeng/bin/Debug/UMeng.dll.mdb
-/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/UMeng/bin/Debug/UMeng.dll
-/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/UMeng/obj/Debug/UMeng.dll
-/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/UMeng/obj/Debug/UMeng.dll.mdb
