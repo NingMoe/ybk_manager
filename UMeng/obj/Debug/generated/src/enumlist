@@ -1,0 +1,4 @@
+com.umeng.analytics.Gender:Com.Umeng.Analytics:Gender
+com.umeng.analytics.MobclickAgent$EScenarioType:Com.Umeng.Analytics:MobclickAgent.EScenarioType
+com.umeng.analytics.social.UMPlatformData$GENDER:Com.Umeng.Analytics.Social:UMPlatformData.GENDER
+com.umeng.analytics.social.UMPlatformData$UMedia:Com.Umeng.Analytics.Social:UMPlatformData.UMedia

@@ -1,0 +1,1 @@
+<resources><style name="myDialog" parent="@android:style/Theme.Material.Light.Dialog"><item name="android:windowBackground">@android:color/transparent</item><item name="android:windowFrame">@null</item><item name="android:windowNoTitle">true</item><item name="android:windowIsTranslucent">true</item><item name="android:colorAccent">#17bfa0</item></style></resources>

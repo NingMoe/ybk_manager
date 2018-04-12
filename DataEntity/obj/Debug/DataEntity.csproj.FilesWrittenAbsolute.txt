@@ -1,0 +1,12 @@
+/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/DataEntity/obj/Debug/MonoAndroid,Version=v7.1.AssemblyAttribute.cs
+/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/DataEntity/obj/Debug/DataEntity.obj.Debug.__AndroidLibraryProjects__.zip
+/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/DataEntity/bin/Debug/DataEntity.dll.mdb
+/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/DataEntity/bin/Debug/DataEntity.dll
+/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/DataEntity/bin/Debug/DataEntity.DataEntity.apk
+/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/DataEntity/obj/Debug/android/bin/DataEntity.DataEntity.apk
+/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/DataEntity/obj/Debug/res/values/strings.xml
+/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/DataEntity/obj/Debug/R.cs.flag
+/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/DataEntity/bin/Debug/DataEntity.DataEntity-Signed.apk
+/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/DataEntity/obj/Debug/uploadflags.txt
+/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/DataEntity/obj/Debug/DataEntity.dll
+/Users/lizanjun/Downloads/Github Repository/code/vimson999/ybk_manager/DataEntity/obj/Debug/DataEntity.dll.mdb

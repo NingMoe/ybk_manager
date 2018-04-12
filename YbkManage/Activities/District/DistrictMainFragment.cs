@@ -15,8 +15,7 @@ using YbkManage.Fragments;
 
 namespace YbkManage
 {
-[Activity(Label = "DistrictMain", ScreenOrientation = ScreenOrientation.Portrait)]
-public class DistrictMainFragment : BaseFragment, SwipeRefreshLayout.IOnRefreshListener, IRecyclerViewItemClickListener, View.IOnClickListener
+	public class DistrictMainFragment : BaseFragment
 	{
 		#region UIField
 		private LayoutInflater layoutInflater;
@@ -28,7 +27,19 @@ public class DistrictMainFragment : BaseFragment, SwipeRefreshLayout.IOnRefreshL
 		private static Android.Support.V4.App.Fragment lastFragment;
 
 		//预算、累计、增量、招新按钮
-		public TextView tv_budge, tv_sum, tv_increase, tv_new;
+		private TextView tv_budge, tv_sum, tv_increase, tv_new;
+		//右上角切换按钮    预算=1预算／2行课   累计=1人次／2预收／3行课
+		private TextView tv_dataType;
+		private PopWin_DistrictDataType pop_dataType;
+		#endregion
+
+		#region Fields
+		//当前选中页的标志   1预算 2累计
+		public int TitleType { get; set; }
+		//预算 : 1预算／2行课    
+		//累计 : 1人次／2预收／3行课
+		public int DataType { get; set; }
+
 		#endregion
 
 
@@ -46,20 +57,66 @@ public class DistrictMainFragment : BaseFragment, SwipeRefreshLayout.IOnRefreshL
 			InitEvents();
 			//默认预算选中
 			changeTextStatus(Resource.Id.tv_budge);
+			TitleType = 1;
+			tv_dataType.Text = "预算";
 			return view;
 		}
 
+		#region 点击事件
+		protected void InitEvents()
+		{
+			//预算
+			tv_budge.Click += delegate
+			{
+				TitleType = 1;
+				tv_dataType.Text = "预算";
+				tv_dataType.Visibility = ViewStates.Visible;
+				switchFragment(tv_budge);
+			};
+			//累计
+			tv_sum.Click += delegate
+			{
+				TitleType = 2;
+				tv_dataType.Text = "人次";
+				tv_dataType.Visibility = ViewStates.Visible;
+				switchFragment(tv_sum);
+			};
+			//增量
+			tv_increase.Click += delegate
+			{
+				TitleType = 0;
+				tv_dataType.Text = "";
+				tv_dataType.Visibility = ViewStates.Gone;
+				switchFragment(tv_increase);
+			};
+			//招新
+			tv_new.Click += delegate
+			{
+				TitleType = 0;
+				tv_dataType.Text = "";
+				tv_dataType.Visibility = ViewStates.Gone;
+				switchFragment(tv_new);
+			};
 
-		#region 点击事件  切换预算-累计-增量-招新
+			//查询类型
+			tv_dataType.Click += delegate
+			{
+				SwitchDataType();
+			};
+		}
+		#endregion
+
+		#region 切换预算-累计-增量-招新
 
 
 		protected void InitViews(View view)
 		{
-			mFrameLayout =view.FindViewById<FrameLayout>(Resource.Id.fl_district_content);
+			mFrameLayout = view.FindViewById<FrameLayout>(Resource.Id.fl_district_content);
 			tv_budge = view.FindViewById<TextView>(Resource.Id.tv_budge);
 			tv_sum = view.FindViewById<TextView>(Resource.Id.tv_sum);
 			tv_increase = view.FindViewById<TextView>(Resource.Id.tv_increase);
 			tv_new = view.FindViewById<TextView>(Resource.Id.tv_new);
+			tv_dataType = view.FindViewById<TextView>(Resource.Id.tv_datatype);
 
 			Android.Support.V4.App.FragmentTransaction transaction = CurrActivity.SupportFragmentManager.BeginTransaction();
 
@@ -71,6 +128,8 @@ public class DistrictMainFragment : BaseFragment, SwipeRefreshLayout.IOnRefreshL
 				lastFragment = fragment;
 				transaction.Replace(Resource.Id.fl_district_content, fragment);
 				fragmentHashtable.Add(Resource.Id.tv_budge, fragment);
+
+				TitleType = 1;
 			}
 			//累计
 			else if (p_index == 1)
@@ -80,6 +139,7 @@ public class DistrictMainFragment : BaseFragment, SwipeRefreshLayout.IOnRefreshL
 				transaction.Replace(Resource.Id.fl_district_content, fragment);
 				fragmentHashtable.Add(Resource.Id.tv_sum, fragment);
 
+				TitleType = 2;
 			}
 			//增量
 			else if (p_index == 2)
@@ -102,25 +162,7 @@ public class DistrictMainFragment : BaseFragment, SwipeRefreshLayout.IOnRefreshL
 			transaction.Commit();
 		}
 
-		protected void InitEvents()
-		{
-			tv_budge.Click += delegate
-			{
-				switchFragment(tv_budge);
-			};
-			tv_sum.Click += delegate
-			{
-				switchFragment(tv_sum);
-			};
-			tv_increase.Click += delegate
-			{
-				switchFragment(tv_increase);
-			};
-			tv_new.Click += delegate
-			{
-				switchFragment(tv_new);
-			};
-		}
+
 
 		/// <summary>
 		/// 切换布局
@@ -234,26 +276,65 @@ public class DistrictMainFragment : BaseFragment, SwipeRefreshLayout.IOnRefreshL
 					break;
 			}
 		}
+
 		#endregion
 
-		public void OnClick(View v)
+		#region 切换右上角查询类型
+		private void SwitchDataType()
 		{
-			throw new NotImplementedException();
-		}
+			var selectedText = tv_dataType.Text;
+			if (pop_dataType == null)
+			{
+				pop_dataType = new PopWin_DistrictDataType(CurrActivity, TitleType,selectedText);
+				pop_dataType.clickItem += new PopWin_DistrictDataType.ClickItem(DataTypeClick);
+			}
+			else
+			{
+				//重置数据源-下拉内容
+				pop_dataType.SetDictionary(TitleType,selectedText);
+			}
 
-		public void OnItemClick(View itemView, int position)
-		{
-			throw new NotImplementedException();
+			pop_dataType.OutsideTouchable = true;
+			if (pop_dataType.IsShowing)
+			{
+				pop_dataType.Dismiss();
+			}
+			else
+			{
+				pop_dataType.ShowAsDropDown(tv_dataType, 0, -15);
+			}
 		}
+		//下拉选项的点击事件
+		public void DataTypeClick(string selectedText)
+		{
+			if (pop_dataType.IsShowing)
+			{
+				pop_dataType.Dismiss();
+			}
 
-		public void OnItemLongClick(View itemView, int position)
-		{
-			throw new NotImplementedException();
-		}
+			pop_dataType.SetSelectedColor(selectedText);
+			tv_dataType.Text = selectedText;
 
-		public void OnRefresh()
-		{
-			throw new NotImplementedException();
+			//重新加载数据
+			var dataType = pop_dataType.GetDataType(selectedText);
+			var fragments = CurrActivity.SupportFragmentManager.Fragments;
+			foreach (var f in fragments)
+			{
+				//预算
+				if (f.IsVisible && f is BudgeFragment)
+				{
+
+					((BudgeFragment)f).dataType = dataType;
+					((BudgeFragment)f).BindData();
+					break;
+				}
+				//累计
+				else if (f.IsVisible && f is SumAccountFragment)
+				{
+					
+				}
+			}
 		}
+		#endregion
 	}
 }

@@ -28,8 +28,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
 <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
-<AndroidSupportedAbis>arm64-v8a;armeabi;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
 <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
+<AndroidSupportedAbis>arm64-v8a;armeabi;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -130,15 +130,19 @@
     <Compile Include="Activities\District\AreaSelectMultiActivity.cs" />
     <Compile Include="Activities\District\BudgeFragment.cs" />
     <Compile Include="Activities\District\DistrictMainFragment.cs" />
-    <Compile Include="Activities\District\SumAccountFragment.cs" />
-    <Compile Include="Activities\District\SumByTeacherFragment.cs" />
     <Compile Include="Activities\District\IncreaseFragment.cs" />
     <Compile Include="Activities\District\NewStudentFragment.cs" />
     <Compile Include="Adapters\District\BudgeAdapter.cs" />
+    <Compile Include="Activities\District\SumByTeacherFragment.cs" />
+    <Compile Include="Activities\District\SumAccountFragment.cs" />
     <Compile Include="Views\PopWin_IndexFinancialYear.cs" />
+<<<<<<< HEAD
     <Compile Include="Adapters\District\SumAccountAdapter.cs" />
     <Compile Include="Adapters\District\ExpandableListAdapter.cs" />
     <Compile Include="Adapters\CourseSelectAdapter.cs" />
+=======
+    <Compile Include="Views\PopWin_DistrictDataType.cs" />
+>>>>>>> dd7cfeaf7a3d6ec6f5fb55d462e7b528d3a8d608
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -257,16 +261,18 @@
     <AndroidResource Include="Resources\layout\activity_shopmanager_add.axml" />
     <AndroidResource Include="Resources\layout\activity_shopmanager_list.axml" />
     <AndroidResource Include="Resources\layout\item_shopmanager.axml" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\menu_district_on.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\menu_district.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\district_top_center.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\district_top_left.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\district_top_right.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\district_topbg.png" />
-    <AndroidResource Include="Resources\layout\fragment_district.axml" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\menu_district_on.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\menu_district.png" />
+    <AndroidResource Include="Resources\anim\top_in.xml" />
+    <AndroidResource Include="Resources\anim\top_out.xml" />
     <AndroidResource Include="Resources\layout\fragment_budge.axml" />
-    <AndroidResource Include="Resources\layout\fragment_sumaccount.axml" />
+    <AndroidResource Include="Resources\layout\fragment_district.axml" />
     <AndroidResource Include="Resources\layout\fragment_increase.axml" />
+    <AndroidResource Include="Resources\layout\fragment_sumaccount.axml" />
     <AndroidResource Include="Resources\layout\item_popwin_financialyear.axml" />
     <AndroidResource Include="Resources\layout\popwin_financialyear.axml" />
     <AndroidResource Include="Resources\drawable\popwin_arrow.axml" />
