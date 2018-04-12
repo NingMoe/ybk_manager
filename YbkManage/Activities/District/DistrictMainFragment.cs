@@ -323,9 +323,13 @@ namespace YbkManage
 				//预算
 				if (f.IsVisible && f is BudgeFragment)
 				{
-
-					((BudgeFragment)f).dataType = dataType;
-					((BudgeFragment)f).BindData();
+					var bf = ((BudgeFragment)f);
+					bf.dataType = dataType;
+					if (bf.dataType==1)
+						bf.tv_title_payment.Text = "预收款(W)";
+					else
+						bf.tv_title_payment.Text = "行课收入(W)";
+					bf.BindData();
 					break;
 				}
 				//累计

@@ -34,6 +34,7 @@ namespace YbkManage
 		private LayoutInflater layoutInflater;
 		//财年、区域按钮
 		private TextView tv_year, tv_district;
+		public TextView tv_title_payment;
 		private PopupWindow popYear, popDistrict;
 
 		// 列表页用控件
@@ -50,7 +51,7 @@ namespace YbkManage
 		private List<PaymentEntity> paymentList = new List<PaymentEntity>();
 		// 报表的筛选条件
 		private List<QuarterEntity> quarterList = new List<QuarterEntity>();
-		private List<string> districtList = new List<string>(), gradeList = new List<string>();
+		private List<string> districtList = new List<string>();
 		private QuarterEntity searchQuarter = new QuarterEntity { QuarterName = "2018财年Q1", Year = 2018, Quarter = 2 };
 		private string searchDistrict = "全部区域";
 
@@ -86,6 +87,7 @@ namespace YbkManage
 		{
 			tv_year = view.FindViewById<TextView>(Resource.Id.tv_year);
 			tv_district = view.FindViewById<TextView>(Resource.Id.tv_district);
+			tv_title_payment = view.FindViewById<TextView>(Resource.Id.tv_title_payment);
 
 			//添加按钮的事件监控
 			tv_year.SetOnClickListener(this);
@@ -208,6 +210,7 @@ namespace YbkManage
 		/// <param name="v">V.</param>
 		public void OnClick(View v)
 		{
+			//财年
 			if (v.Id == Resource.Id.tv_year)
 			{
 				if (quarterList != null && quarterList.Any())
@@ -268,7 +271,7 @@ namespace YbkManage
 					}
 				}
 			}
-
+			//区域
 			else if (v.Id == Resource.Id.tv_district)
 			{
 				if (districtList != null && districtList.Any())
@@ -332,16 +335,18 @@ namespace YbkManage
 		}
 		#endregion
 
-
+		#region 行点击事件
 		public void OnItemClick(View itemView, int position)
 		{
-			
+			Intent intent = new Intent(CurrActivity, typeof(SumByTeacherFragment));
+			StartActivity(intent);
+			CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
 		}
 
-		public void OnItemLongClick(View itemView, int position)
-		{
-			
+		public void OnItemLongClick(View itemView, int position){
+
 		}
+		#endregion
 
 		#region 页面刷新
 		public void OnRefresh()
@@ -349,8 +354,6 @@ namespace YbkManage
 			BindData();
 		}
 		#endregion
-
-
 
 	}
 }

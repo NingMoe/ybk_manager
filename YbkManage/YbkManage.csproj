@@ -277,6 +277,7 @@
     <AndroidResource Include="Resources\anim\top_in.xml" />
     <AndroidResource Include="Resources\anim\top_out.xml" />
     <AndroidResource Include="Resources\layout\item_sumaccount.axml" />
+    <AndroidResource Include="Resources\layout\fragment_sumbyteacher.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
