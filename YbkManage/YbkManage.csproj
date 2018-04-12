@@ -136,13 +136,10 @@
     <Compile Include="Activities\District\SumByTeacherFragment.cs" />
     <Compile Include="Activities\District\SumAccountFragment.cs" />
     <Compile Include="Views\PopWin_IndexFinancialYear.cs" />
-<<<<<<< HEAD
     <Compile Include="Adapters\District\SumAccountAdapter.cs" />
     <Compile Include="Adapters\District\ExpandableListAdapter.cs" />
     <Compile Include="Adapters\CourseSelectAdapter.cs" />
-=======
     <Compile Include="Views\PopWin_DistrictDataType.cs" />
->>>>>>> dd7cfeaf7a3d6ec6f5fb55d462e7b528d3a8d608
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
