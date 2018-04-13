@@ -45,12 +45,12 @@ namespace YbkManage
 		// 列表显示方式
 		private LinearLayoutManager linearLayoutManager;
 		// 列表适配器
-		private BudgeAdapter mAdapter;
+		private SumByTeacherAdapter mAdapter;
 		#endregion
 
 		#region Field
 		// 教学报表数据
-		private List<PaymentEntity> paymentList = new List<PaymentEntity>();
+		private List<PaymentSumTeacherEntity> sumTeacherList = new List<PaymentSumTeacherEntity>();
 		// 报表的筛选条件
 		private List<string> gradeList = new List<string>(),courseList = new List<string>();
 		private List<string> searchGradeList = new List<string>();
@@ -91,7 +91,7 @@ namespace YbkManage
 
 			//adapter展示列表数据
 			linearLayoutManager = new LinearLayoutManager(CurrActivity);
-			mAdapter = new BudgeAdapter(CurrActivity, paymentList);
+			mAdapter = new SumByTeacherAdapter(CurrContext, sumTeacherList);
 			mRecyclerView.SetLayoutManager(linearLayoutManager);
 			mRecyclerView.SetAdapter(mAdapter);
 			mAdapter.NotifyDataSetChanged();
@@ -470,7 +470,11 @@ namespace YbkManage
 				LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
 
 				var schoolId = CurrUserInfo.SchoolId;
-
+				var grade= "";
+					if (searchGradeList.Any())
+					{
+						grade = string.Join(",", searchGradeList.ToArray());
+					}
 
 				//加校区查询权限判断--店长登录
 				var areaCodes = "";
@@ -479,19 +483,22 @@ namespace YbkManage
 
 				new Thread(new ThreadStart(() =>
 				{
-					//var list = BudgetService.GetAreaPaymentList(schoolId, year, quarter, district, sortType, dataType, areaCodes);
+					var list = SumService.GetSumPaymentListByTeacher(schoolId, year, quarter,dataType,sortType,areaCode,grade,searchCourse);
 					CurrActivity.RunOnUiThread(() =>
 					{
 
 						LoadingDialogUtil.DismissLoadingDialog();
 						mSwipeRefreshLayout.Refreshing = false;
 
-						//if (list != null)
-						//{
-						//	paymentList = list;
-						//	mAdapter.SetData(paymentList);
-						//	mAdapter.NotifyDataSetChanged();
-						//}
+						if (list != null)
+						{
+							sumTeacherList = list.List;
+							//添加合计行
+							sumTeacherList.Add(list.TotalData);
+
+							mAdapter.SetData(sumTeacherList);
+							mAdapter.NotifyDataSetChanged();
+						}
 					});
 				})).Start();
 			}
