@@ -84,21 +84,29 @@ namespace YbkManage
 
 			tv_title.Text = areaName;
 
-			mSwipeRefreshLayout = (SwipeRefreshLayout)FindViewById(Resource.Id.refresher);
+
 			mRecyclerView = (RecyclerView)FindViewById(Resource.Id.recycler_view);
 
-			mSwipeRefreshLayout.SetColorSchemeColors(Color.ParseColor("#17bfa0"));
+
 
 			//adapter展示列表数据
 			linearLayoutManager = new LinearLayoutManager(CurrActivity);
+
+
 			mAdapter = new SumByTeacherAdapter(CurrContext, sumTeacherList);
 			mRecyclerView.SetLayoutManager(linearLayoutManager);
 			mRecyclerView.SetAdapter(mAdapter);
 			mAdapter.NotifyDataSetChanged();
 
-			mSwipeRefreshLayout.SetOnRefreshListener(this);
+
 			RecyclerViewItemOnGestureListener viewOnGestureListener = new RecyclerViewItemOnGestureListener(mRecyclerView, this);
 			mRecyclerView.AddOnItemTouchListener(new RecyclerViewItemOnItemTouchListener(mRecyclerView, viewOnGestureListener));
+
+			//下拉刷新
+			mSwipeRefreshLayout = (SwipeRefreshLayout)FindViewById(Resource.Id.refresher);
+			mSwipeRefreshLayout.SetColorSchemeColors(Color.ParseColor("#17bfa0"));
+			mSwipeRefreshLayout.SetOnRefreshListener(this);
+
 		}
 		#endregion
 
@@ -108,10 +116,9 @@ namespace YbkManage
 			Bundle bundle = Intent.Extras;
 			if (bundle != null)
 			{
-				//todo
-				year = 2018;
-				quarter = 4;
-				dataType = 1;
+				year = bundle.GetInt("year");
+				quarter = bundle.GetInt("quarter");
+				dataType = bundle.GetInt("dataType");
 				sortType = 4;
 				areaCode = bundle.GetString("areaCode");
 				areaName = bundle.GetString("areaName");
@@ -177,6 +184,16 @@ namespace YbkManage
 					ViewGroup.LayoutParams tvallParams = tvAll.LayoutParameters;
 					tvallParams.Width = itemWidth;
 					tvAll.LayoutParameters = tvallParams;
+					if (searchGradeList.Count == gradeList.Count)
+					{
+						tvAll.Background = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.textview_bg_on);
+						tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+					}
+					else
+					{
+						tvAll.Background = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.textview_bg);
+						tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
+					}
 
 					GridLayout gridlayout_1 = popViwe2.FindViewById<GridLayout>(Resource.Id.gridlayout_1);
 					for (var i = 0; i < gradeList.Count; i++)
@@ -185,7 +202,7 @@ namespace YbkManage
 						var itemGrade = gradeList[i];
 						GridLayout.LayoutParams gradeParams = new GridLayout.LayoutParams();
 						gradeParams.Width = itemWidth;
-						//parasBox.Height = 
+
 						if (i % 4 != 3)
 						{
 							gradeParams.RightMargin = marginRight;
@@ -196,9 +213,17 @@ namespace YbkManage
 						tvGrade.Text = itemGrade;
 						tvGrade.TextSize = 14;
 						tvGrade.Gravity = GravityFlags.Center;
-						tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
 						tvGrade.SetPadding(0, AppUtils.dip2px(CurrActivity, 5), 0, AppUtils.dip2px(CurrActivity, 5));
-						tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+						if (searchGradeList.Contains(itemGrade))
+						{
+							tvGrade.Background = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.textview_bg_on);
+							tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
+						}
+						else
+						{
+							tvGrade.Background = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.textview_bg);
+							tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
+						}
 
 						gridlayout_1.AddView(tvGrade);
 
@@ -241,41 +266,41 @@ namespace YbkManage
 								btnOk.SetBackgroundResource(Resource.Drawable.button_bg);
 							}
 						};
-					}
-					#endregion
 
+						#endregion
+					}
 					#region tvAll.Click
 					tvAll.Click += (sender, e) =>
 					{
 						if (tvAll.CurrentTextColor == ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh))
 						{
 							tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
-							tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+							tvAll.Background = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.textview_bg);
 
 							for (var i = 0; i < gridlayout_1.ChildCount; i++)
 							{
 								var tv = (TextView)gridlayout_1.GetChildAt(i);
 								tv.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
-								tv.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+								tv.Background = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.textview_bg);
 							}
 							searchGradeList = new List<string>();
 						}
 						else
 						{
 							tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-							tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+							tvAll.Background = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.textview_bg_on);
 
 							for (var i = 0; i < gridlayout_1.ChildCount; i++)
 							{
 								var tv = (TextView)gridlayout_1.GetChildAt(i);
 								tv.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-								tv.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+								tv.Background = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.textview_bg_on);
 							}
 							searchGradeList = new List<string>(gradeList.ToArray());
 						}
 
-						//控制确定按钮是否可用
-						if (searchGradeList.Count == 0)
+							//控制确定按钮是否可用
+							if (searchGradeList.Count == 0)
 						{
 							btnOk.Enabled = false;
 							btnOk.SetBackgroundResource(Resource.Drawable.button_bg_disabled);
@@ -522,7 +547,7 @@ namespace YbkManage
 
 		public void OnRefresh()
 		{
-
+			BindData();
 		}
 
 

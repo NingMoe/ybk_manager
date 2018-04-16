@@ -7,7 +7,7 @@ using Android.OS;
 using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
-
+using DataEntity;
 using YbkManage.Fragments;
 
 namespace YbkManage.Activities
@@ -27,6 +27,8 @@ namespace YbkManage.Activities
 
         private TextView tv_index, tv_teach, tv_mine,tv_district;
 
+		private bool IsArea = false;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             LayoutReourceId = Resource.Layout.activity_main;
@@ -43,6 +45,17 @@ namespace YbkManage.Activities
 			tv_district = (TextView)FindViewById(Resource.Id.tv_district);
 
             Android.Support.V4.App.FragmentTransaction transaction = SupportFragmentManager.BeginTransaction();
+
+			#region 区域权限判断
+			var type = CurrUserInfo.Type;
+			if (type == (int)UserType.DataManager ||
+			   type == (int)UserType.AreaManager ||
+			   type == (int)UserType.AreaSuperManager ||
+			   type == (int)UserType.ShopManager)
+			{
+				IsArea = true;
+			}
+			#endregion
 
 			int p_index = Intent.GetIntExtra("p_index", 0);
 			if (p_index == 1)
@@ -62,10 +75,22 @@ namespace YbkManage.Activities
 			}
 			else if (p_index == 3)
 			{
-				DistrictMainFragment fragment = new DistrictMainFragment();
-				lastFragment = fragment;
-				transaction.Replace(Resource.Id.fl_content, fragment);
-				fragmentHashtable.Add(Resource.Id.tv_district, fragment);
+				if (IsArea)
+				{
+					DistrictMainFragment fragment = new DistrictMainFragment();
+					lastFragment = fragment;
+					transaction.Replace(Resource.Id.fl_content, fragment);
+					fragmentHashtable.Add(Resource.Id.tv_district, fragment);
+				}
+				else
+				{
+					NoPermissionFragment fragment = new NoPermissionFragment();
+					lastFragment = fragment;
+					transaction.Replace(Resource.Id.fl_content, fragment);
+					fragmentHashtable.Add(Resource.Id.tv_district, fragment);
+				}
+
+
 			}
 			else
 			{
@@ -107,41 +132,46 @@ namespace YbkManage.Activities
             int viewId = view.Id;
             changeTextStatus(viewId);
             Android.Support.V4.App.Fragment fragment = null;
-            switch (viewId)
-            {
-                case Resource.Id.tv_teach:
-                    fragment = (Android.Support.V4.App.Fragment)fragmentHashtable[viewId];
-                    if (fragment == null)
-                    {
-                        fragment = new TeachFragment();
-                        fragmentHashtable.Add(viewId, fragment);
-                    }
-                    break;
-                case Resource.Id.tv_mine:
-                    fragment = (Android.Support.V4.App.Fragment)fragmentHashtable[viewId];
-                    if (fragment == null)
-                    {
-                        fragment = new MineFragment();
-                        fragmentHashtable.Add(viewId, fragment);
-                    }
-                    break;
+			switch (viewId)
+			{
+				case Resource.Id.tv_teach:
+					fragment = (Android.Support.V4.App.Fragment)fragmentHashtable[viewId];
+					if (fragment == null)
+					{
+						fragment = new TeachFragment();
+						fragmentHashtable.Add(viewId, fragment);
+					}
+					break;
+				case Resource.Id.tv_mine:
+					fragment = (Android.Support.V4.App.Fragment)fragmentHashtable[viewId];
+					if (fragment == null)
+					{
+						fragment = new MineFragment();
+						fragmentHashtable.Add(viewId, fragment);
+					}
+					break;
 				case Resource.Id.tv_district:
 					fragment = (Android.Support.V4.App.Fragment)fragmentHashtable[viewId];
-                    if (fragment == null)
-                    {
-						fragment = new DistrictMainFragment();
+					if (fragment == null)
+					{
+						if (IsArea)
+							fragment = new DistrictMainFragment();
+						else
+							fragment = new NoPermissionFragment();
 						fragmentHashtable.Add(viewId, fragment);
-                    }
-                    break;
-                default:
-                    fragment = (Android.Support.V4.App.Fragment)fragmentHashtable[viewId];
-                    if (fragment == null)
-                    {
-                        fragment = new IndexFragment();
-                        fragmentHashtable.Add(viewId, fragment);
-                    }
-                    break;
-            }
+					}
+
+
+					break;
+				default:
+					fragment = (Android.Support.V4.App.Fragment)fragmentHashtable[viewId];
+					if (fragment == null)
+					{
+						fragment = new IndexFragment();
+						fragmentHashtable.Add(viewId, fragment);
+					}
+					break;
+			}
             switchContent(lastFragment, fragment);
         }
 

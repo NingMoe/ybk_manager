@@ -340,6 +340,9 @@ namespace YbkManage
 		{
 			var data = paymentList[position];
 			Intent intent = new Intent(CurrActivity, typeof(SumByTeacherActivity));
+			intent.PutExtra("year",2018);
+			intent.PutExtra("quarter",4);
+			intent.PutExtra("dataType",1);
 			intent.PutExtra("areaCode",data.AreaCode);
 			intent.PutExtra("areaName",data.AreaName);
 			intent.PutExtra("course", "语文");
