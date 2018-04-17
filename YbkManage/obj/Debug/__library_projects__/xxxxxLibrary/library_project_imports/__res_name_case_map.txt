@@ -1,9 +1,0 @@
-values/Strings.xml;values/strings.xml
-layout/toast_bg.axml;layout/toast_bg.xml
-drawable/toast_bg.axml;drawable/toast_bg.xml
-drawable-hdpi/icn_toast_error.png;drawable-hdpi/icn_toast_error.png
-drawable-hdpi/icn_toast_smile.png;drawable-hdpi/icn_toast_smile.png
-drawable-hdpi/icn_toast_success.png;drawable-hdpi/icn_toast_success.png
-drawable-hdpi/icn_toast_warning.png;drawable-hdpi/icn_toast_warning.png
-layout/loadingdialog_bg.axml;layout/loadingdialog_bg.xml
-values/Styles.axml;values/styles.xml

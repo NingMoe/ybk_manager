@@ -34,6 +34,7 @@ namespace YbkManage
 		private LayoutInflater layoutInflater;
 		//财年、区域按钮
 		private TextView tv_year, tv_district;
+		public TextView tv_title_payment;
 		private PopupWindow popYear, popDistrict;
 
 		// 列表页用控件
@@ -50,7 +51,7 @@ namespace YbkManage
 		private List<PaymentEntity> paymentList = new List<PaymentEntity>();
 		// 报表的筛选条件
 		private List<QuarterEntity> quarterList = new List<QuarterEntity>();
-		private List<string> districtList = new List<string>(), gradeList = new List<string>();
+		private List<string> districtList = new List<string>();
 		private QuarterEntity searchQuarter = new QuarterEntity { QuarterName = "2018财年Q1", Year = 2018, Quarter = 2 };
 		private string searchDistrict = "全部区域";
 
@@ -86,6 +87,7 @@ namespace YbkManage
 		{
 			tv_year = view.FindViewById<TextView>(Resource.Id.tv_year);
 			tv_district = view.FindViewById<TextView>(Resource.Id.tv_district);
+			tv_title_payment = view.FindViewById<TextView>(Resource.Id.tv_title_payment);
 
 			//添加按钮的事件监控
 			tv_year.SetOnClickListener(this);
@@ -208,6 +210,7 @@ namespace YbkManage
 		/// <param name="v">V.</param>
 		public void OnClick(View v)
 		{
+			//财年
 			if (v.Id == Resource.Id.tv_year)
 			{
 				if (quarterList != null && quarterList.Any())
@@ -229,7 +232,7 @@ namespace YbkManage
 						popYear.DismissEvent += (sender, e) =>
 						{
 							tv_year.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
-							var arrowDown = CurrActivity.GetDrawable(Resource.Drawable.arrow_down);
+							var arrowDown = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.arrow_down);
 							arrowDown.SetBounds(0, 0, arrowDown.MinimumWidth, arrowDown.MinimumHeight);
 							tv_year.SetCompoundDrawables(null, null, arrowDown, null);
 						};
@@ -251,7 +254,7 @@ namespace YbkManage
 					if (!popYear.IsShowing)
 					{
 						tv_year.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-						var arrowDownOn = CurrActivity.GetDrawable(Resource.Drawable.arrow_down_on);
+						var arrowDownOn = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.arrow_down_on);
 						arrowDownOn.SetBounds(0, 0, arrowDownOn.MinimumWidth, arrowDownOn.MinimumHeight);
 						tv_year.SetCompoundDrawables(null, null, arrowDownOn, null);
 
@@ -268,7 +271,7 @@ namespace YbkManage
 					}
 				}
 			}
-
+			//区域
 			else if (v.Id == Resource.Id.tv_district)
 			{
 				if (districtList != null && districtList.Any())
@@ -290,7 +293,7 @@ namespace YbkManage
 						popDistrict.DismissEvent += (sender, e) =>
 						{
 							tv_district.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
-							var arrowDown = CurrActivity.GetDrawable(Resource.Drawable.arrow_down);
+							var arrowDown = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down);
 							arrowDown.SetBounds(0, 0, arrowDown.MinimumWidth, arrowDown.MinimumHeight);
 							tv_district.SetCompoundDrawables(null, null, arrowDown, null);
 						};
@@ -311,7 +314,8 @@ namespace YbkManage
 					if (!popDistrict.IsShowing)
 					{
 						tv_district.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-						var arrowDownOn = CurrActivity.GetDrawable(Resource.Drawable.arrow_down_on);
+						var arrowDownOn = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down_on);
+
 						arrowDownOn.SetBounds(0, 0, arrowDownOn.MinimumWidth, arrowDownOn.MinimumHeight);
 						tv_district.SetCompoundDrawables(null, null, arrowDownOn, null);
 
@@ -332,16 +336,26 @@ namespace YbkManage
 		}
 		#endregion
 
-
+		#region 行点击事件
 		public void OnItemClick(View itemView, int position)
 		{
-			
+			var data = paymentList[position];
+			Intent intent = new Intent(CurrActivity, typeof(SumByTeacherActivity));
+			intent.PutExtra("year",2018);
+			intent.PutExtra("quarter",4);
+			intent.PutExtra("dataType",1);
+			intent.PutExtra("areaCode",data.AreaCode);
+			intent.PutExtra("areaName",data.AreaName);
+			intent.PutExtra("course", "语文");
+			intent.PutExtra("gradeList","初一,初二");
+			StartActivity(intent);
+			CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
 		}
 
-		public void OnItemLongClick(View itemView, int position)
-		{
-			
+		public void OnItemLongClick(View itemView, int position){
+
 		}
+		#endregion
 
 		#region 页面刷新
 		public void OnRefresh()
@@ -349,8 +363,6 @@ namespace YbkManage
 			BindData();
 		}
 		#endregion
-
-
 
 	}
 }

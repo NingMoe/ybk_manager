@@ -326,7 +326,7 @@ namespace YbkManage.Fragments
                         popWin1.DismissEvent += (sender, e) =>
                         {
                             tv_btn1.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
-                            var arrowDown = CurrActivity.GetDrawable(Resource.Drawable.arrow_down);
+                            var arrowDown = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down);
                             arrowDown.SetBounds(0, 0, arrowDown.MinimumWidth, arrowDown.MinimumHeight);
                             tv_btn1.SetCompoundDrawables(null, null, arrowDown, null);
                         };
@@ -349,7 +349,7 @@ namespace YbkManage.Fragments
                     if (!popWin1.IsShowing)
                     {
                         tv_btn1.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-                        var arrowDownOn = CurrActivity.GetDrawable(Resource.Drawable.arrow_down_on);
+                        var arrowDownOn = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down_on);
                         arrowDownOn.SetBounds(0, 0, arrowDownOn.MinimumWidth, arrowDownOn.MinimumHeight);
                         tv_btn1.SetCompoundDrawables(null, null, arrowDownOn, null);
 
@@ -403,7 +403,7 @@ namespace YbkManage.Fragments
 							tvGrade.Text = itemGrade;
 							tvGrade.TextSize = 14;
 							tvGrade.Gravity = GravityFlags.Center;
-							tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+							tvGrade.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg_on);
 							tvGrade.SetPadding(0, AppUtils.dip2px(CurrActivity, 5), 0, AppUtils.dip2px(CurrActivity, 5));
 							tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
 
@@ -417,24 +417,24 @@ namespace YbkManage.Fragments
 									searchGradeList.Add(itemGrade);
 
 									tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-									tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+									tvGrade.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg_on);
 								}
 								else
 								{
 									searchGradeList.Remove(itemGrade);
 
 									tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
-									tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+									tvGrade.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg);
 
 									tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
-									tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+									tvAll.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg);
 								}
 
 								//控制全部年级按钮颜色
 								if (gradeList.Count == searchGradeList.Count)
 								{
 									tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-									tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+									tvAll.Background =AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg_on);
 								}
 								//控制确定按钮是否可用
 								if (searchGradeList.Count == 0)
@@ -457,26 +457,26 @@ namespace YbkManage.Fragments
 							if (tvAll.CurrentTextColor == ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh))
 							{
 								tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
-								tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+								tvAll.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg);
 
 								for (var i = 0; i < gridlayout_1.ChildCount; i++)
 								{
 									var tv = (TextView)gridlayout_1.GetChildAt(i);
 									tv.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
-									tv.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+									tv.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg);
 								}
 								searchGradeList = new List<string>();
 							}
 							else
 							{
 								tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-								tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+								tvAll.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg_on);
 
 								for (var i = 0; i < gridlayout_1.ChildCount; i++)
 								{
 									var tv = (TextView)gridlayout_1.GetChildAt(i);
 									tv.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-									tv.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+									tv.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg_on);
 								}
 								searchGradeList = new List<string>(gradeList.ToArray());
 							}
@@ -520,7 +520,7 @@ namespace YbkManage.Fragments
                         popWin2.DismissEvent += (sender, e) =>
                         {
                             tv_btn2.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
-                            var arrowDown = CurrActivity.GetDrawable(Resource.Drawable.arrow_down);
+                            var arrowDown = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down);
                             arrowDown.SetBounds(0, 0, arrowDown.MinimumWidth, arrowDown.MinimumHeight);
                             tv_btn2.SetCompoundDrawables(null, null, arrowDown, null);
                         };
@@ -529,7 +529,7 @@ namespace YbkManage.Fragments
 					if (!popWin2.IsShowing)
 					{
 						tv_btn2.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-						var arrowDownOn = CurrActivity.GetDrawable(Resource.Drawable.arrow_down_on);
+						var arrowDownOn = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down_on);
 						arrowDownOn.SetBounds(0, 0, arrowDownOn.MinimumWidth, arrowDownOn.MinimumHeight);
 						tv_btn2.SetCompoundDrawables(null, null, arrowDownOn, null);
 
@@ -568,7 +568,7 @@ namespace YbkManage.Fragments
                         popWin3.DismissEvent += (sender, e) =>
                         {
                             tv_btn3.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
-                            var arrowDown = CurrActivity.GetDrawable(Resource.Drawable.arrow_down);
+                            var arrowDown = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down);
                             arrowDown.SetBounds(0, 0, arrowDown.MinimumWidth, arrowDown.MinimumHeight);
                             tv_btn3.SetCompoundDrawables(null, null, arrowDown, null);
                         };
@@ -590,7 +590,7 @@ namespace YbkManage.Fragments
                     if (!popWin3.IsShowing)
                     {
                         tv_btn3.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-                        var arrowDownOn = CurrActivity.GetDrawable(Resource.Drawable.arrow_down_on);
+                        var arrowDownOn = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down_on);
                         arrowDownOn.SetBounds(0, 0, arrowDownOn.MinimumWidth, arrowDownOn.MinimumHeight);
                         tv_btn3.SetCompoundDrawables(null, null, arrowDownOn, null);
 
