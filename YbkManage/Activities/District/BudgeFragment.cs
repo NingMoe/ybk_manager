@@ -232,7 +232,7 @@ namespace YbkManage
 						popYear.DismissEvent += (sender, e) =>
 						{
 							tv_year.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
-							var arrowDown = CurrActivity.GetDrawable(Resource.Drawable.arrow_down);
+							var arrowDown = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.arrow_down);
 							arrowDown.SetBounds(0, 0, arrowDown.MinimumWidth, arrowDown.MinimumHeight);
 							tv_year.SetCompoundDrawables(null, null, arrowDown, null);
 						};
@@ -254,7 +254,7 @@ namespace YbkManage
 					if (!popYear.IsShowing)
 					{
 						tv_year.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-						var arrowDownOn = CurrActivity.GetDrawable(Resource.Drawable.arrow_down_on);
+						var arrowDownOn = AppUtils.GetDrawable(CurrActivity, Resource.Drawable.arrow_down_on);
 						arrowDownOn.SetBounds(0, 0, arrowDownOn.MinimumWidth, arrowDownOn.MinimumHeight);
 						tv_year.SetCompoundDrawables(null, null, arrowDownOn, null);
 
@@ -293,7 +293,7 @@ namespace YbkManage
 						popDistrict.DismissEvent += (sender, e) =>
 						{
 							tv_district.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
-							var arrowDown = CurrActivity.GetDrawable(Resource.Drawable.arrow_down);
+							var arrowDown = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down);
 							arrowDown.SetBounds(0, 0, arrowDown.MinimumWidth, arrowDown.MinimumHeight);
 							tv_district.SetCompoundDrawables(null, null, arrowDown, null);
 						};
@@ -314,7 +314,8 @@ namespace YbkManage
 					if (!popDistrict.IsShowing)
 					{
 						tv_district.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-						var arrowDownOn = CurrActivity.GetDrawable(Resource.Drawable.arrow_down_on);
+						var arrowDownOn = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down_on);
+
 						arrowDownOn.SetBounds(0, 0, arrowDownOn.MinimumWidth, arrowDownOn.MinimumHeight);
 						tv_district.SetCompoundDrawables(null, null, arrowDownOn, null);
 

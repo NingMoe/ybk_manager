@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -301,7 +301,7 @@ namespace YbkManage
 						popYear.DismissEvent += (sender, e) =>
 						{
 							tv_year.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
-							var arrowDown = CurrActivity.GetDrawable(Resource.Drawable.arrow_down);
+							var arrowDown = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down);
 							arrowDown.SetBounds(0, 0, arrowDown.MinimumWidth, arrowDown.MinimumHeight);
 							tv_year.SetCompoundDrawables(null, null, arrowDown, null);
 						};
@@ -322,7 +322,7 @@ namespace YbkManage
 					if (!popYear.IsShowing)
 					{
 						tv_year.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-						var arrowDownOn = CurrActivity.GetDrawable(Resource.Drawable.arrow_down_on);
+						var arrowDownOn = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down_on);
 						arrowDownOn.SetBounds(0, 0, arrowDownOn.MinimumWidth, arrowDownOn.MinimumHeight);
 						tv_year.SetCompoundDrawables(null, null, arrowDownOn, null);
 
@@ -362,7 +362,7 @@ namespace YbkManage
 						popDistrict.DismissEvent += (sender, e) =>
 						{
 							tv_district.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
-							var arrowDown = CurrActivity.GetDrawable(Resource.Drawable.arrow_down);
+							var arrowDown = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down);
 							arrowDown.SetBounds(0, 0, arrowDown.MinimumWidth, arrowDown.MinimumHeight);
 							tv_district.SetCompoundDrawables(null, null, arrowDown, null);
 						};
@@ -383,7 +383,7 @@ namespace YbkManage
 					if (!popDistrict.IsShowing)
 					{
 						tv_district.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-						var arrowDownOn = CurrActivity.GetDrawable(Resource.Drawable.arrow_down_on);
+						var arrowDownOn = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down_on);
 						arrowDownOn.SetBounds(0, 0, arrowDownOn.MinimumWidth, arrowDownOn.MinimumHeight);
 						tv_district.SetCompoundDrawables(null, null, arrowDownOn, null);
 
@@ -440,7 +440,7 @@ namespace YbkManage
 							tvGrade.Text = itemGrade;
 							tvGrade.TextSize = 14;
 							tvGrade.Gravity = GravityFlags.Center;
-							tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+							tvGrade.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg_on);
 							tvGrade.SetPadding(0, AppUtils.dip2px(CurrActivity, 5), 0, AppUtils.dip2px(CurrActivity, 5));
 							tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
 
@@ -454,24 +454,24 @@ namespace YbkManage
 									searchGradeList.Add(itemGrade);
 
 									tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-									tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+									tvGrade.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg_on);
 								}
 								else
 								{
 									searchGradeList.Remove(itemGrade);
 
 									tvGrade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
-									tvGrade.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+									tvGrade.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg);
 
 									tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
-									tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+									tvAll.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg);
 								}
 
 								//控制全部年级按钮颜色
 								if (gradeList.Count == searchGradeList.Count)
 								{
 									tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-									tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+									tvAll.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg_on);
 								}
 								//控制确定按钮是否可用
 								if (searchGradeList.Count == 0)
@@ -494,26 +494,26 @@ namespace YbkManage
 							if (tvAll.CurrentTextColor == ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh))
 							{
 								tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
-								tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+								tvAll.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg);
 
 								for (var i = 0; i < gridlayout_1.ChildCount; i++)
 								{
 									var tv = (TextView)gridlayout_1.GetChildAt(i);
 									tv.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorSecond)));
-									tv.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg);
+									tv.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg);
 								}
 								searchGradeList = new List<string>();
 							}
 							else
 							{
 								tvAll.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-								tvAll.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+								tvAll.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg_on);
 
 								for (var i = 0; i < gridlayout_1.ChildCount; i++)
 								{
 									var tv = (TextView)gridlayout_1.GetChildAt(i);
 									tv.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-									tv.Background = CurrActivity.GetDrawable(Resource.Drawable.textview_bg_on);
+									tv.Background = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.textview_bg_on);
 								}
 								searchGradeList = new List<string>(gradeList.ToArray());
 							}
@@ -557,7 +557,7 @@ namespace YbkManage
 						popGrade.DismissEvent += (sender, e) =>
 						{
 							tv_grade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
-							var arrowDown = CurrActivity.GetDrawable(Resource.Drawable.arrow_down);
+							var arrowDown = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down);
 							arrowDown.SetBounds(0, 0, arrowDown.MinimumWidth, arrowDown.MinimumHeight);
 							tv_grade.SetCompoundDrawables(null, null, arrowDown, null);
 						};
@@ -566,7 +566,7 @@ namespace YbkManage
 					if (!popGrade.IsShowing)
 					{
 						tv_grade.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-						var arrowDownOn = CurrActivity.GetDrawable(Resource.Drawable.arrow_down_on);
+						var arrowDownOn = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down_on);
 						arrowDownOn.SetBounds(0, 0, arrowDownOn.MinimumWidth, arrowDownOn.MinimumHeight);
 						tv_grade.SetCompoundDrawables(null, null, arrowDownOn, null);
 
@@ -607,7 +607,7 @@ namespace YbkManage
 						popCourse.DismissEvent += (sender, e) =>
 						{
 							tv_course.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorPrimary)));
-							var arrowDown = CurrActivity.GetDrawable(Resource.Drawable.arrow_down);
+							var arrowDown = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down);
 							arrowDown.SetBounds(0, 0, arrowDown.MinimumWidth, arrowDown.MinimumHeight);
 							tv_course.SetCompoundDrawables(null, null, arrowDown, null);
 						};
@@ -629,7 +629,7 @@ namespace YbkManage
 					if (!popCourse.IsShowing)
 					{
 						tv_course.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));
-						var arrowDownOn = CurrActivity.GetDrawable(Resource.Drawable.arrow_down_on);
+						var arrowDownOn = AppUtils.GetDrawable(CurrActivity,Resource.Drawable.arrow_down_on);
 						arrowDownOn.SetBounds(0, 0, arrowDownOn.MinimumWidth, arrowDownOn.MinimumHeight);
 						tv_course.SetCompoundDrawables(null, null, arrowDownOn, null);
 
