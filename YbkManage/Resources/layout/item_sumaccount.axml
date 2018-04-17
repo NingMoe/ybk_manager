@@ -46,6 +46,7 @@
             android:textSize="14sp" />
     </LinearLayout>
     <View
+        android:id="@+id/v_item"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/line_split" />
@@ -53,5 +54,7 @@
         android:id="@+id/item_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:isScrollContainer="true"
+        android:visibility="gone" />
 </LinearLayout>

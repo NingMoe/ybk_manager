@@ -140,11 +140,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#dddede" />
-        <ExpandableListView
-            android:id="@+id/explist_area"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white" />
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresher"
             android:layout_width="match_parent"

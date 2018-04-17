@@ -44,9 +44,10 @@ namespace YbkManage
 			this.avgGrowthRate = avgGrowthRate;
 		}
 
-		public void SetData(List<PaymentSumAreaEntity> data)
+		public void SetData(List<PaymentSumAreaEntity> data, decimal avgGrowthRate)
 		{
 			this.sumList = data;
+			this.avgGrowthRate = avgGrowthRate;
 		}
 
 
@@ -57,7 +58,6 @@ namespace YbkManage
 			var vi = LayoutInflater.From(parent.Context);
 
 			if (this.sumList == null) viewType = 2;
-
 
 			switch (viewType)
 			{
@@ -81,7 +81,7 @@ namespace YbkManage
 		{
 			if (this.sumList == null)
 				holder = holder as ChildItemViewHolder;
-			
+
 			if (holder is ItemViewHolder)
 			{
 				var holderX = holder as ItemViewHolder;
@@ -96,7 +96,7 @@ namespace YbkManage
 
 				// 比平均值
 				var avgrate = itemInfo.GrowthRate - this.avgGrowthRate;
-				holderX.tv_growthRate.Text = (avgrate > 0 ? "+" : "") + (avgrate * 100).ToString("f1") + "%";
+				holderX.tv_growthRate.Text = (avgrate > 0 ? "+" : "") + (itemInfo.GrowthRate * 100).ToString("f1") + "%";
 				if (avgrate >= 0)
 				{
 					holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorHigh)));
@@ -113,14 +113,6 @@ namespace YbkManage
 					holderX.tv_lastYearSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
 					holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
 				}
-				else
-				{
-					holderX.tv_name.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
-					holderX.tv_currentSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
-					holderX.tv_lastYearSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
-					holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
-				}
-
 				#endregion
 			}
 			else if (holder is ChildItemViewHolder)
@@ -130,6 +122,12 @@ namespace YbkManage
 				#region childitemview
 				var itemInfo = this.dynamicGradeSumList[position];
 
+				holderX.ItemView.SetBackgroundColor(Color.LightCyan);
+				holderX.tv_name.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
+				holderX.tv_currentSum.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
+				holderX.tv_lastYearSum.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
+				holderX.tv_growthRate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
+
 				holderX.tv_name.Text = itemInfo.Name;
 				holderX.tv_currentSum.Text = itemInfo.CurrentSum.ToString("f1");
 				holderX.tv_lastYearSum.Text = itemInfo.LastYearSum.ToString("f1");
@@ -137,7 +135,7 @@ namespace YbkManage
 
 				// 比平均值
 				var avgrate = itemInfo.GrowthRate - this.avgGrowthRate;
-				holderX.tv_growthRate.Text = (avgrate > 0 ? "+" : "") + (avgrate * 100).ToString("f1") + "%";
+				holderX.tv_growthRate.Text = (avgrate > 0 ? "+" : "") + (itemInfo.GrowthRate * 100).ToString("f1") + "%";
 				if (avgrate >= 0)
 				{
 					holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorHigh)));
@@ -145,21 +143,6 @@ namespace YbkManage
 				else
 				{
 					holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorRed)));
-				}
-
-				if (position == this.dynamicGradeSumList.Count - 1)
-				{
-					holderX.tv_name.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
-					holderX.tv_currentSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
-					holderX.tv_lastYearSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
-					holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
-				}
-				else
-				{
-					holderX.tv_name.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
-					holderX.tv_currentSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
-					holderX.tv_lastYearSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
-					holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
 				}
 
 				#endregion

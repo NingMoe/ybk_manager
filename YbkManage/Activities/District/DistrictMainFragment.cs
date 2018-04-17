@@ -331,7 +331,10 @@ namespace YbkManage
 				//累计
 				else if (f.IsVisible && f is SumAccountFragment)
 				{
-					
+					var sumAccountFragment = (f as SumAccountFragment);
+					sumAccountFragment.dataType = dataType;
+					sumAccountFragment.BindData();
+					break;
 				}
 			}
 		}

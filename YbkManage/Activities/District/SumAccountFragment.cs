@@ -13,6 +13,7 @@ using Android.Runtime;
 using Android.Support.V4.Content;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using DataEntity;
@@ -46,7 +47,6 @@ namespace YbkManage
 		private SumAccountAdapter mAdapter;
 		#endregion
 
-
 		#region Field
 
 		private decimal avgGrowthRate = 0;
@@ -60,14 +60,14 @@ namespace YbkManage
 		private List<string> searchGradeList = new List<string>();
 
 		//累计：1-人次；2-预收；3-行课
-		int dataType = 1;
+		public int dataType = 1;
 		//标题排序：1/2-本期累计升/倒序；3/4-去年同期升/倒序；5/6-增长率升/倒序
 		int sortType = 6;
 
+		//总计行
+		int totalCount = 0;
+		bool loadingData = false;
 		#endregion
-
-		private List<string> groupList;
-		private List<List<string>> childList;
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
@@ -76,38 +76,40 @@ namespace YbkManage
 			View view = layoutInflater.Inflate(Resource.Layout.fragment_sumaccount, container, false);
 
 			InitViews(view);
-
 			LoadData();
 
-
-			//LoadData(view);
+			InitEvents();
 
 			return view;
 		}
 
-		protected void LoadData(View view)
-		{
-			groupList = new List<string>();
-			childList = new List<List<string>>();
+		protected void InitEvents()
+		{ 
+			mSwipeRefreshLayout.SetOnRefreshListener(this);
 
-			groupList.Add("第一行");
-			groupList.Add("第二行");
+			var viewOnGestureListener = new RecyclerViewItemOnGestureListener(mRecyclerView, this);
+			mRecyclerView.AddOnItemTouchListener(new RecyclerViewItemOnItemTouchListener(mRecyclerView, viewOnGestureListener));
 
-			List<string> temp = new List<string>();
-			temp.Add("第一条");
-			temp.Add("第二条");
-			temp.Add("第三条");
-
-			for (int index = 0; index < groupList.Count; ++index)
+			// 加载更多
+			var onScrollListener = new XamarinRecyclerViewOnScrollListener(linearLayoutManager);
+			onScrollListener.LoadMoreEvent += (object sender, EventArgs e) =>
 			{
-				childList.Add(temp);
-			}
-
-			var expandableListView = view.FindViewById<ExpandableListView>(Resource.Id.explist_area);
-			var adapter = new ExpandableListAdapter(this.CurrActivity, groupList, childList);
-			expandableListView.SetAdapter(adapter);
+				if (totalCount > this.sumList.Count)
+				{
+					if (!loadingData)
+					{
+						loadingData = true;
+						BindData();
+					}
+				}
+				else if (totalCount == this.sumList.Count)
+				{
+					Toast.MakeText(this.CurrContext, "没有更多了", ToastLength.Short).Show();
+				}
+			};
+			mRecyclerView.AddOnScrollListener(onScrollListener);
 		}
-
+		                          
 
 		#region 初始化页面控件
 
@@ -134,7 +136,7 @@ namespace YbkManage
 
 			//adapter展示列表数据
 			linearLayoutManager = new LinearLayoutManager(CurrActivity);
-			mAdapter = new SumAccountAdapter(CurrActivity, sumList, avgGrowthRate);
+			mAdapter = new SumAccountAdapter(CurrActivity, sumList, this.avgGrowthRate);
 			mRecyclerView.SetLayoutManager(linearLayoutManager);
 			mRecyclerView.SetAdapter(mAdapter);
 			mAdapter.NotifyDataSetChanged();
@@ -153,7 +155,6 @@ namespace YbkManage
 				ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
 				return;
 			}
-			LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
 
 			//财年数据
 			if (BaseApplication.GetInstance().quarterList == null)
@@ -229,8 +230,10 @@ namespace YbkManage
 		#endregion
 
 		#region 绑定数据
-		private void BindData()
+		public void BindData()
 		{
+			LoadingDialogUtil.ShowLoadingDialog(CurrActivity, "获取数据中...");
+
 			try
 			{
 				var schoolId = CurrUserInfo.SchoolId;
@@ -238,7 +241,6 @@ namespace YbkManage
 				var quarter = searchQuarter.Quarter;
 				var district = searchDistrict;
 				var course = searchCourse;
-				var totalCount = 0;
 				var grade = "";
 				if (searchGradeList.Any())
 				{
@@ -251,7 +253,7 @@ namespace YbkManage
 
 				new System.Threading.Thread(new ThreadStart(() =>
 				{
-					var list = SumService.GetSumPaymentListByArea(schoolId, year, quarter,dataType,sortType, district,grade,course, out totalCount,1, 1, 30, areaCodes);
+					var list = SumService.GetSumPaymentListByArea(schoolId, year, quarter,dataType,sortType, district,grade,course, out totalCount,1, 1, 500, areaCodes);
 					CurrActivity.RunOnUiThread(() =>
 					{
 
@@ -260,9 +262,12 @@ namespace YbkManage
 
 						if (list != null)
 						{
-							this.avgGrowthRate = list.TotalData.GrowthRate;
+							var totalData = list.TotalData;
+							this.avgGrowthRate = totalData.GrowthRate;
 							this.sumList = list.List;
-							mAdapter.SetData(this.sumList);
+							var totalEntity = new PaymentSumAreaEntity() { Name = "总计", CurrentSum=totalData.CurrentSum, LastYearSum = totalData.LastYearSum, GrowthRate = totalData.GrowthRate };
+							this.sumList.Add(totalEntity);
+							mAdapter.SetData(this.sumList,this.avgGrowthRate);
 							mAdapter.NotifyDataSetChanged();
 						}
 					});
@@ -652,23 +657,64 @@ namespace YbkManage
 
 		public void OnItemClick(View itemView, int position)
 		{
+			var recyclerView = itemView as RecyclerView;
+			var itemRecyclerView = (itemView as LinearLayout).GetChildAt(2) as RecyclerView;//(RecyclerView)itemView.FindViewById(Resource.Id.item_recycler_view);
+			if (itemRecyclerView.Id == Resource.Id.item_recycler_view)
+			{
+				
+			}
+
+			if (itemRecyclerView.Id == Resource.Id.recycler_view)
+			{ 
+			
+			}
+
 			var item = sumList[position];
+
 			if (item.GradeData != null)
 			{
-				//var llitem = itemView.FindViewById<LinearLayout>(Resource.Id.ll_item);
-				var itemRecyclerView = (RecyclerView)itemView.FindViewById(Resource.Id.item_recycler_view);
-				//adapter展示列表数据
-				var itemLinearLayoutManager = new LinearLayoutManager(CurrActivity);
-				var sumAdapter = new SumAccountAdapter(CurrActivity, item.GradeData, item.GrowthRate);
-				itemRecyclerView.SetLayoutManager(itemLinearLayoutManager);
-				itemRecyclerView.SetAdapter(sumAdapter);
-				sumAdapter.NotifyDataSetChanged();
+				//var itemRecyclerView = (itemView as LinearLayout).GetChildAt(2) as RecyclerView;//(RecyclerView)itemView.FindViewById(Resource.Id.item_recycler_view);
+
+				//判断当前行的item显示隐藏状态：显示时设置隐藏；反之显示
+				var viewState = itemRecyclerView.Visibility;
+				if (viewState == ViewStates.Visible)
+				{
+					itemRecyclerView.Visibility = ViewStates.Gone;
+				}
+				else
+				{
+					itemRecyclerView.Visibility = ViewStates.Visible;
+					//adapter展示列表数据
+					var itemLinearLayoutManager = new LinearLayoutManager(CurrActivity);
+					var sumAdapter = new SumAccountAdapter(CurrActivity, item.GradeData, item.GrowthRate);
+					itemRecyclerView.SetLayoutManager(itemLinearLayoutManager);
+					itemRecyclerView.SetAdapter(sumAdapter);
+					sumAdapter.NotifyDataSetChanged();
+				}
+			}
+			else
+			{ 
+				var intent = new Intent(CurrActivity, typeof(SumByTeacherFragment));
+				intent.PutExtra("year", this.searchQuarter.Year);
+				intent.PutExtra("quarter", this.searchQuarter.Quarter);
+				intent.PutExtra("dataType", this.dataType);
+				intent.PutExtra("areaCode", item.Code);
+				intent.PutExtra("areaName", item.Name);
+				intent.PutExtra("course", this.searchCourse);
+				var gradeListParam = "";
+				if (searchGradeList.Count != gradeList.Count)
+				{
+					gradeListParam = string.Join(",", searchGradeList.ToArray());
+				}
+				intent.PutExtra("gradeList", gradeListParam);
+				StartActivity(intent);
+				CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
 			}
 		}
 
 		public void OnItemLongClick(View itemView, int position)
 		{
-			throw new NotImplementedException();
+			return;
 		}
 
 		public void OnRefresh()
@@ -680,6 +726,33 @@ namespace YbkManage
 			else
 			{
 				BindData();
+			}
+		}
+
+		public class XamarinRecyclerViewOnScrollListener : RecyclerView.OnScrollListener
+		{
+			public delegate void LoadMoreEventHandler(object sender, EventArgs e);
+			public event LoadMoreEventHandler LoadMoreEvent;
+
+			private LinearLayoutManager LayoutManager;
+
+			public XamarinRecyclerViewOnScrollListener(LinearLayoutManager layoutManager)
+			{
+				LayoutManager = layoutManager;
+			}
+
+			public override void OnScrolled(RecyclerView recyclerView, int dx, int dy)
+			{
+				base.OnScrolled(recyclerView, dx, dy);
+
+				var totalItemCount = recyclerView.GetAdapter().ItemCount;
+				var lastVisibleItemPosition = LayoutManager.FindLastVisibleItemPosition();
+				Log.Debug("test", "totalItemCount =" + totalItemCount + "-----" + "lastVisibleItemPosition =" + lastVisibleItemPosition);
+
+				if (totalItemCount == (lastVisibleItemPosition + 1) && LoadMoreEvent != null)
+				{
+					LoadMoreEvent(this, null);
+				}
 			}
 		}
 	}
