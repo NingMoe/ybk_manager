@@ -44,7 +44,7 @@ namespace YbkManage
 		// 列表显示方式
 		private LinearLayoutManager linearLayoutManager;
 		// 列表适配器
-		private SumAccountAdapter mAdapter;
+		public SumAccountAdapter mAdapter;
 		#endregion
 
 		#region Field
@@ -136,7 +136,7 @@ namespace YbkManage
 
 			//adapter展示列表数据
 			linearLayoutManager = new LinearLayoutManager(CurrActivity);
-			mAdapter = new SumAccountAdapter(CurrActivity, sumList, this.avgGrowthRate);
+			mAdapter = new SumAccountAdapter(CurrActivity, sumList, this.avgGrowthRate,dataType);
 			mRecyclerView.SetLayoutManager(linearLayoutManager);
 			mRecyclerView.SetAdapter(mAdapter);
 			mAdapter.NotifyDataSetChanged();
@@ -694,7 +694,7 @@ namespace YbkManage
 			}
 			else
 			{ 
-				var intent = new Intent(CurrActivity, typeof(SumByTeacherFragment));
+				var intent = new Intent(CurrActivity, typeof(SumByTeacherActivity));
 				intent.PutExtra("year", this.searchQuarter.Year);
 				intent.PutExtra("quarter", this.searchQuarter.Quarter);
 				intent.PutExtra("dataType", this.dataType);

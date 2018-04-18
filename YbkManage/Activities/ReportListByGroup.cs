@@ -181,16 +181,20 @@ namespace YbkManage.Activities
 				}
 			}
 
-			if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop) //> Android 5.0
-			{
-				var image = ContextCompat.GetDrawable(CurrActivity.ApplicationContext, imgButtonDrawable);
-				imgButton.SetImageDrawable(image);
-			}
-			else
-			{
-				var image = Android.Support.Graphics.Drawable.VectorDrawableCompat.Create(this.Resources, imgButtonDrawable, null);
-				imgButton.SetImageDrawable(image);
-			}
+			var image = AppUtils.GetDrawable(CurrContext, imgButtonDrawable);
+			imgButton.SetImageDrawable(image);
+
+			//android4.4.4 下面这段报错
+			//if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop) //> Android 5.0
+			//{
+			//	var image = ContextCompat.GetDrawable(CurrActivity.ApplicationContext, imgButtonDrawable);
+			//	imgButton.SetImageDrawable(image);
+			//}
+			//else
+			//{
+			//	var image = Android.Support.Graphics.Drawable.VectorDrawableCompat.Create(this.Resources, imgButtonDrawable, null);
+			//	imgButton.SetImageDrawable(image);
+			//}
 
 			//切换按钮状态（默认页面初始化）
 			if (operateType == "clickButton")

@@ -6,9 +6,11 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 
@@ -49,10 +51,12 @@ namespace YbkManage
 				tvTitle.Text = d.Value;
 				if (d.Value == SelectedText)
 				{
-					tvTitle.SetTextColor(this.mContent.Resources.GetColor(Resource.Color.textColorHigh, null));
+					//tvTitle.SetTextColor(this.mContent.Resources.GetColor(Resource.Color.textColorHigh, null));
+					tvTitle.SetTextColor(new Color(ContextCompat.GetColor(this.mContent, Resource.Color.textColorHigh)));
 				}else
 				{
-					tvTitle.SetTextColor(this.mContent.Resources.GetColor(Resource.Color.textColorPrimary, null));
+					//tvTitle.SetTextColor(this.mContent.Resources.GetColor(Resource.Color.textColorPrimary, null));
+					tvTitle.SetTextColor(new Color(ContextCompat.GetColor(this.mContent, Resource.Color.textColorPrimary)));
 				}
 
 				tvTitle.Click += (sender, e) =>
@@ -74,11 +78,13 @@ namespace YbkManage
 				TextView tvTitle = ll_box.GetChildAt(i).FindViewById<TextView>(Resource.Id.tv_year);
 				if (tvTitle.Text == selectedText)
 				{
-					tvTitle.SetTextColor(this.mContent.Resources.GetColor(Resource.Color.textColorHigh, null));
+					//tvTitle.SetTextColor(this.mContent.Resources.GetColor(Resource.Color.textColorHigh, null));
+					tvTitle.SetTextColor(new Color(ContextCompat.GetColor(this.mContent, Resource.Color.textColorHigh)));
 				}
 				else
 				{
-					tvTitle.SetTextColor(this.mContent.Resources.GetColor(Resource.Color.textColorPrimary, null));
+					//tvTitle.SetTextColor(this.mContent.Resources.GetColor(Resource.Color.textColorPrimary, null));
+					tvTitle.SetTextColor(new Color(ContextCompat.GetColor(this.mContent, Resource.Color.textColorPrimary)));
 				}
 			}
 		}

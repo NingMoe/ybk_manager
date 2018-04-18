@@ -213,17 +213,17 @@ namespace YbkManage.Fragments
                         {
                             //初中续班率
                             var middleInfo = renewList.FirstOrDefault(p => p.Type == 1);
-                            if (middleInfo != null)
-                            {
-                                tvRate1.Text = (middleInfo.RenewRate * 100).ToString("f1") + "%";
-                            }
+							if (middleInfo != null)
+								tvRate1.Text = (middleInfo.RenewRate * 100).ToString("f1") + "%";
+							else
+								tvRate1.Text = "0.0%";
 
                             //高中续班率
                             var hightInfo = renewList.FirstOrDefault(p => p.Type == 2);
-                            if (hightInfo != null)
-                            {
-                                tvRate2.Text = (hightInfo.RenewRate * 100).ToString("f1") + "%";
-                            }
+							if (hightInfo != null)
+								tvRate2.Text = (hightInfo.RenewRate * 100).ToString("f1") + "%";
+							else
+								tvRate2.Text = "0.0%";
                         });
                     })).Start();
 

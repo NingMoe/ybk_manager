@@ -93,12 +93,7 @@ namespace YbkManage
 			tv_year.SetOnClickListener(this);
 			tv_district.SetOnClickListener(this);
 
-
-			mSwipeRefreshLayout = (SwipeRefreshLayout)view.FindViewById(Resource.Id.refresher);
 			mRecyclerView = (RecyclerView)view.FindViewById(Resource.Id.recycler_view);
-
-			mSwipeRefreshLayout.SetColorSchemeColors(Color.ParseColor("#db0000"));
-
 			//adapter展示列表数据
 			linearLayoutManager = new LinearLayoutManager(CurrActivity);
 			mAdapter = new BudgeAdapter(CurrActivity, paymentList);
@@ -106,9 +101,13 @@ namespace YbkManage
 			mRecyclerView.SetAdapter(mAdapter);
 			mAdapter.NotifyDataSetChanged();
 
-			mSwipeRefreshLayout.SetOnRefreshListener(this);
 			RecyclerViewItemOnGestureListener viewOnGestureListener = new RecyclerViewItemOnGestureListener(mRecyclerView, this);
 			mRecyclerView.AddOnItemTouchListener(new RecyclerViewItemOnItemTouchListener(mRecyclerView, viewOnGestureListener));
+
+			//下拉刷新
+			mSwipeRefreshLayout	 = (SwipeRefreshLayout)view.FindViewById(Resource.Id.refresher);
+			mSwipeRefreshLayout.SetColorSchemeColors(Color.ParseColor("#db0000"));
+			mSwipeRefreshLayout.SetOnRefreshListener(this);
 		}
 		#endregion
 
@@ -118,6 +117,11 @@ namespace YbkManage
 		/// </summary>
 		protected void LoadData()
 		{
+			if (!NetUtil.CheckNetWork(CurrActivity))
+			{
+				ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
+				return;
+			}
 			//财年数据
 			if (BaseApplication.GetInstance().quarterList == null)
 			{
@@ -339,17 +343,7 @@ namespace YbkManage
 		#region 行点击事件
 		public void OnItemClick(View itemView, int position)
 		{
-			var data = paymentList[position];
-			Intent intent = new Intent(CurrActivity, typeof(SumByTeacherActivity));
-			intent.PutExtra("year",2018);
-			intent.PutExtra("quarter",4);
-			intent.PutExtra("dataType",1);
-			intent.PutExtra("areaCode",data.AreaCode);
-			intent.PutExtra("areaName",data.AreaName);
-			intent.PutExtra("course", "语文");
-			intent.PutExtra("gradeList","初一,初二");
-			StartActivity(intent);
-			CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+			
 		}
 
 		public void OnItemLongClick(View itemView, int position){

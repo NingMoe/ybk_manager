@@ -27,14 +27,15 @@ namespace YbkManage
 		private List<PaymentSumAreaEntity> sumList;
 		private List<PaymentSumBaseEntity> dynamicGradeSumList;
 		private decimal avgGrowthRate;
-
+		public int dataType = 0;
 		private LinearLayout llItem;
 
-		public SumAccountAdapter(Context context, List<PaymentSumAreaEntity> sumList, decimal avgGrowthRate)
+		public SumAccountAdapter(Context context, List<PaymentSumAreaEntity> sumList, decimal avgGrowthRate,int dataType)
 		{
 			this.mContext = context;
 			this.sumList = sumList;
 			this.avgGrowthRate = avgGrowthRate;
+			this.dataType = dataType;
 		}
 
 		public SumAccountAdapter(Context context, List<PaymentSumBaseEntity> gradeSumList, decimal avgGrowthRate)
@@ -90,13 +91,23 @@ namespace YbkManage
 				var itemInfo = this.sumList[position];
 
 				holderX.tv_name.Text = itemInfo.Name;
-				holderX.tv_currentSum.Text = itemInfo.CurrentSum.ToString("f1");
-				holderX.tv_lastYearSum.Text = itemInfo.LastYearSum.ToString("f1");
+				//预收&行课，单位万
+				if (dataType != 1)
+				{
+					holderX.tv_currentSum.Text =(itemInfo.CurrentSum/10000).ToString("f1");
+					holderX.tv_lastYearSum.Text = (itemInfo.LastYearSum/10000).ToString("f1");
+				}
+				else
+				{
+					holderX.tv_currentSum.Text = itemInfo.CurrentSum.ToString("f1");
+					holderX.tv_lastYearSum.Text = itemInfo.LastYearSum.ToString("f1");
+				}
+
 				holderX.tv_growthRate.Text = (itemInfo.GrowthRate * 100).ToString("f1") + "%";
 
 				// 比平均值
 				var avgrate = itemInfo.GrowthRate - this.avgGrowthRate;
-				holderX.tv_growthRate.Text = (avgrate > 0 ? "+" : "") + (itemInfo.GrowthRate * 100).ToString("f1") + "%";
+				//holderX.tv_growthRate.Text = (avgrate > 0 ? "+" : "") + (itemInfo.GrowthRate * 100).ToString("f1") + "%";
 				if (avgrate >= 0)
 				{
 					holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorHigh)));
@@ -112,6 +123,13 @@ namespace YbkManage
 					holderX.tv_currentSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
 					holderX.tv_lastYearSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
 					holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
+				}
+				else
+				{
+					holderX.tv_name.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
+					holderX.tv_currentSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
+					holderX.tv_lastYearSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
+
 				}
 				#endregion
 			}
@@ -129,13 +147,22 @@ namespace YbkManage
 				holderX.tv_growthRate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
 
 				holderX.tv_name.Text = itemInfo.Name;
-				holderX.tv_currentSum.Text = itemInfo.CurrentSum.ToString("f1");
-				holderX.tv_lastYearSum.Text = itemInfo.LastYearSum.ToString("f1");
+				//预收&行课，单位万
+				if (dataType != 1)
+				{
+					holderX.tv_currentSum.Text =(itemInfo.CurrentSum/10000).ToString("f1");
+					holderX.tv_lastYearSum.Text = (itemInfo.LastYearSum/10000).ToString("f1");
+				}
+				else
+				{
+					holderX.tv_currentSum.Text = itemInfo.CurrentSum.ToString("f1");
+					holderX.tv_lastYearSum.Text = itemInfo.LastYearSum.ToString("f1");
+				}
 				holderX.tv_growthRate.Text = (itemInfo.GrowthRate * 100).ToString("f1") + "%";
 
 				// 比平均值
 				var avgrate = itemInfo.GrowthRate - this.avgGrowthRate;
-				holderX.tv_growthRate.Text = (avgrate > 0 ? "+" : "") + (itemInfo.GrowthRate * 100).ToString("f1") + "%";
+				//holderX.tv_growthRate.Text = (avgrate > 0 ? "+" : "") + (itemInfo.GrowthRate * 100).ToString("f1") + "%";
 				if (avgrate >= 0)
 				{
 					holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorHigh)));

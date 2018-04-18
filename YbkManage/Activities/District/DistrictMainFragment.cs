@@ -337,6 +337,7 @@ namespace YbkManage
 				{
 					var sumAccountFragment = (f as SumAccountFragment);
 					sumAccountFragment.dataType = dataType;
+					sumAccountFragment.mAdapter.dataType = dataType;
 					sumAccountFragment.BindData();
 					break;
 				}

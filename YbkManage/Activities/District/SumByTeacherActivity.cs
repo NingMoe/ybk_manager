@@ -31,7 +31,7 @@ namespace YbkManage
 	/// <summary>
 	/// 区域-累计-教师维度
 	/// </summary>
-	[Activity(Label = "SumByTeacherFragment", ScreenOrientation = ScreenOrientation.Portrait)]
+	[Activity(Label = "SumByTeacherActivity", ScreenOrientation = ScreenOrientation.Portrait)]
 	public class SumByTeacherActivity : AppActivity, SwipeRefreshLayout.IOnRefreshListener, IRecyclerViewItemClickListener, View.IOnClickListener
 	{
 		#region UIField
@@ -84,27 +84,20 @@ namespace YbkManage
 
 			tv_title.Text = areaName;
 
-
 			mRecyclerView = (RecyclerView)FindViewById(Resource.Id.recycler_view);
-
-
-
 			//adapter展示列表数据
 			linearLayoutManager = new LinearLayoutManager(CurrActivity);
-
-
 			mAdapter = new SumByTeacherAdapter(CurrContext, sumTeacherList);
 			mRecyclerView.SetLayoutManager(linearLayoutManager);
 			mRecyclerView.SetAdapter(mAdapter);
 			mAdapter.NotifyDataSetChanged();
-
 
 			RecyclerViewItemOnGestureListener viewOnGestureListener = new RecyclerViewItemOnGestureListener(mRecyclerView, this);
 			mRecyclerView.AddOnItemTouchListener(new RecyclerViewItemOnItemTouchListener(mRecyclerView, viewOnGestureListener));
 
 			//下拉刷新
 			mSwipeRefreshLayout = (SwipeRefreshLayout)FindViewById(Resource.Id.refresher);
-			mSwipeRefreshLayout.SetColorSchemeColors(Color.ParseColor("#17bfa0"));
+			mSwipeRefreshLayout.SetColorSchemeColors(Color.ParseColor("#db0000"));
 			mSwipeRefreshLayout.SetOnRefreshListener(this);
 
 		}
