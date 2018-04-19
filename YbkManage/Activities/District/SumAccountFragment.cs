@@ -261,7 +261,7 @@ namespace YbkManage
 
                 new System.Threading.Thread(new ThreadStart(() =>
                 {
-                    var list = SumService.GetSumPaymentListByArea(schoolId, year, quarter,dataType,sortType, district,grade,course, out totalCount,1, 1, 30, areaCodes);
+                    var list = SumService.GetSumPaymentListByArea(schoolId, year, quarter,dataType,sortType, district,grade,course, out totalCount,1, 1, 500, areaCodes);
                     CurrActivity.RunOnUiThread(() =>
                     {
 
