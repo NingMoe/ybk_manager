@@ -3,9 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white">
+    android:background="@color/lightcyan">
     <LinearLayout
-        android:id="@+id/ll_item_wrap"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="海淀魏公村校区"
+            android:text="初一"
             android:textColor="@color/textColorPrimary"
             android:textSize="14sp" />
         <TextView
@@ -51,11 +50,4 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/line_split" />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/item_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:isScrollContainer="true"
-        android:visibility="gone" />
 </LinearLayout>
