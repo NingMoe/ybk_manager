@@ -55,7 +55,7 @@ namespace DataService
 					var data = resultData.Data;
 					//去掉年级维度本期累计和同期累计同时为0的数据行
 					if(data.List !=null)
-						data.List.ForEach((obj) => { obj.GradeData = obj.GradeData.Where((arg) => arg.CurrentSum != 0 && arg.LastYearSum != 0).ToList();});
+						data.List.ForEach((obj) => { obj.GradeData = obj.GradeData.Where((arg) => arg.CurrentSum != 0 || arg.LastYearSum != 0).ToList();});
 					paymentSum = data;
 					totalCount = resultData.DataCount;
 					return paymentSum;
