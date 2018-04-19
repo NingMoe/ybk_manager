@@ -427,6 +427,11 @@ namespace YbkManage
 		#region 绑定数据
 		protected override void LoadData()
 		{
+			if (!NetUtil.CheckNetWork(CurrActivity))
+				{
+					ToastUtil.ShowWarningToast(CurrActivity, "网络未连接！");
+					return;
+				}
 			//年级数据
 			if (BaseApplication.GetInstance().gradeList == null)
 			{
