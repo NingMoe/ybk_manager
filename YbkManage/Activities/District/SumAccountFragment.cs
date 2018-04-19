@@ -46,6 +46,10 @@ namespace YbkManage
         private LinearLayoutManager linearLayoutManager;
         // 列表适配器
         public SumAccountAdapter mAdapter;
+		//本期累计人次和收入切换时标题更改
+		public TextView tv_sumAccount_dynamicTitle_currentSum;
+		//去年同期累计人次和收入切换时标题更改
+		public TextView tv_sumAccount_dynamicTitle_lastYearSum;
         #endregion
 
         #region Field
@@ -119,6 +123,9 @@ namespace YbkManage
         /// </summary>
         protected void InitViews(View view)
         {
+			tv_sumAccount_dynamicTitle_currentSum = view.FindViewById<TextView>(Resource.Id.tv_sumAccount_dynamicTitle_currentSum);
+			tv_sumAccount_dynamicTitle_lastYearSum = view.FindViewById<TextView>(Resource.Id.tv_sumAccount_dynamicTitle_lastYearSum);
+
             tv_year = view.FindViewById<TextView>(Resource.Id.tv_year);
             tv_district = view.FindViewById<TextView>(Resource.Id.tv_district);
             tv_grade = view.FindViewById<TextView>(Resource.Id.tv_grade);
@@ -254,7 +261,7 @@ namespace YbkManage
 
                 new System.Threading.Thread(new ThreadStart(() =>
                 {
-                    var list = SumService.GetSumPaymentListByArea(schoolId, year, quarter,dataType,sortType, district,grade,course, out totalCount,1, 1, 500, areaCodes);
+                    var list = SumService.GetSumPaymentListByArea(schoolId, year, quarter,dataType,sortType, district,grade,course, out totalCount,1, 1, 30, areaCodes);
                     CurrActivity.RunOnUiThread(() =>
                     {
 

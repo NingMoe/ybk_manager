@@ -338,6 +338,18 @@ namespace YbkManage
 					var sumAccountFragment = (f as SumAccountFragment);
 					sumAccountFragment.dataType = dataType;
 					sumAccountFragment.mAdapter.dataType = dataType;
+					var currentText = "本期累计";
+					var lastYearText = "去年同期";
+					if (dataType == 1)
+					{
+						sumAccountFragment.tv_sumAccount_dynamicTitle_currentSum.Text = currentText;
+						sumAccountFragment.tv_sumAccount_dynamicTitle_lastYearSum.Text = lastYearText;
+					}
+					else 
+					{
+						sumAccountFragment.tv_sumAccount_dynamicTitle_currentSum.Text = currentText + "(W)";
+						sumAccountFragment.tv_sumAccount_dynamicTitle_lastYearSum.Text = lastYearText + "(W)";
+					}
 					sumAccountFragment.BindData();
 					break;
 				}
