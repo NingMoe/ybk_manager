@@ -274,7 +274,7 @@ namespace YbkManage
                             {
                                 gradeListParam = string.Join(",", searchGradeList.ToArray());
                             }
-                            mAdapter.SetData(this.sumList,this.avgGrowthRate, this.searchQuarter, this.dataType,this.searchCourse,gradeListParam);
+                            mAdapter.SetData(this.sumList,this.avgGrowthRate, this.searchQuarter, this.dataType,this.searchCourse);
                             mAdapter.NotifyDataSetChanged();
                         }
                     });

@@ -31,7 +31,7 @@ namespace YbkManage
         //累计：1-人次；2-预收；3-行课
         public int dataType = 1;
         private QuarterEntity searchQuarter;
-        private string searchCourse = "全部科目",gradeListParam="";
+        private string searchCourse = "全部科目";
         private List<string> searchGradeList = new List<string>();
 
         RecyclerView mRecyclerView;
@@ -45,14 +45,13 @@ namespace YbkManage
             this.mRecyclerView = mRecyclerView;
         }
 
-        public void SetData(List<PaymentSumAreaEntity> data, decimal avgGrowthRate, QuarterEntity searchQuarter,int dataType,string searchCourse,string gradeListParam)
+        public void SetData(List<PaymentSumAreaEntity> data, decimal avgGrowthRate, QuarterEntity searchQuarter,int dataType,string searchCourse)
         {
             this.sumList = data;
             this.avgGrowthRate = avgGrowthRate;
             this.searchQuarter = searchQuarter;
             this.dataType = dataType;
             this.searchCourse = searchCourse;
-            this.gradeListParam = gradeListParam;
         }
 
 
@@ -80,7 +79,7 @@ namespace YbkManage
                 if(item.GradeData.Any())
                 {
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.mContext);
-                    SumAccountAdapter2 mAdapter = new SumAccountAdapter2(this.mContext, item.GradeData, this.avgGrowthRate,this.searchQuarter,this.dataType,this.searchCourse,this.gradeListParam);
+					SumAccountAdapter2 mAdapter = new SumAccountAdapter2(this.mContext, item.GradeData, this.avgGrowthRate,this.searchQuarter,this.dataType,this.searchCourse,item.Code,item.Name);
                     holderX.mRecyclerView.SetLayoutManager(linearLayoutManager);
                     holderX.mRecyclerView.SetAdapter(mAdapter);                    
                 }
@@ -89,13 +88,20 @@ namespace YbkManage
             var itemInfo = this.sumList[position];
 
             holderX.tv_name.Text = itemInfo.Name;
-            holderX.tv_currentSum.Text = itemInfo.CurrentSum.ToString("f1");
-            holderX.tv_lastYearSum.Text = itemInfo.LastYearSum.ToString("f1");
+			if (dataType == 1)
+			{
+				holderX.tv_currentSum.Text = itemInfo.CurrentSum.ToString("f1");
+				holderX.tv_lastYearSum.Text = itemInfo.LastYearSum.ToString("f1");
+			}
+			else
+			{
+				holderX.tv_currentSum.Text = (itemInfo.CurrentSum/10000).ToString("f1");
+				holderX.tv_lastYearSum.Text = (itemInfo.LastYearSum/10000).ToString("f1");
+			}
             holderX.tv_growthRate.Text = (itemInfo.GrowthRate * 100).ToString("f1") + "%";
 
             // 比平均值
             var avgrate = itemInfo.GrowthRate - this.avgGrowthRate;
-            holderX.tv_growthRate.Text = (avgrate > 0 ? "+" : "") + (itemInfo.GrowthRate * 100).ToString("f1") + "%";
             if (avgrate >= 0)
             {
                 holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorHigh)));
@@ -105,13 +111,19 @@ namespace YbkManage
                 holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorRed)));
             }
 
-            if (position == this.sumList.Count - 1)
-            {
-                holderX.tv_name.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
-                holderX.tv_currentSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
-                holderX.tv_lastYearSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
-                holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
-            }
+			if (position == this.sumList.Count - 1)
+			{
+				holderX.tv_name.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
+				holderX.tv_currentSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
+				holderX.tv_lastYearSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
+				holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorPrimary)));
+			}
+			else
+			{
+				holderX.tv_name.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
+				holderX.tv_currentSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
+				holderX.tv_lastYearSum.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorSecond)));
+			}
 
             if(!holderX.ll_item_wrap.HasOnClickListeners)
             {
@@ -178,9 +190,9 @@ namespace YbkManage
         //累计：1-人次；2-预收；3-行课
         public int dataType = 1;
         private QuarterEntity searchQuarter;
-        private string searchCourse = "全部科目",gradeListParam="";
+        private string searchCourse = "全部科目",areaCode,areaName;
 
-        public SumAccountAdapter2(Context context, List<PaymentSumBaseEntity> gradeSumList, decimal avgGrowthRate, QuarterEntity searchQuarter,int dataType, string searchCourse, string gradeListParam)
+        public SumAccountAdapter2(Context context, List<PaymentSumBaseEntity> gradeSumList, decimal avgGrowthRate, QuarterEntity searchQuarter,int dataType, string searchCourse, string areaCode,string areaName)
         {
             this.mContext = context;
             this.dynamicGradeSumList = gradeSumList;
@@ -189,7 +201,8 @@ namespace YbkManage
             this.searchQuarter = searchQuarter;
             this.dataType = dataType;
             this.searchCourse = searchCourse;
-            this.gradeListParam = gradeListParam;
+			this.areaCode = areaCode;
+			this.areaName = areaName;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -213,13 +226,20 @@ namespace YbkManage
             holderX.tv_growthRate.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
 
             holderX.tv_name.Text = itemInfo.Name;
-            holderX.tv_currentSum.Text = itemInfo.CurrentSum.ToString("f1");
-            holderX.tv_lastYearSum.Text = itemInfo.LastYearSum.ToString("f1");
+            if (dataType == 1)
+			{
+				holderX.tv_currentSum.Text = itemInfo.CurrentSum.ToString("f1");
+				holderX.tv_lastYearSum.Text = itemInfo.LastYearSum.ToString("f1");
+			}
+			else
+			{
+				holderX.tv_currentSum.Text = (itemInfo.CurrentSum/10000).ToString("f1");
+				holderX.tv_lastYearSum.Text = (itemInfo.LastYearSum/10000).ToString("f1");
+			}
             holderX.tv_growthRate.Text = (itemInfo.GrowthRate * 100).ToString("f1") + "%";
 
             // 比平均值
             var avgrate = itemInfo.GrowthRate - this.avgGrowthRate;
-            holderX.tv_growthRate.Text = (avgrate > 0 ? "+" : "") + (itemInfo.GrowthRate * 100).ToString("f1") + "%";
             if (avgrate >= 0)
             {
                 holderX.tv_growthRate.SetTextColor(new Color(ContextCompat.GetColor(mContext, Resource.Color.textColorHigh)));
@@ -238,10 +258,10 @@ namespace YbkManage
                         intent.PutExtra("year", this.searchQuarter.Year);
                         intent.PutExtra("quarter", this.searchQuarter.Quarter);
                         intent.PutExtra("dataType", this.dataType);
-                        intent.PutExtra("areaCode", itemInfo.Code);
-                        intent.PutExtra("areaName", itemInfo.Name);
+						intent.PutExtra("areaCode", this.areaCode);
+						intent.PutExtra("areaName", areaName);
                         intent.PutExtra("course", this.searchCourse);
-                        intent.PutExtra("gradeList", gradeListParam);
+                        intent.PutExtra("gradeList", itemInfo.Name);
                         this.mContext.StartActivity(intent);
                         ((FragmentActivity)this.mContext).OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
 
