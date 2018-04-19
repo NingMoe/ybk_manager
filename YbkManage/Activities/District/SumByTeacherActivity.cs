@@ -37,6 +37,7 @@ namespace YbkManage
 		#region UIField
 		//财年、区域按钮
 		private TextView tv_grade, tv_course,tv_title;
+		public TextView tv_itemTitle;
 		private PopupWindow popGrade, popCourse;
 
 		// 列表页用控件
@@ -81,9 +82,14 @@ namespace YbkManage
 			tv_grade = FindViewById<TextView>(Resource.Id.tv_grade);
 			tv_course = FindViewById<TextView>(Resource.Id.tv_course);
 			tv_title = FindViewById<TextView>(Resource.Id.tv_title);
+			tv_itemTitle = FindViewById<TextView>(Resource.Id.tv_item_title);
 
 			tv_title.Text = areaName;
-
+			if (dataType == 1)
+				tv_itemTitle.Text = "总人次";
+			else
+				tv_itemTitle.Text = "总收入";
+			
 			mRecyclerView = (RecyclerView)FindViewById(Resource.Id.recycler_view);
 			//adapter展示列表数据
 			linearLayoutManager = new LinearLayoutManager(CurrActivity);

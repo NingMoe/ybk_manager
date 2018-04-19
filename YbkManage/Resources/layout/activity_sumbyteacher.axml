@@ -115,11 +115,12 @@
                             android:textColor="@color/textColorSecond"
                             android:textSize="14sp" />
                         <TextView
+                            android:id="@+id/tv_item_title"
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="总收入"
+                            android:text="总人次"
                             android:textColor="@color/textColorSecond"
                             android:textSize="14sp" />
                         <TextView
