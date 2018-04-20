@@ -160,12 +160,6 @@
     <AndroidResource Include="Resources\layout\activity_splash.axml" />
     <AndroidResource Include="Resources\values\Styles.xml" />
     <AndroidResource Include="Resources\values\Colors.xml" />
-    <AndroidResource Include="Resources\drawable-hdpi\menu_index_on.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\menu_index.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\menu_mine_on.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\menu_mine.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\menu_teach.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\menu_teach_on.png" />
     <AndroidResource Include="Resources\layout\fragment_index.axml" />
     <AndroidResource Include="Resources\layout\fragment_teach.axml" />
     <AndroidResource Include="Resources\layout\fragment_mine.axml" />
