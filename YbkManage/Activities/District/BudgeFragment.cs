@@ -108,6 +108,9 @@ namespace YbkManage
 			popYear = null;
 			popDistrict = null;
 
+			//初始化查询类型
+			dataType = 1;
+
 			//下拉刷新
 			mSwipeRefreshLayout	 = (SwipeRefreshLayout)view.FindViewById(Resource.Id.refresher);
 			mSwipeRefreshLayout.SetColorSchemeColors(Color.ParseColor("#db0000"));

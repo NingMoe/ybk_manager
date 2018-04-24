@@ -158,6 +158,9 @@ namespace YbkManage
 			popGrade = null;
 			popCourse = null;
 			popDistrict = null;
+
+			//初始化查询类型
+			dataType = 1;
         }
         #endregion
 
