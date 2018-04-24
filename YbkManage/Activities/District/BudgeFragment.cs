@@ -104,6 +104,10 @@ namespace YbkManage
 			RecyclerViewItemOnGestureListener viewOnGestureListener = new RecyclerViewItemOnGestureListener(mRecyclerView, this);
 			mRecyclerView.AddOnItemTouchListener(new RecyclerViewItemOnItemTouchListener(mRecyclerView, viewOnGestureListener));
 
+			//搜索条件弹框
+			popYear = null;
+			popDistrict = null;
+
 			//下拉刷新
 			mSwipeRefreshLayout	 = (SwipeRefreshLayout)view.FindViewById(Resource.Id.refresher);
 			mSwipeRefreshLayout.SetColorSchemeColors(Color.ParseColor("#db0000"));
@@ -255,6 +259,7 @@ namespace YbkManage
 						};
 
 					}
+
 					if (!popYear.IsShowing)
 					{
 						tv_year.SetTextColor(new Color(ContextCompat.GetColor(CurrActivity, Resource.Color.textColorHigh)));

@@ -150,8 +150,14 @@ namespace YbkManage
             mAdapter.NotifyDataSetChanged();
 
             mSwipeRefreshLayout.SetOnRefreshListener(this);
-            //RecyclerViewItemOnGestureListener viewOnGestureListener = new RecyclerViewItemOnGestureListener(mRecyclerView, this);
-            //mRecyclerView.AddOnItemTouchListener(new RecyclerViewItemOnItemTouchListener(mRecyclerView, viewOnGestureListener));
+			//RecyclerViewItemOnGestureListener viewOnGestureListener = new RecyclerViewItemOnGestureListener(mRecyclerView, this);
+			//mRecyclerView.AddOnItemTouchListener(new RecyclerViewItemOnItemTouchListener(mRecyclerView, viewOnGestureListener));
+
+			//搜索条件弹框
+			popYear = null;
+			popGrade = null;
+			popCourse = null;
+			popDistrict = null;
         }
         #endregion
 

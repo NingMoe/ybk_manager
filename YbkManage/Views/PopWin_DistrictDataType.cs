@@ -36,7 +36,7 @@ namespace YbkManage
 
 			this.Height = ViewGroup.LayoutParams.WrapContent;
 			this.Width = ViewGroup.LayoutParams.WrapContent;
-			this.AnimationStyle = Resource.Style.popwindow_topin;
+			//this.AnimationStyle = Resource.Style.popwindow_topin;
 			this.SetBackgroundDrawable(new BitmapDrawable());
 		}
 

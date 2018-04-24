@@ -228,11 +228,11 @@ namespace YbkManage
 				lastFragment = next;
 				if (!next.IsAdded)
 				{
-					CurrActivity.SupportFragmentManager.BeginTransaction().Hide(pre).Add(Resource.Id.fl_district_content, next).Commit();
+					CurrActivity.SupportFragmentManager.BeginTransaction().Remove(pre).Add(Resource.Id.fl_district_content, next).Commit();
 				}
 				else
 				{
-					CurrActivity.SupportFragmentManager.BeginTransaction().Hide(pre).Show(next).Commit();
+					CurrActivity.SupportFragmentManager.BeginTransaction().Remove(pre).Show(next).Commit();
 				}
 			}
 		}
@@ -320,6 +320,9 @@ namespace YbkManage
 			var fragments = CurrActivity.SupportFragmentManager.Fragments;
 			foreach (var f in fragments)
 			{
+				if (f == null)
+					continue;
+				
 				//预算
 				if (f.IsVisible && f is BudgeFragment)
 				{
