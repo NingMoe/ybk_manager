@@ -106,6 +106,12 @@ namespace YbkManage
 				DicDataType.Add(2, "预收");
 				DicDataType.Add(3, "行课");
 			}
+			//招新
+			else if (titleType == 3)
+			{
+				DicDataType.Add(1, "人次");
+				DicDataType.Add(2, "人数");
+			}
 			else
 			{
 				DicDataType.Add(1, "");

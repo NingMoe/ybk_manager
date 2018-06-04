@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/body_bg">
-    <TextView
+<!--<TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -13,5 +13,9 @@
         android:gravity="center"
         android:text="敬请期待！"
         android:textColor="@color/actionbar_bg"
-        android:textSize="14sp" />
+        android:textSize="14sp" />-->
+    <android.webkit.WebView
+        android:id="@+id/wv_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

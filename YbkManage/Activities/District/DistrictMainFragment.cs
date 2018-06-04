@@ -92,9 +92,9 @@ namespace YbkManage
 			//招新
 			tv_new.Click += delegate
 			{
-				TitleType = 0;
-				tv_dataType.Text = "";
-				tv_dataType.Visibility = ViewStates.Gone;
+				TitleType = 3;
+				tv_dataType.Text = "人次";
+				tv_dataType.Visibility = ViewStates.Visible;
 				switchFragment(tv_new);
 			};
 
@@ -156,6 +156,8 @@ namespace YbkManage
 				lastFragment = fragment;
 				transaction.Replace(Resource.Id.fl_district_content, fragment);
 				fragmentHashtable.Add(Resource.Id.tv_new, fragment);
+
+				TitleType = 3;
 			}
 
 
@@ -322,13 +324,13 @@ namespace YbkManage
 			{
 				if (f == null)
 					continue;
-				
+
 				//预算
 				if (f.IsVisible && f is BudgeFragment)
 				{
 					var bf = ((BudgeFragment)f);
 					bf.dataType = dataType;
-					if (bf.dataType==1)
+					if (bf.dataType == 1)
 						bf.tv_title_payment.Text = "预收款(W)";
 					else
 						bf.tv_title_payment.Text = "行课收入(W)";
@@ -348,13 +350,20 @@ namespace YbkManage
 						sumAccountFragment.tv_sumAccount_dynamicTitle_currentSum.Text = currentText;
 						sumAccountFragment.tv_sumAccount_dynamicTitle_lastYearSum.Text = lastYearText;
 					}
-					else 
+					else
 					{
 						sumAccountFragment.tv_sumAccount_dynamicTitle_currentSum.Text = currentText + "(W)";
 						sumAccountFragment.tv_sumAccount_dynamicTitle_lastYearSum.Text = lastYearText + "(W)";
 					}
 					sumAccountFragment.BindData();
 					break;
+				}
+				//招新
+				else if (f.IsVisible && f is NewStudentFragment)
+				{
+					var newstudentFragment = (f as NewStudentFragment);
+					newstudentFragment.dataType = dataType;
+					newstudentFragment.BindCategoryList();
 				}
 			}
 		}

@@ -142,6 +142,7 @@
     <Compile Include="Views\PopWin_DistrictDataType.cs" />
     <Compile Include="Adapters\District\SumByTeacherAdapter.cs" />
     <Compile Include="Activities\District\NoPermissionFragment.cs" />
+    <Compile Include="Adapters\District\NewStudentAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -277,6 +278,7 @@
     <AndroidResource Include="Resources\layout\item_sumbyteacher.axml" />
     <AndroidResource Include="Resources\layout\activity_nopermission.axml" />
     <AndroidResource Include="Resources\layout\item_sumaccount2.xml" />
+    <AndroidResource Include="Resources\layout\fragment_newstudent.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
