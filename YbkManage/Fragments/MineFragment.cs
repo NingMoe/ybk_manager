@@ -112,9 +112,25 @@ namespace YbkManage.Fragments
             // 教师管理
             rlTeacherManage.Click += (sender, e) =>
              {
-                 Intent intent = new Intent(CurrActivity, typeof(TeacherManage));
-                 StartActivity(intent);
-                 CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+				 if (CurrUserInfo.Type == (int)UserType.TeacherDirector)
+				 {
+					 Intent intent = new Intent(CurrActivity, typeof(TeacherListActivity));
+					 intent.PutExtra("scopeId", CurrUserInfo.ScopeCode);
+					 intent.PutExtra("scopeName", CurrUserInfo.ScopeName);
+
+					 var teacherTotalCount = 0;
+					var scopeTeacherList = new DataService.MeService().GetTeacherListByScope(CurrUserInfo.SchoolId, int.Parse(CurrUserInfo.ScopeCode), 1, 1, out teacherTotalCount);
+					 intent.PutExtra("teacherCount", teacherTotalCount);
+
+					 StartActivity(intent);
+					 CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+				 }
+				 else
+				 {
+					 Intent intent = new Intent(CurrActivity, typeof(TeacherManage));
+					 StartActivity(intent);
+					 CurrActivity.OverridePendingTransition(Resource.Animation.right_in, Resource.Animation.left_out);
+				 }
              };
             // 教学主管
             rlDirector.Click += (sender, e) =>

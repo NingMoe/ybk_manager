@@ -301,8 +301,8 @@ namespace YbkManage.Fragments
 
                             //预收款
                             tvBudget.Text = budget;
-                            //预收款完成率
-                            tvBudgetRate.Text = completionRate;
+							//预收款完成率
+							tvBudgetRate.Text = ((totalModel != null && totalModel.Budget == 0) ? "--" : completionRate);
 
                             //前三名
                             InitBudgetViews(budgetBefore.ToList(), true);
