@@ -95,7 +95,7 @@ namespace YbkManage.Activities
             Bundle bundle = Intent.Extras;
             if (bundle != null)
             {
-				scopeId = int.Parse(bundle.GetString("scopeId") ?? "0");
+				scopeId = bundle.GetInt("scopeId");
                 scopeName = bundle.GetString("scopeName");
             }
         }

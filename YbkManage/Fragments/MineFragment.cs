@@ -115,7 +115,7 @@ namespace YbkManage.Fragments
 				 if (CurrUserInfo.Type == (int)UserType.TeacherDirector)
 				 {
 					 Intent intent = new Intent(CurrActivity, typeof(TeacherListActivity));
-					 intent.PutExtra("scopeId", CurrUserInfo.ScopeCode);
+					 intent.PutExtra("scopeId", int.Parse(CurrUserInfo.ScopeCode ?? "0"));
 					 intent.PutExtra("scopeName", CurrUserInfo.ScopeName);
 
 					 var teacherTotalCount = 0;
