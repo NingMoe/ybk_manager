@@ -363,7 +363,12 @@ namespace YbkManage
 				{
 					var newstudentFragment = (f as NewStudentFragment);
 					newstudentFragment.dataType = dataType;
+					if(dataType==1)
+						newstudentFragment.tv_totalcount.Text = "人次";
+					else
+						newstudentFragment.tv_totalcount.Text = "人数";
 					newstudentFragment.BindCategoryList();
+					newstudentFragment.BindData();
 				}
 			}
 		}
