@@ -158,20 +158,20 @@ namespace YbkManage.Activities
 			var imgButtonDrawable = Resource.Drawable.lesson_ing;
 			if (operateType == "clickButton")
 			{
-				if (classStatus == 0) //当前开课中，点击切换为全部
+				if (classStatus == 1) //当前开课中，点击切换为全部
 				{
-					classStatus = 1;
+					classStatus = 3;
 					imgButtonDrawable = Resource.Drawable.lesson_all;
 				}
 				else
 				{
-					classStatus = 0;
+					classStatus = 1;
 				}
 			}
 			else
 			{
 				//全部
-				if (classStatus == 1)
+				if (classStatus == 3)
 				{
 					imgButtonDrawable = Resource.Drawable.lesson_all;
 				}
