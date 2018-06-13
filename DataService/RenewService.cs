@@ -84,7 +84,8 @@ namespace DataService
 			try
 			{
 				var apiUrl = Config.RenewApiUrl;
-				var method = "GetRenewInfoInGroup";
+				//var method = "GetRenewInfoInGroup";
+				var method = "GetRenewInfoInCourse";
 				var dict = new Dictionary<string, string>();
 				dict.Add("method", method);
 				dict.Add("SchoolId", schoolId.ToString());
@@ -157,7 +158,8 @@ namespace DataService
 			try
 			{
 				var apiUrl = Config.RenewApiUrl;
-				var method = "GetRenewInfoInGroup";
+				//var method = "GetRenewInfoInGroup";
+				var method = "GetRenewInfoInCourse";
 				var dict = new Dictionary<string, string>();
 				dict.Add("method", method);
 				dict.Add("SchoolId", schoolId.ToString());
@@ -244,7 +246,8 @@ namespace DataService
 			try
 			{
 				var apiUrl = Config.RenewApiUrl;
-				var method = "GetRenewInfoInTeacherByGroupCode";
+				//var method = "GetRenewInfoInTeacherByGroupCode";
+				var method = "GetRenewInfoInTeacherByCourse";
 				var dict = new Dictionary<string, string>();
 				dict.Add("method", method);
 				dict.Add("SchoolId", schoolId.ToString());
@@ -252,7 +255,8 @@ namespace DataService
 				dict.Add("Quarter", quarter.ToString());
 				dict.Add("Grade", grade);
 				dict.Add("District", district);
-				dict.Add("GroupCode", groupCode);
+				//dict.Add("GroupCode", groupCode);
+				dict.Add("Course", groupCode);
 				dict.Add("NeedTotal", needTotal.ToString());
 				dict.Add("SortType", sortType.ToString());
 				dict.Add("BeginDate", beginDate);
