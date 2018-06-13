@@ -59,7 +59,7 @@ namespace YbkManage.Activities
         // 所在项目组的平均续班率
         private decimal avgRenewRateScope = 1;
 
-		//班级开课状态：0-开课中（默认），3-全部
+		//班级开课状态：1-开课中（默认），3-全部
 		private int classStatus;
 
 		// 筛选器时上下小箭头图标
@@ -164,7 +164,7 @@ namespace YbkManage.Activities
 			{
 				if (classStatus == 0) //当前开课中，点击切换为全部
 				{
-					classStatus = 3;
+					classStatus = 1;
 					imgButtonDrawable = Resource.Drawable.lesson_all;
 				}
 				else
@@ -175,7 +175,7 @@ namespace YbkManage.Activities
 			else
 			{
 				//全部
-				if (classStatus == 3)
+				if (classStatus == 1)
 				{
 					imgButtonDrawable = Resource.Drawable.lesson_all;
 				}
