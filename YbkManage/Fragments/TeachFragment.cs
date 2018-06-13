@@ -56,8 +56,8 @@ namespace YbkManage.Fragments
         private string searchDistrict = "全部区域";
 
 
-		//班级开课状态：0-开课中（默认），3-全部
-		private int classStatus = 0;
+		//班级开课状态：1-开课中（默认），3-全部
+		private int classStatus = 1;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -124,14 +124,14 @@ namespace YbkManage.Fragments
 			var imgButtonDrawable = Resource.Drawable.lesson_ing;
 			if (operateType == "clickButton")
 			{
-				if (classStatus == 0) //当前开课中，点击切换为全部
+				if (classStatus == 1) //当前开课中，点击切换为全部
 				{
 					classStatus = 3;
 					imgButtonDrawable = Resource.Drawable.lesson_all;
 				}
 				else
 				{
-					classStatus = 0;
+					classStatus = 1;
 				}
 			}
 			else
